@@ -1,0 +1,41 @@
+--- 
+title: "Virus Total"
+author: "Samuel Sánchez Toca y Alejandro Medina Astorga"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  This is a minimal example of using the bookdown package to write a book.
+  The HTML output format for this example is bookdown::gitbook,
+  set in the _output.yml file.
+link-citations: yes
+github-repo: https://github.com/samuel-uma/ProyectoVT
+---
+
+# Proyecto
+
+Este es el proyecto realizado por Samuel Sánchez Toca y Alejandro Medina Astorga para la asignatura Laboratorio de Computación Científica acerca de los datos de **VirusTotal**.
+
+## Inicio 
+
+Primero tuvimos que analizar los datos que recibimos los cuales venian en archivos .json por lo que teniamos que extraerlos de estos archivos y al tener tantas columnas decidir cuales de estas eran mas útiles para su posterior analisis.
+
+
+## Datos iniciales
+
+As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in "Preview book", or from the R console:
+
+```{r eval=FALSE}
+bookdown::serve_book()
+```
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
