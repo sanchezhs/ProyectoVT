@@ -1,13 +1,13 @@
-library(jsonlite)
+#library(jsonlite)
 library(curl)
 library(tidyjson)
 library(dplyr)
 library(purrr)
 library(tidyverse)
-library(jsonlite) 
 
 
-json_data <- read_json("~/VirusTotal/Android2/0001.json")
+
+json_data <- tidyjson::read_json("~/Documentos/LCC/ProyectoVT/Proyecto/Android2/0001.json")
 
 
 tbl <- json_data %>%
@@ -15,12 +15,14 @@ tbl <- json_data %>%
 tbl
 
 
+path <- "~/Documentos/LCC/ProyectoVT/Proyecto/Android2"
+nombres_ficheros <- list.files(path)
 
 j <- 0
 df <- data.frame()
-for (i in nombres_originales[1:11]) {
+for (i in nombres_ficheros[1]) {
   filepath <- file.path(path, paste0(i))
-  i <- read_json(filepath)
+  i <- tidyjson::read_json(filepath)
   nombre <- paste0('f_', j)
   assign(nombre, i)
   tbl <- i %>% spread_all(recursive = TRUE)

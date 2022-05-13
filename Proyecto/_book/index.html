@@ -29,7 +29,7 @@ set in the _output.yml file.</p>" />
 <meta name="author" content="Samuel Sánchez Toca y Alejandro Medina Astorga" />
 
 
-<meta name="date" content="2022-05-12" />
+<meta name="date" content="2022-05-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -164,10 +164,11 @@ div.csl-indent {
 <li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Proyecto</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preprocesado de datos</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#inicio"><i class="fa fa-check"></i><b>1.1</b> Inicio</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#datos-iniciales"><i class="fa fa-check"></i><b>1.2</b> Datos iniciales</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#renombrando-los-archivos"><i class="fa fa-check"></i><b>1.2</b> Renombrando los archivos</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#datos-iniciales"><i class="fa fa-check"></i><b>1.3</b> Datos iniciales</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="hello-bookdown.html"><a href="hello-bookdown.html"><i class="fa fa-check"></i><b>2</b> Hello bookdown</a>
 <ul>
@@ -223,19 +224,35 @@ div.csl-indent {
 <div id="header">
 <h1 class="title">Virus Total</h1>
 <p class="author"><em>Samuel Sánchez Toca y Alejandro Medina Astorga</em></p>
-<p class="date"><em>2022-05-12</em></p>
+<p class="date"><em>2022-05-13</em></p>
 </div>
-<div id="proyecto" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Proyecto<a href="index.html#proyecto" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Este es el proyecto realizado por Samuel Sánchez Toca y Alejandro Medina Astorga para la asignatura Laboratorio de Computación Científica acerca de los datos de <strong>VirusTotal</strong>.</p>
+<div id="preprocesado-de-datos" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Preprocesado de datos<a href="index.html#preprocesado-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Este es el proyecto realizado por Samuel Sánchez Toca y Alejandro Medina Astorga para la asignatura Laboratorio de Computación Científica para el dataset <strong>VirusTotal</strong>.</p>
 <div id="inicio" class="section level2 hasAnchor" number="1.1">
 <h2><span class="header-section-number">1.1</span> Inicio<a href="index.html#inicio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Primero tuvimos que analizar los datos que recibimos los cuales venian en archivos .json por lo que teniamos que extraerlos de estos archivos y al tener tantas columnas decidir cuales de estas eran mas útiles para su posterior analisis.</p>
+<p>Para el preprocesado, hemos usado las librerías <em>jsonlite, tidyjson, jsonlite</em> y <em>tidyverse</em> para manejar los archivos. El dataset consta de casi doscientos ficheros <em>json</em> con la información obtenida al analizarlos con distintos antivirus, el primer paso es, por tanto, ver cómo están estructurados los datos para decidir con qué información nos vamos a quedar.</p>
 </div>
-<div id="datos-iniciales" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> Datos iniciales<a href="index.html#datos-iniciales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in “Preview book”, or from the R console:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a>bookdown<span class="sc">::</span><span class="fu">serve_book</span>()</span></code></pre></div>
+<div id="renombrando-los-archivos" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Renombrando los archivos<a href="index.html#renombrando-los-archivos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El siguiente <em>script bash</em> cambia los nombres a los archivos para facilitar su uso, como el nombre aparece dentro del archivo, no perdemos información:</p>
+<pre><code>a=1
+for i in *.json; do
+    new=$(printf &quot;%04d.json&quot; &quot;$a&quot;)
+    mv -i -- &quot;$i&quot; &quot;$new&quot;
+    let a=a+1
+done
+</code></pre>
+</div>
+<div id="datos-iniciales" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Datos iniciales<a href="index.html#datos-iniciales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Primero, obtenemos los nombres de todos los archivos y los guardamos en la variable <em>nombres_ficheros</em>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">&quot;~/Documentos/LCC/ProyectoVT/Proyecto/Android2&quot;</span></span>
+<span id="cb2-2"><a href="index.html#cb2-2" aria-hidden="true" tabindex="-1"></a>nombres_ficheros <span class="ot">&lt;-</span> <span class="fu">list.files</span>(path)</span></code></pre></div>
+<p>Empezamos importando el primer fichero, usando la función <em>read_json</em> de la librería <em>tidyjson</em> obtenemos:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="index.html#cb3-1" aria-hidden="true" tabindex="-1"></a>json_0001 <span class="ot">&lt;-</span> tidyjson<span class="sc">::</span><span class="fu">read_json</span>(<span class="fu">paste0</span>(path, <span class="st">&quot;/0001.json&quot;</span>))</span>
+<span id="cb3-2"><a href="index.html#cb3-2" aria-hidden="true" tabindex="-1"></a>s</span></code></pre></div>
 
 </div>
 </div>

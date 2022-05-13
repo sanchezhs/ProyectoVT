@@ -15,23 +15,46 @@ link-citations: yes
 github-repo: https://github.com/samuel-uma/ProyectoVT
 ---
 
-# Proyecto
+# Preprocesado de datos
 
-Este es el proyecto realizado por Samuel Sánchez Toca y Alejandro Medina Astorga para la asignatura Laboratorio de Computación Científica acerca de los datos de **VirusTotal**.
+Este es el proyecto realizado por Samuel Sánchez Toca y Alejandro Medina Astorga para la asignatura Laboratorio de Computación Científica para el dataset **VirusTotal**.
 
 ## Inicio 
 
 Primero tuvimos que analizar los datos que recibimos los cuales venian en archivos .json por lo que teniamos que extraerlos de estos archivos y al tener tantas columnas decidir cuales de estas eran mas útiles para su posterior analisis.
 
+Para el preprocesado, hemos usado las librerías *jsonlite, tidyjson, jsonlite* y *tidyverse* para manejar los archivos. El dataset consta de casi doscientos ficheros *json* con la información obtenida al analizarlos con distintos antivirus, el primer paso es, por tanto, ver cómo están estructurados los datos para decidir con qué información nos vamos a quedar.
+
+## Renombrando los archivos
+
+El siguiente *script bash* cambia los nombres a los archivos para facilitar su uso, como el nombre aparece dentro del archivo, no perdemos información:
+
+```
+a=1
+for i in *.json; do
+	new=$(printf "%04d.json" "$a")
+	mv -i -- "$i" "$new"
+	let a=a+1
+done
+
+```
 
 ## Datos iniciales
 
-As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in "Preview book", or from the R console:
+Primero, obtenemos los nombres de todos los archivos y los guardamos en la variable *nombres_ficheros*:
 
 ```{r eval=FALSE}
-bookdown::serve_book()
+path <- "~/Documentos/LCC/ProyectoVT/Proyecto/Android2"
+nombres_ficheros <- list.files(path)
 ```
 
+
+Empezamos importando el primer fichero, usando la función *read_json* de la librería *tidyjson* obtenemos:
+```{r eval=FALSE}
+
+json_0001 <- tidyjson::read_json(paste0(path, "/0001.json"))
+
+```
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages

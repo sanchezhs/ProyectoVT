@@ -22,3 +22,5 @@ metadata-for-sharing
 proyecto
 inicio
 datos-iniciales
+preprocesado-de-datos
+renombrando-los-archivos
