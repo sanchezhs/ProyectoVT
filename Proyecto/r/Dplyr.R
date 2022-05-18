@@ -3,7 +3,8 @@
 
 library(dplyr)
 library(tidyverse)
-virusTotal <- read.csv('~/GitHub/VirusTotal/ProyectoVT/Proyecto/virusTotal.csv')
+#virusTotal <- read.csv('~/GitHub/VirusTotal/ProyectoVT/Proyecto/virusTotal.csv')
+virusTotal <- read.csv('~/Documentos/R/Proyecto/ProyectoVT/Proyecto/virusTotal.csv')
 virusTotal
 
 ##Cambiamos los nombre por unos mas legibles
