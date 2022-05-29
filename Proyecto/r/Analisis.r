@@ -47,4 +47,4 @@ df <- df %>%
 
 
 #write.csv(df,"~/GitHub/VirusTotal/ProyectoVT/Proyecto/virusTotal.csv", row.names = FALSE)## Importar dataset
-write.csv(df, "~/Documentos/R/ProyectoVT/Proyecto/virusTotal.csv")
+write.csv(df, "~/Documentos/LCC/ProyectoVT/Proyecto/virusTotal.csv")

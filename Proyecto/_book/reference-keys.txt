@@ -24,3 +24,10 @@ inicio
 datos-iniciales
 preprocesado-de-datos
 renombrando-los-archivos
+url-your-book-url-like-httpsbookdown.orgyihuibookdown
+parte-de-samuel
+analizando-el-ssdeep
+sample1.c
+sample2.c
+sample3.c
+analizando-los-json

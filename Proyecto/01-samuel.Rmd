@@ -1,0 +1,137 @@
+```{r}
+library(igraph)
+library(curl)
+library(tidyjson)
+library(dplyr)
+library(purrr)
+library(tidyverse)
+library(Matrix)
+library(ggplot2)
+```
+
+
+# Analizando el *ssdeep*
+
+Las funciones *hash* como *MD5*, *SHA256* o otras son útiles si queremos verificar la integridad de un archivo, su principio fundamental es que un pequeño cambio en el archivo (del orden de unos pocos bits) cambia la salida drásticamente.
+
+En nuestro caso si queremos encontrar similitud entre *malware* no podemos usar esas funciones, porque si sabemos con certeza de que cierto archivo es peligroso y tenemos su hash calculado, con cambiar un bit de ese archivo ya no lo podríamos detectar.
+
+Por ello existe el programa *ssdeep*, que permite observar pequeñas diferencias entre archivos como veremos a continuación.
+
+## sample1.c
+```{r, eval=FALSE}
+#include <stdio.h>
+
+void main() {
+  printf (“Hello World”);
+}
+```
+
+
+## sample2.c
+```{r, eval=FALSE}
+#include <stdio.h>
+int main(int argc, char *argv[]) {
+for (int i = 0; i < 100; i++) {
+
+        if (i%2 == 0) {
+                i = i + 1;
+        }
+}
+return 0;
+}
+```
+
+## sample3.c
+```{r, eval=FALSE}
+#include <stdio.h>
+
+void main() {
+  int a = 5;
+  printf (“Hello World: %d\n”, a);
+}
+```
+
+Ahora calculamos y comparamos el *ssdeep* de los tres programas:
+
+```{bash, eval=FALSE}
+$ ssdeep -s * > sample_ctph.ssd
+$ ssdeep -m sample_ctph.ssd -s *
+```
+
+Obtenemos lo siguiente:
+
+```{bash, eval=FALSE}
+sample1 matches sample_ctph.ssd:/home/samuel/Documentos/LCC/pruebas/sample1 (100)
+sample1 matches sample_ctph.ssd:/home/samuel/Documentos/LCC/pruebas/sample2 (63)
+sample1 matches sample_ctph.ssd:/home/samuel/Documentos/LCC/pruebas/sample3 (80)
+```
+
+sample1.c es mucho más parecido a sample3.c. 
+
+## Analizando los json
+
+Para analizar nuestros *json*, desarrollamos primero la siguiente función que para cada archivo saca su *sdeep* y crea un *dataframe*:
+
+```{r}
+path <- "~/Documentos/LCC/ProyectoVT/Proyecto/Android2/"
+nombres_ficheros <- list.files(path)
+df <- read_csv("~/Documentos/LCC/ProyectoVT/Proyecto/virusTotal.csv")
+
+# Entrada: json
+# Salida: dataframe 
+get_ssdeep <- function(x) {
+  json <- read_json(x)
+  res <- json %>% gather_object() %>% filter(name == 'ssdeep') %>% as.data.frame()  
+  return (res)
+}
+
+# Por cada archivo en la carpeta Android
+# coge su ssdeep y los guarda en un dataframe
+df_deep <- data.frame()
+for (i in nombres_ficheros) {
+  df_deep <- rbind(df_deep, get_ssdeep(paste0(path,i)))
+}
+
+# Limpia el dataframe
+df_deep <- df_deep %>% select(..JSON)
+colnames(df_deep) <- ('ssdeep')
+
+
+# Coge los virus cuya distancia (parecido)
+# en sus ssdeep sea menor que 2
+# y los guarda en *indices*
+indices <- c()
+for (i in 1:nrow(df_deep)) {
+  for (j in (i+1):nrow(df_deep)) {
+    if (adist(df_deep[i,], df_deep[j,])==1) {
+      indices <- c(indices, i,j)
+      }
+  }
+}
+```
+
+
+
+
+```{r}
+M <- matrix(0, nrow = nrow(df), ncol = nrow(df))
+
+for (i in 1:length(indices)-1) {
+  M[indices[i],indices[i+1]] <- 1
+}
+
+
+G <- graph_from_adjacency_matrix(M, mode=c('undirected'))
+Isolated = which(degree(G)==0)
+G2 = delete.vertices(G, Isolated)
+plot(G2, edge.label=rep(1, length(indices)), vertex.color='green', edge.curved = .1)
+
+```
+
+
+
+
+
+
+

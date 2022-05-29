@@ -142,6 +142,9 @@ colnames(df_sha) <- c('sha256')
 # api de virustotal
 # ssdeep is a program for computing Context Triggered Piecewise Hashes. 
 # Also called fuzzy hashes, it allows identifying similar files by comparing (via Edit Distance) their hashes.
+# ssdeep is a tool for recursive computing and matching of Context Triggered Piecewise Hashing (aka Fuzzy Hashing).
+# Fuzzy hashing is a method for comparing similar but not identical files. This tool can be used to compare files like regular hashing does (like md5sum or sha1sum) but it will find similar files with little differences.
+# For example, it can be used to identify modified versions of known files even if data has been inserted, modified, or deleted in the new files.
 
 get_ssdeep <- function(x) {
   json <- read_json(x)
@@ -155,35 +158,42 @@ for (i in nombres_ficheros) {
 df_deep <- df_deep %>% select(..JSON)
 colnames(df_deep) <- ('ssdeep')
 
-indices <- list()
-for (i in 1:nrow(df_sha)) {
-  for (j in (i+1):nrow(df_sha)) {
-    if (adist(df_deep[i,], df_deep[j,])<=5) {
+indices <- c()
+for (i in 1:nrow(df_deep)) {
+  for (j in (i+1):nrow(df_deep)) {
+    if (adist(df_deep[i,], df_deep[j,])==1) {
       print(i)
       print(j)
-      indices <- append(indices,i,j)
+      indices <- c(indices, i,j)
       print('-----')
       }
   }
-}
+}; length(indices)
+View(df)
 length(indices)/2 # hay 181 muy parecidos
 
+comparar <- df[148,]
+comparar <- rbind(comparar, df[173,])
 
-## Pruebo sumando 1 a todos y aplico log
 
-dfp_sumado <- dfp
-dfp_sumado$Permisos_peligrosos <- lapply(dfp$Permisos_peligrosos, function(x) {log(x+1)})
-dfp_sumado$Total_permisos <- lapply(dfp$Total_permisos, function(x) {log(x+1)}) 
-plot(dfp_sumado)
-library(bestNormalize)
+M <- matrix(0, nrow = nrow(df), ncol = nrow(df))
+M
 
-normalizados <- dfp
-norm1 <- bestNormalize(dfp$Permisos_peligrosos)
-norm2 <- bestNormalize(dfp$Total_permisos)
-normalizados$Permisos_peligrosos <- norm1$x.t
-normalizados$Total_permisos <- norm2$x.t
-plot(normalizados)
-plot(normalizados$Permisos_peligrosos, df$size)
+for (i in 1:length(indices)-1) {
+  M[indices[i],indices[i+1]] <- 1
+}
+M
+
+library(igraph)
+G <- graph_from_adjacency_matrix(M, mode=c('undirected'))
+Isolated = which(degree(G)==0)
+G2 = delete.vertices(G, Isolated)
+layout1 <- layout.fruchterman.reingold(g)
+plot(G2, edge.label=rep(1, length(indices)), vertex.color='green', edge.curved = .1)
+
+
+#E(G2)$pesos <- rep(1, length(E(G2)))
+
 
 ####################
 
@@ -226,7 +236,7 @@ ggplot(positivos_año, aes(x=first_seen, y=log(total))) + geom_point() +
 
 df %>% filter(first_seen == '2021') 
 
-
+df %>% filter(size == 2669106)
 
 
 

@@ -27,7 +27,7 @@ Para el preprocesado, hemos usado las librerías *jsonlite, tidyjson, jsonlite* 
 
 ## Renombrando los archivos
 
-El siguiente *script bash* cambia los nombres a los archivos para facilitar su uso, como el nombre aparece dentro del archivo, no perdemos información:
+El siguiente *script bash* cambia los nombres a los archivos para facilitar su uso para hacer pruebas:
 
 ```
 a=1
