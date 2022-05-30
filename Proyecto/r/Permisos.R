@@ -177,12 +177,17 @@ comparar <- rbind(comparar, df[173,])
 
 
 M <- matrix(0, nrow = nrow(df), ncol = nrow(df))
-M
 
-for (i in 1:length(indices)-1) {
-  M[indices[i],indices[i+1]] <- 1
+j <- 1
+while(j < length(indices)) {
+  M[indices[j], indices[j+1]] <- 1
+  j <- j+2
 }
-M
+
+G <- graph_from_adjacency_matrix(M, mode = 'undirected')
+Isolated = which(degree(G)==0)
+G2 = delete.vertices(G, Isolated)
+plot(G2, vertex.color='green', edge.curved = .1, vertex.size=20, vertex.label=indices[V(G2)], edge.label=rep(1, length(indices)-1))
 
 library(igraph)
 G <- graph_from_adjacency_matrix(M, mode=c('undirected'))

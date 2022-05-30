@@ -62,9 +62,9 @@ $ ssdeep -m sample_ctph.ssd -s *
 Obtenemos lo siguiente:
 
 ```{bash, eval=FALSE}
-sample1 matches sample_ctph.ssd:/home/samuel/Documentos/LCC/pruebas/sample1 (100)
-sample1 matches sample_ctph.ssd:/home/samuel/Documentos/LCC/pruebas/sample2 (63)
-sample1 matches sample_ctph.ssd:/home/samuel/Documentos/LCC/pruebas/sample3 (80)
+$ sample1 matches sample_ctph.ssd:/home/samuel/Documentos/LCC/pruebas/sample1 (100)
+$ sample1 matches sample_ctph.ssd:/home/samuel/Documentos/LCC/pruebas/sample2 (63)
+$ sample1 matches sample_ctph.ssd:/home/samuel/Documentos/LCC/pruebas/sample3 (80)
 ```
 
 sample1.c es mucho más parecido a sample3.c (en un 80%, mientras que solo un 63% con sample2.c). 
@@ -121,30 +121,45 @@ for (i in 1:nrow(df_deep)) {
 }
 ```
 
+### Matriz de adyacencias
 
-
+Creamos una matriz de adyacencias con todos los json, donde la posicion Mij = 1 si la distancia entre los hashes del archivo *i* y el *1* es igual a uno. 
 ```{r}
 M <- matrix(0, nrow = nrow(df), ncol = nrow(df))
 
 j <- 1
 while(j < length(indices)) {
-  print(j)
-  print(j+1)
-  print(indices[j])
-  print(indices[j+1])
-  M[indices[j],indices[j+1]] <- 1
-  j <- j + 2
-  
+  M[indices[j], indices[j+1]] <- 1
+  j <- j+2
 }
+```
 
 
+### Grafos
+
+Dibujamos el siguiente grafo donde los vértices indican el json y las aristas su simulitud. Esto quiere decir que, por ejemplo, el grupo amarillo (147, 153 y 46) comparte gran parte de código, y lo mismo para con los otros dos grupos.
+
+```{r}
 G <- graph_from_adjacency_matrix(M, mode = 'undirected')
 Isolated = which(degree(G)==0)
 G2 = delete.vertices(G, Isolated)
-plot(G2, edge.label=rep(1, length(indices)), vertex.color='green', edge.curved = .1, vertex.size=20, vertex.label=indices)
-plot(G2)
-```
 
+groupList <- list(g1 = c(3, 5),
+                  g2 = c(1, 7, 6),
+                  g3 = c(2,4))
+groupColours <- c(rgb(0,0.3,1,0.5), 
+                  rgb(0.8,0.4,0.1,0.5),  
+                  rgb(0.0,0.4,0.1,0.5))
+
+plot(G2, vertex.color='#ADD8E6', 
+     edge.curved = .1, 
+     vertex.size=20, 
+     vertex.label=indices[V(G2)], 
+     edge.label=rep(1, length(indices)-1),
+     mark.groups=groupList,
+     mark.col= groupColours
+     )
+```
 
 
 
