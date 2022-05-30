@@ -16,10 +16,10 @@ Las funciones *hash* como *MD5*, *SHA256* o otras son útiles si queremos verifi
 
 En nuestro caso si queremos encontrar similitud entre *malware* no podemos usar esas funciones, porque si sabemos con certeza de que cierto archivo es peligroso y tenemos su hash calculado, con cambiar un bit de ese archivo ya no lo podríamos detectar.
 
-Por ello existe el programa *ssdeep*, que permite observar pequeñas diferencias entre archivos como veremos a continuación.
+Por ello existe el programa *ssdeep*, que permite observar pequeñas diferencias entre archivos calculando el *CTPH* (parecido al *hash*).
 
 ## sample1.c
-```{r, eval=FALSE}
+```{c, eval=FALSE}
 #include <stdio.h>
 
 void main() {
@@ -29,7 +29,7 @@ void main() {
 
 
 ## sample2.c
-```{r, eval=FALSE}
+```{c, eval=FALSE}
 #include <stdio.h>
 int main(int argc, char *argv[]) {
 for (int i = 0; i < 100; i++) {
@@ -43,7 +43,7 @@ return 0;
 ```
 
 ## sample3.c
-```{r, eval=FALSE}
+```{c, eval=FALSE}
 #include <stdio.h>
 
 void main() {
@@ -67,17 +67,22 @@ sample1 matches sample_ctph.ssd:/home/samuel/Documentos/LCC/pruebas/sample2 (63)
 sample1 matches sample_ctph.ssd:/home/samuel/Documentos/LCC/pruebas/sample3 (80)
 ```
 
-sample1.c es mucho más parecido a sample3.c. 
+sample1.c es mucho más parecido a sample3.c (en un 80%, mientras que solo un 63% con sample2.c). 
 
 ## Analizando los json
 
-Para analizar nuestros *json*, desarrollamos primero la siguiente función que para cada archivo saca su *sdeep* y crea un *dataframe*:
+Primero cargamos el directorio Android y el dataframe preprocesado.
 
 ```{r}
 path <- "~/Documentos/LCC/ProyectoVT/Proyecto/Android2/"
 nombres_ficheros <- list.files(path)
 df <- read_csv("~/Documentos/LCC/ProyectoVT/Proyecto/virusTotal.csv")
+#df_deep <- read.csv("~/Documentos/LCC/ProyectoVT/Proyecto/analisis_ssdeep.csv")
+```
 
+Para analizar nuestros *json*, desarrollamos primero la siguiente función que para cada archivo saca su *sdeep* y crea un *dataframe*:
+
+```{r}
 # Entrada: json
 # Salida: dataframe 
 get_ssdeep <- function(x) {
@@ -96,6 +101,11 @@ for (i in nombres_ficheros) {
 # Limpia el dataframe
 df_deep <- df_deep %>% select(..JSON)
 colnames(df_deep) <- ('ssdeep')
+```
+
+Leemos los dataframes, *df_deep* contiene los *hashes CTPH*:
+
+```{r, warning=FALSE}
 
 
 # Coge los virus cuya distancia (parecido)
@@ -104,7 +114,7 @@ colnames(df_deep) <- ('ssdeep')
 indices <- c()
 for (i in 1:nrow(df_deep)) {
   for (j in (i+1):nrow(df_deep)) {
-    if (adist(df_deep[i,], df_deep[j,])==1) {
+    if ( adist(df_deep[i,], df_deep[j,]) == 1) {
       indices <- c(indices, i,j)
       }
   }
@@ -113,20 +123,26 @@ for (i in 1:nrow(df_deep)) {
 
 
 
-
 ```{r}
 M <- matrix(0, nrow = nrow(df), ncol = nrow(df))
 
-for (i in 1:length(indices)-1) {
-  M[indices[i],indices[i+1]] <- 1
+j <- 1
+while(j < length(indices)) {
+  print(j)
+  print(j+1)
+  print(indices[j])
+  print(indices[j+1])
+  M[indices[j],indices[j+1]] <- 1
+  j <- j + 2
+  
 }
 
 
-G <- graph_from_adjacency_matrix(M, mode=c('undirected'))
+G <- graph_from_adjacency_matrix(M, mode = 'undirected')
 Isolated = which(degree(G)==0)
 G2 = delete.vertices(G, Isolated)
-plot(G2, edge.label=rep(1, length(indices)), vertex.color='green', edge.curved = .1)
-
+plot(G2, edge.label=rep(1, length(indices)), vertex.color='green', edge.curved = .1, vertex.size=20, vertex.label=indices)
+plot(G2)
 ```
 
 

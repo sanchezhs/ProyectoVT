@@ -160,7 +160,7 @@ colnames(df_deep) <- ('ssdeep')
 
 indices <- c()
 for (i in 1:nrow(df_deep)) {
-  for (j in (i+1):nrow(df_deep)) {
+  for (j in (i+1):nrow(df_deep)-1) {
     if (adist(df_deep[i,], df_deep[j,])==1) {
       print(i)
       print(j)
@@ -168,7 +168,7 @@ for (i in 1:nrow(df_deep)) {
       print('-----')
       }
   }
-}; length(indices)
+}
 View(df)
 length(indices)/2 # hay 181 muy parecidos
 
@@ -193,6 +193,11 @@ plot(G2, edge.label=rep(1, length(indices)), vertex.color='green', edge.curved =
 
 
 #E(G2)$pesos <- rep(1, length(E(G2)))
+df_deep_csv <- df_deep
+df_deep_csv$ssdeep <- vapply(df_deep_csv$ssdeep, paste, collapse = ", ", character(1L))
+#write.csv(df_deep_csv, "~/Documentos/LCC/ProyectoVT/Proyecto/analisis_ssdeep.csv",  row.names = FALSE)
+
+
 
 
 ####################
