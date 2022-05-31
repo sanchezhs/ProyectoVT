@@ -33,3 +33,6 @@ sample3.c
 analizando-los-json
 matriz-de-adyacencias
 grafos
+componentes-del-grafo
+comparación-del-mayor-componente
+analizando-los-resultados-de-los-antivirus

@@ -14,9 +14,11 @@ library(ggplot2)
 
 Las funciones *hash* como *MD5*, *SHA256* o otras son útiles si queremos verificar la integridad de un archivo, su principio fundamental es que un pequeño cambio en el archivo (del orden de unos pocos bits) cambia la salida drásticamente.
 
-En nuestro caso si queremos encontrar similitud entre *malware* no podemos usar esas funciones, porque si sabemos con certeza de que cierto archivo es peligroso y tenemos su hash calculado, con cambiar un bit de ese archivo ya no lo podríamos detectar.
+En nuestro caso si queremos encontrar similitud entre *malware* no podemos usar esas funciones, porque si sabemos que un archivo es peligroso y tenemos su hash calculado, con cambiar un bit de ese archivo ya no lo podríamos detectar.
 
 Por ello existe el programa *ssdeep*, que permite observar pequeñas diferencias entre archivos calculando el *CTPH* (parecido al *hash*).
+
+Tenemos tres programas de ejemplo escritos en C, y queremos ver en qué porcentaje se parecen.
 
 ## sample1.c
 ```{c, eval=FALSE}
@@ -73,14 +75,14 @@ sample1.c es mucho más parecido a sample3.c (en un 80%, mientras que solo un 63
 
 Primero cargamos el directorio Android y el dataframe preprocesado.
 
-```{r}
+```{r, warning=FALSE}
 path <- "~/Documentos/LCC/ProyectoVT/Proyecto/Android2/"
 nombres_ficheros <- list.files(path)
 df <- read_csv("~/Documentos/LCC/ProyectoVT/Proyecto/virusTotal.csv")
 #df_deep <- read.csv("~/Documentos/LCC/ProyectoVT/Proyecto/analisis_ssdeep.csv")
 ```
 
-Para analizar nuestros *json*, desarrollamos primero la siguiente función que para cada archivo saca su *sdeep* y crea un *dataframe*:
+Para analizar nuestros *json*, escribimos primero la siguiente función que para cada archivo saca su *sdeep* y crea un *dataframe*:
 
 ```{r}
 # Entrada: json
@@ -105,7 +107,7 @@ colnames(df_deep) <- ('ssdeep')
 
 Leemos los dataframes, *df_deep* contiene los *hashes CTPH*:
 
-```{r, warning=FALSE}
+```{r, warning=FALSE, eval=FALSE}
 
 
 # Coge los virus cuya distancia (parecido)
@@ -124,45 +126,203 @@ for (i in 1:nrow(df_deep)) {
 ### Matriz de adyacencias
 
 Creamos una matriz de adyacencias con todos los json, donde la posicion Mij = 1 si la distancia entre los hashes del archivo *i* y el *1* es igual a uno. 
-```{r}
-M <- matrix(0, nrow = nrow(df), ncol = nrow(df))
+```{r, eval=FALSE}
+  n <- nrow(df)
+  Mat <- matrix(0, nrow = n, ncol = n)
+  colnames(Mat) <- c(1:n)
+  row.names(Mat) <- c(1:n)
+  j <- 1
+  while(j < length(indices)) {
+    Mat[indices[j], indices[j+1]] <- 1
+    j <- j+2
+  }
+```
 
-j <- 1
-while(j < length(indices)) {
-  M[indices[j], indices[j+1]] <- 1
-  j <- j+2
+
+
+Ahora juntamos todo en la siguiente función:
+
+```{r}
+# Entrada: distancia entre dos json
+# Salida: Grafo=(V,E) 
+#         V = json
+#         E = conexiones entre json con sus distancias como pesos
+get_adj_matrix <- function(distancia) {
+  
+  indices <- c()
+  distancias <- c()
+  for (i in 1:nrow(df_deep)) {
+    for (j in (i+1):nrow(df_deep)) {
+      if ( adist(df_deep[i,], df_deep[j,]) <= distancia) {
+        indices <- c(indices, i,j)
+        distancias <- c(distancias, adist(df_deep[i,], df_deep[j,]))
+      }
+    }
+  }
+  
+  n <- nrow(df)
+  Mat <- matrix(0, nrow = n, ncol = n)
+  colnames(Mat) <- c(1:n)
+  row.names(Mat) <- c(1:n)
+  j <- 1
+  while(j < length(indices)) {
+    Mat[indices[j], indices[j+1]] <- 1
+    j <- j+2
+  }
+
+  G <- graph_from_adjacency_matrix(Mat, mode = 'undirected')
+  G <- set_edge_attr(G, 'dist', value=distancias)
+  
+  return(G)
+  
 }
 ```
 
 
 ### Grafos
 
-Dibujamos el siguiente grafo donde los vértices indican el json y las aristas su simulitud. Esto quiere decir que, por ejemplo, el grupo amarillo (147, 153 y 46) comparte gran parte de código, y lo mismo para con los otros dos grupos.
+Dibujamos el siguiente grafo donde los vértices indican el json y las aristas su simulitud. Esto quiere decir que, por ejemplo, el grupo 147, 153 y 46 comparte gran parte de código.
 
 ```{r}
-G <- graph_from_adjacency_matrix(M, mode = 'undirected')
+G <- get_adj_matrix(1)
+
 Isolated = which(degree(G)==0)
 G2 = delete.vertices(G, Isolated)
 
-groupList <- list(g1 = c(3, 5),
-                  g2 = c(1, 7, 6),
-                  g3 = c(2,4))
-groupColours <- c(rgb(0,0.3,1,0.5), 
-                  rgb(0.8,0.4,0.1,0.5),  
-                  rgb(0.0,0.4,0.1,0.5))
-
 plot(G2, vertex.color='#ADD8E6', 
      edge.curved = .1, 
-     vertex.size=20, 
-     vertex.label=indices[V(G2)], 
-     edge.label=rep(1, length(indices)-1),
-     mark.groups=groupList,
-     mark.col= groupColours
+     vertex.size=20,
+     edge.label=E(G2)$dist,
+     vertex.frame.color = NA,
+     layout=layout_nicely
      )
+title("Distancias <= 2",cex.main=1,col.main="Black")
+```
+
+## Componentes del grafo
+
+Dibujamos las componentes del grafo con distancias menores o iguales que diez.
+```{r}
+G <- get_adj_matrix(10)
+
+c <- components(G)
+biggest <- which.max(c$csize)
+vids <- V(G)[c$membership==biggest]
+plot(induced_subgraph(G, vids), edge.label=E(G)$dist)
+title("Distancias <= 10 con pesos",cex.main=1,col.main="Black")
+
+plot(induced_subgraph(G, vids), vertex.size=25)
+title("Distancias <= 10 sin pesos",cex.main=1,col.main="Black")
+
+plot(induced_subgraph(G, vids),vertex.size = 10, vertex.color = "blue", vertex.frame.color = '#123456', vertex.label.cex = .7,  vertex.label = NA, edge.curved = .5, edge.arrow.size = .3, edge.width = .7)
+title("Distancias <= 10",cex.main=1,col.main="Black")
+
+```
+
+
+## Comparación del mayor componente
+
+Todos los archivos tienen el mismo tamaño, subidos desde California en menos de una hora. Con una media de 20  positivos, probablemente sean el mismo archivo.
+
+```{r}
+v <- as(vids, 'vector')
+
+compare <- data.frame()
+for (i in v) {
+  compare <- rbind(compare, df[i,])
+}
+
+compare %>% select(size) %>% unique()
+compare %>% select(submission.submitter_country) %>% unique()
+
+times <- compare %>% select(first_seen, scan_date) %>% 
+  mutate(first_seen = gsub('20[0-9]{2}-[0-9]+-[0-9]+', '', first_seen), scan_date = gsub('20[0-9]{2}-[0-9]+-[0-9]+', '', scan_date))
+```
+
+```{r}
+lapply(times[,1], max)
+lapply(times[,1], min)
+```
+
+
+Media y desviación típica
+
+```{r}
+# Media
+compare %>% select(positives) %>% lapply(., mean)
+```
+
+```{r}
+# Desviación típica
+compare %>% select(positives) %>% lapply(., sd)
+```
+
+
+## Analizando los resultados de los antivirus
+
+Vamos a ver qué resultado da cada antivirus a los json (vértices) del grafo anterior. Si dos antivirus dan el mismo resultado en archivos diferentes que sabemos que son casi iguales es probable que compartan motor.
+
+La siguiente función recorre el directorio del dataset y crea un dataframe con los antivirus.
+```{r, eval=FALSE}
+
+# Entrada: Ruta al fichero
+# Salida: Dataframe con resultados de los AV
+get_results <- function(json) {
+  
+  json_data <- tidyjson::read_json(json)
+  df_temp <- json_data %>% 
+    gather_object() %>%   
+    filter(name=='scans') %>% 
+    spread_all() %>% 
+    gather_object() %>% 
+    select(ends_with('result')) %>% 
+    .[1,] %>% 
+    select(-last_col())
+  
+  
+  return(df_temp) 
+}
+
+
 ```
 
 
 
+vids tiene los vértices de los grafos calculados. Pasamos los nombres a formato numérico con ceros a la izquierda.
+
+```{r}
+ficheros <- sapply(vids, function(x) paste0(sprintf("%04d", x), '.json') )
+```
+
+Creamos un dataframe y, por cada vértice, cogemos los escáneres.
+
+```{r, eval=FALSE}
+df_results <- data.frame()
+for (i in ficheros) {
+  df_results <- rbind.fill(df_results, get_results(paste0(path,i)))
+}
+write.csv(df_results, "~/Documentos/LCC/ProyectoVT/Proyecto/escaneres.csv")
+```
+
+Leemos y limpiamos el dataframe.
+
+```{r, warning=FALSE, error=FALSE}
+df_results <- read_csv("~/Documentos/LCC/ProyectoVT/Proyecto/escaneres.csv")
+#df_results <- df_results %>% select(-..JSON)
+colnames(df_results) <- lapply(colnames(df_results), function(x) gsub('.result', '', x))
+```
+
+Si seleccionamos los AV Kasperky y ZoneAlarm se observa fácilmente que los resultados son idénticos y seguramente compartan el mismo motor.
+
+```{r}
+df_results %>% select(Kaspersky, ZoneAlarm)
+```
+
+
+McAfee y McAfee GW Edition, normal porque ambos son de McAfee
+```{r}
+df_results %>% select(McAfee, `McAfee-GW-Edition`)
+```
 
 
 

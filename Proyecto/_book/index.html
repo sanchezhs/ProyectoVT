@@ -5,31 +5,25 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Virus Total</title>
-  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
+  <meta name="description" content="Este libro de bookdown contiene el proyecto LCC sobre analizar el dataset de VirusTotal." />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Virus Total" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
+  <meta property="og:description" content="Este libro de bookdown contiene el proyecto LCC sobre analizar el dataset de VirusTotal." />
   <meta name="github-repo" content="https://github.com/samuel-uma/ProyectoVT" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Virus Total" />
   
-  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
+  <meta name="twitter:description" content="Este libro de bookdown contiene el proyecto LCC sobre analizar el dataset de VirusTotal." />
   
 
 <meta name="author" content="Samuel Sánchez Toca y Alejandro Medina Astorga" />
 
 
-<meta name="date" content="2022-05-30" />
+<meta name="date" content="2022-05-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +169,14 @@ div.csl-indent {
 <li class="chapter" data-level="2.1" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#sample1.c"><i class="fa fa-check"></i><b>2.1</b> sample1.c</a></li>
 <li class="chapter" data-level="2.2" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#sample2.c"><i class="fa fa-check"></i><b>2.2</b> sample2.c</a></li>
 <li class="chapter" data-level="2.3" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#sample3.c"><i class="fa fa-check"></i><b>2.3</b> sample3.c</a></li>
-<li class="chapter" data-level="2.4" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#analizando-los-json"><i class="fa fa-check"></i><b>2.4</b> Analizando los json</a></li>
+<li class="chapter" data-level="2.4" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#analizando-los-json"><i class="fa fa-check"></i><b>2.4</b> Analizando los json</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#matriz-de-adyacencias"><i class="fa fa-check"></i><b>2.4.1</b> Matriz de adyacencias</a></li>
+<li class="chapter" data-level="2.4.2" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#grafos"><i class="fa fa-check"></i><b>2.4.2</b> Grafos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#componentes-del-grafo"><i class="fa fa-check"></i><b>2.5</b> Componentes del grafo</a></li>
+<li class="chapter" data-level="2.6" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#comparación-del-mayor-componente"><i class="fa fa-check"></i><b>2.6</b> Comparación del mayor componente</a></li>
+<li class="chapter" data-level="2.7" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#analizando-los-resultados-de-los-antivirus"><i class="fa fa-check"></i><b>2.7</b> Analizando los resultados de los antivirus</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="cross.html"><a href="cross.html"><i class="fa fa-check"></i><b>3</b> Cross-references</a>
 <ul>
@@ -224,7 +225,7 @@ div.csl-indent {
 <div id="header">
 <h1 class="title">Virus Total</h1>
 <p class="author"><em>Samuel Sánchez Toca y Alejandro Medina Astorga</em></p>
-<p class="date"><em>2022-05-30</em></p>
+<p class="date"><em>2022-05-31</em></p>
 </div>
 <div id="preprocesado-de-datos" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Preprocesado de datos<a href="index.html#preprocesado-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -236,7 +237,7 @@ div.csl-indent {
 </div>
 <div id="renombrando-los-archivos" class="section level2 hasAnchor" number="1.2">
 <h2><span class="header-section-number">1.2</span> Renombrando los archivos<a href="index.html#renombrando-los-archivos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El siguiente <em>script bash</em> cambia los nombres a los archivos para facilitar su uso para hacer pruebas:</p>
+<p>El siguiente <em>script</em> cambia los nombres a los archivos para facilitar su uso para hacer pruebas:</p>
 <pre><code>a=1
 for i in *.json; do
     new=$(printf &quot;%04d.json&quot; &quot;$a&quot;)
