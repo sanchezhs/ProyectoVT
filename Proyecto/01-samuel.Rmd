@@ -126,6 +126,9 @@ for (i in 1:nrow(df_deep)) {
 ### Matriz de adyacencias
 
 Creamos una matriz de adyacencias con todos los json, donde la posicion Mij = 1 si la distancia entre los hashes del archivo *i* y el *1* es igual a uno. 
+
+__Cuanto menor es la distancia, menos diferencia hay entre los hashes y más código comparten.__
+
 ```{r, eval=FALSE}
   n <- nrow(df)
   Mat <- matrix(0, nrow = n, ncol = n)
@@ -143,7 +146,7 @@ Creamos una matriz de adyacencias con todos los json, donde la posicion Mij = 1 
 Ahora juntamos todo en la siguiente función:
 
 ```{r}
-# Entrada: distancia entre dos json
+# Entrada: distancia entre json
 # Salida: Grafo=(V,E) 
 #         V = json
 #         E = conexiones entre json con sus distancias como pesos
@@ -179,9 +182,9 @@ get_adj_matrix <- function(distancia) {
 ```
 
 
-### Grafos
+## Grafos
 
-Dibujamos el siguiente grafo donde los vértices indican el json y las aristas su simulitud. Esto quiere decir que, por ejemplo, el grupo 147, 153 y 46 comparte gran parte de código.
+Dibujamos el siguiente grafo donde los vértices indican el json y las aristas su simulitud. Esto quiere decir que, por ejemplo, el grupo 147, 153 y 46 comparte gran parte de código. 
 
 ```{r}
 G <- get_adj_matrix(1)
@@ -196,12 +199,90 @@ plot(G2, vertex.color='#ADD8E6',
      vertex.frame.color = NA,
      layout=layout_nicely
      )
-title("Distancias <= 2",cex.main=1,col.main="Black")
+title("Distancias <= 1",cex.main=1,col.main="Black")
 ```
 
-## Componentes del grafo
+## Grafo completo
 
-Dibujamos las componentes del grafo con distancias menores o iguales que diez.
+Vamos a ver qué grafo se dibuja si restringimos menos la búsqueda y ponemos que saque todos los archivos que se parezcan como mínimo en un 60%.
+Se pueden ver varios grupos que forman componentes y muchos otros nodos aislados. Esto puede deberse a que los componentes corresponden a alguna variantes del mismo malware.
+
+```{r}
+G1 <- get_adj_matrix(60)
+
+plot(G1)
+title("Grafo completo con distancia <= 60",cex.main=1,col.main="Black")
+
+```
+
+Calculamos los componentes y guardamos los nodos del más grande.
+
+```{r}
+c1 <- components(G1)
+biggest1 <- which.max(c1$csize)
+vids1 <- V(G1)[c1$membership==biggest1]
+
+```
+
+Dibujamos el subgrafo.
+
+```{r}
+plot(induced_subgraph(G1, vids1), edge.label=E(G1)$dist)
+title("Mayor componente con pesos",cex.main=1,col.main="Black")
+
+plot(induced_subgraph(G1, vids1), vertex.size=25)
+title("Mayor componente sin pesos",cex.main=1,col.main="Black")
+
+plot(induced_subgraph(G1, vids1),vertex.size = 5, vertex.color = "#1e3f66", vertex.frame.color = 'red', vertex.label.cex = .7,  vertex.label = NA, edge.curved = .5, edge.arrow.size = .3, edge.width = .7)
+title("Mayor componente",cex.main=1,col.main="Black")
+```
+
+### Análisis del componente
+
+Usando el algoritmo pagerank y la función grado, ordenamos los nodos por importancia:
+
+```{r}
+subgrafo <- induced_subgraph(G1, vids1)
+pg <- page.rank(subgrafo)
+
+importancia <- data.frame(
+  grado = degree(subgrafo),
+  page_rank = pg$vector
+)
+importancia_sorted <- data.frame(
+  grado = sort(degree(subgrafo), decreasing = TRUE),
+  page_rank = sort(pg$vector, decreasing = TRUE)
+)
+
+knitr::kable(head(importancia_sorted, 10))
+
+```
+
+Resaltamos los nodos con grado mayor que cincuenta:
+
+```{r}
+plot(subgrafo, vertex.size=ifelse(importancia[V(subgrafo),][1]>50,5, 1), vertex.label=NA, edge.curved = .5, edge.arrow.size = .3, edge.width = .7)
+```
+
+
+Si vemos los tamaños de los componentes, hay uno con doce nodos:
+
+```{r}
+c1$csize
+```
+
+Lo dibujamos, en este caso los json comparten aproximadamente la mitad de código.
+
+```{r}
+vids2 <- V(G1)[c1$membership==12]
+plot(induced_subgraph(G1, vids2), edge.label=E(G1)$dist, vertex.size=20)
+```
+
+
+
+## Grafo de distancias <= 10
+
+Calculamos y dibujamos las componentes del grafo con distancias menores o iguales que diez.
 ```{r}
 G <- get_adj_matrix(10)
 
@@ -214,13 +295,13 @@ title("Distancias <= 10 con pesos",cex.main=1,col.main="Black")
 plot(induced_subgraph(G, vids), vertex.size=25)
 title("Distancias <= 10 sin pesos",cex.main=1,col.main="Black")
 
-plot(induced_subgraph(G, vids),vertex.size = 10, vertex.color = "blue", vertex.frame.color = '#123456', vertex.label.cex = .7,  vertex.label = NA, edge.curved = .5, edge.arrow.size = .3, edge.width = .7)
+plot(induced_subgraph(G, vids),vertex.size = 10, vertex.color = "#1e3f66", vertex.frame.color = 'blue', vertex.label.cex = .7,  vertex.label = NA, edge.curved = .5, edge.arrow.size = .3, edge.width = .7)
 title("Distancias <= 10",cex.main=1,col.main="Black")
 
 ```
 
 
-## Comparación del mayor componente
+## Análisis del mayor componente
 
 Todos los archivos tienen el mismo tamaño, subidos desde California en menos de una hora. Con una media de 20  positivos, probablemente sean el mismo archivo.
 
@@ -310,18 +391,33 @@ Leemos y limpiamos el dataframe.
 df_results <- read_csv("~/Documentos/LCC/ProyectoVT/Proyecto/escaneres.csv")
 #df_results <- df_results %>% select(-..JSON)
 colnames(df_results) <- lapply(colnames(df_results), function(x) gsub('.result', '', x))
+
+# Quitar columnas enteras NA
+df_results <- df_results[, colSums(is.na(df_results)) != nrow(df_results)]
+
+df_results <- df_results %>% select(-...1)
 ```
+
+Cogemos la columna trece, que no tiene valores NA. Como en realidad todas las columnas son el mismo archivo con ver una sola nos sirve, y podemos ver cómo cada antivirus (excepto los que comparten motor) lo clasifican de manera distinta.
+
+```{r}
+j107 <- df_results[13,]
+j107 <- t(j107)
+knitr::kable(j107, col.names = c('0107.json'))
+```
+
+
 
 Si seleccionamos los AV Kasperky y ZoneAlarm se observa fácilmente que los resultados son idénticos y seguramente compartan el mismo motor.
 
 ```{r}
-df_results %>% select(Kaspersky, ZoneAlarm)
+df_results %>% select(Kaspersky, ZoneAlarm) %>% knitr::kable(.)
 ```
 
 
 McAfee y McAfee GW Edition, normal porque ambos son de McAfee
 ```{r}
-df_results %>% select(McAfee, `McAfee-GW-Edition`)
+df_results %>% select(McAfee, `McAfee-GW-Edition`) %>% knitr::kable(.)
 ```
 
 

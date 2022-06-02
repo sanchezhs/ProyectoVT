@@ -5,6 +5,7 @@ library(purrr)
 library(tidyverse)
 library(ggplot2)
 library(igraph)
+library(plyr)
 
 ####################################
 ## Hasta la linea 193 son pruebas ##
@@ -261,7 +262,7 @@ get_adj_matrix <- function(distancia) {
   colnames(Mat) <- c(1:n)
   row.names(Mat) <- c(1:n)
   j <- 1
-  while(j < length(indices)) {
+  while(j < length(indices)-3) {
     Mat[indices[j], indices[j+1]] <- 1
     j <- j+2
   }
@@ -273,7 +274,7 @@ get_adj_matrix <- function(distancia) {
   
 }
 
-G <- get_adj_matrix(10)
+G <- get_adj_matrix(60)
 #G <- simplify(G)
 Isolated = which(degree(G)==0)
 G2 = delete.vertices(G, Isolated)
@@ -287,9 +288,25 @@ biggest <- which.max(c$csize)
 vids <- V(G)[c$membership==biggest]
 plot(induced_subgraph(G, vids), edge.label=E(G)$dist)
 
+vids2 <- V(G)[c$membership==12]
+plot(induced_subgraph(G, vids2), edge.label=E(G)$dist)
+
 vids <- V(G)[c$membership==biggest]
 plot(induced_subgraph(G, vids))
-plot(induced_subgraph(G, vids),vertex.size = 10, vertex.color = "blue", vertex.frame.color = '#123456', vertex.label.cex = .7,  vertex.label = NA, edge.curved = .5, edge.arrow.size = .3, edge.width = .7)
+plot(induced_subgraph(G, vids),vertex.size = 5, vertex.color = "blue", vertex.frame.color = 'red', vertex.label.cex = .7,  vertex.label = NA, edge.curved = .5, edge.arrow.size = .3, edge.width = .7)
+
+sub <- induced_subgraph(G, vids)
+pg <- page.rank(sub)
+sort(pg$vector, decreasing = TRUE)
+sort(degree(sub), decreasing = TRUE)
+
+importancia <- data.frame(
+  grado = degree(sub),
+  page_rank = pg$vector
+)
+
+plot(sub, vertex.size=ifelse(importancia[V(sub),][1]>50,5, 1), vertex.label=NA, edge.curved = .5, edge.arrow.size = .3, edge.width = .7)
+
 
 G <- get_adj_matrix(10)
 
@@ -358,19 +375,40 @@ colnames(df_results) <- lapply(colnames(df_results), function(x) gsub('.result',
 
 write.csv(df_results, "~/Documentos/LCC/ProyectoVT/Proyecto/escaneres.csv")
 
-df_results %>% select(everything()) %>%  filter(starts_with('not'))
+escaneres <- read_csv("~/Documentos/LCC/ProyectoVT/Proyecto/escaneres.csv")
+
+# Quitar columnas enteras NA
+escaneres <- escaneres[, colSums(is.na(escaneres)) != nrow(escaneres)]
+
+escaneres <- escaneres %>% select(-...1)
+
+temp <- escaneres[13,]
+colnames(temp) <- c('0107.json')
+
+View(t(temp))
+View(t(escaneres))
+
+
+
+
 
 
 df_results %>% select(McAfee, Fortinet)
 
-df_results2 <- data.frame()
+df_results <- data.frame()
 for (i in nombres_ficheros) {
-  print(paste0(path,i))
-  df_results2 <- rbind.fill(df_results2, get_results(paste0(path,i)))
+  df_results <- rbind.fill(df_results, get_results(paste0(path,i)))
 }
 
-df_results2 <- df_results2[, !is.na(df_results2[1,])]
-df_results2 <- df_results2 %>% na.omit()
+write.csv(df, "~/Documentos/LCC/ProyectoVT/Proyecto/df_results.csv")
+
+# Quitar columnas enteras NA
+df_results2 <- df_results[, colSums(is.na(df_results)) != nrow(df_results)]
+
+df_results2 <- df_results2 %>% select(-..JSON) 
+
+
+temp <- df_results2 %>% filter(duplicated(.))
 
 ####################
 

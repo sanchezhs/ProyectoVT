@@ -5,31 +5,25 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Analizando el ssdeep | Virus Total</title>
-  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
+  <meta name="description" content="Este libro de bookdown contiene el proyecto LCC sobre analizar el dataset de VirusTotal." />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Analizando el ssdeep | Virus Total" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
+  <meta property="og:description" content="Este libro de bookdown contiene el proyecto LCC sobre analizar el dataset de VirusTotal." />
   <meta name="github-repo" content="https://github.com/samuel-uma/ProyectoVT" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 2 Analizando el ssdeep | Virus Total" />
   
-  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
+  <meta name="twitter:description" content="Este libro de bookdown contiene el proyecto LCC sobre analizar el dataset de VirusTotal." />
   
 
 <meta name="author" content="Samuel Sánchez Toca y Alejandro Medina Astorga" />
 
 
-<meta name="date" content="2022-05-31" />
+<meta name="date" content="2022-06-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -178,11 +172,15 @@ div.csl-indent {
 <li class="chapter" data-level="2.4" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#analizando-los-json"><i class="fa fa-check"></i><b>2.4</b> Analizando los json</a>
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#matriz-de-adyacencias"><i class="fa fa-check"></i><b>2.4.1</b> Matriz de adyacencias</a></li>
-<li class="chapter" data-level="2.4.2" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#grafos"><i class="fa fa-check"></i><b>2.4.2</b> Grafos</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#componentes-del-grafo"><i class="fa fa-check"></i><b>2.5</b> Componentes del grafo</a></li>
-<li class="chapter" data-level="2.6" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#comparación-del-mayor-componente"><i class="fa fa-check"></i><b>2.6</b> Comparación del mayor componente</a></li>
-<li class="chapter" data-level="2.7" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#analizando-los-resultados-de-los-antivirus"><i class="fa fa-check"></i><b>2.7</b> Analizando los resultados de los antivirus</a></li>
+<li class="chapter" data-level="2.5" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#grafos"><i class="fa fa-check"></i><b>2.5</b> Grafos</a></li>
+<li class="chapter" data-level="2.6" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#grafo-completo"><i class="fa fa-check"></i><b>2.6</b> Grafo completo</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#análisis-del-componente"><i class="fa fa-check"></i><b>2.6.1</b> Análisis del componente</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#grafo-de-distancias-10"><i class="fa fa-check"></i><b>2.7</b> Grafo de distancias &lt;= 10</a></li>
+<li class="chapter" data-level="2.8" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#análisis-del-mayor-componente"><i class="fa fa-check"></i><b>2.8</b> Análisis del mayor componente</a></li>
+<li class="chapter" data-level="2.9" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#analizando-los-resultados-de-los-antivirus"><i class="fa fa-check"></i><b>2.9</b> Analizando los resultados de los antivirus</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="cross.html"><a href="cross.html"><i class="fa fa-check"></i><b>3</b> Cross-references</a>
 <ul>
@@ -323,6 +321,7 @@ div.csl-indent {
 <div id="matriz-de-adyacencias" class="section level3 hasAnchor" number="2.4.1">
 <h3><span class="header-section-number">2.4.1</span> Matriz de adyacencias<a href="analizando-el-ssdeep.html#matriz-de-adyacencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Creamos una matriz de adyacencias con todos los json, donde la posicion Mij = 1 si la distancia entre los hashes del archivo <em>i</em> y el <em>1</em> es igual a uno.</p>
+<p><strong>Cuanto menor es la distancia, menos diferencia hay entre los hashes y más código comparten.</strong></p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="analizando-el-ssdeep.html#cb37-1" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(df)</span>
 <span id="cb37-2"><a href="analizando-el-ssdeep.html#cb37-2" aria-hidden="true" tabindex="-1"></a>  Mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> n, <span class="at">ncol =</span> n)</span>
 <span id="cb37-3"><a href="analizando-el-ssdeep.html#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(Mat) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span>n)</span>
@@ -333,7 +332,7 @@ div.csl-indent {
 <span id="cb37-8"><a href="analizando-el-ssdeep.html#cb37-8" aria-hidden="true" tabindex="-1"></a>    j <span class="ot">&lt;-</span> j<span class="sc">+</span><span class="dv">2</span></span>
 <span id="cb37-9"><a href="analizando-el-ssdeep.html#cb37-9" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
 <p>Ahora juntamos todo en la siguiente función:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="analizando-el-ssdeep.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Entrada: distancia entre dos json</span></span>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="analizando-el-ssdeep.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Entrada: distancia entre json</span></span>
 <span id="cb38-2"><a href="analizando-el-ssdeep.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Salida: Grafo=(V,E) </span></span>
 <span id="cb38-3"><a href="analizando-el-ssdeep.html#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co">#         V = json</span></span>
 <span id="cb38-4"><a href="analizando-el-ssdeep.html#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co">#         E = conexiones entre json con sus distancias como pesos</span></span>
@@ -367,8 +366,9 @@ div.csl-indent {
 <span id="cb38-32"><a href="analizando-el-ssdeep.html#cb38-32" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb38-33"><a href="analizando-el-ssdeep.html#cb38-33" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
-<div id="grafos" class="section level3 hasAnchor" number="2.4.2">
-<h3><span class="header-section-number">2.4.2</span> Grafos<a href="analizando-el-ssdeep.html#grafos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="grafos" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Grafos<a href="analizando-el-ssdeep.html#grafos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Dibujamos el siguiente grafo donde los vértices indican el json y las aristas su simulitud. Esto quiere decir que, por ejemplo, el grupo 147, 153 y 46 comparte gran parte de código.</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="analizando-el-ssdeep.html#cb39-1" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">get_adj_matrix</span>(<span class="dv">1</span>)</span>
 <span id="cb39-2"><a href="analizando-el-ssdeep.html#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -382,98 +382,210 @@ div.csl-indent {
 <span id="cb39-10"><a href="analizando-el-ssdeep.html#cb39-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.frame.color =</span> <span class="cn">NA</span>,</span>
 <span id="cb39-11"><a href="analizando-el-ssdeep.html#cb39-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">layout=</span>layout_nicely</span>
 <span id="cb39-12"><a href="analizando-el-ssdeep.html#cb39-12" aria-hidden="true" tabindex="-1"></a>     )</span>
-<span id="cb39-13"><a href="analizando-el-ssdeep.html#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Distancias &lt;= 2&quot;</span>,<span class="at">cex.main=</span><span class="dv">1</span>,<span class="at">col.main=</span><span class="st">&quot;Black&quot;</span>)</span></code></pre></div>
+<span id="cb39-13"><a href="analizando-el-ssdeep.html#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Distancias &lt;= 1&quot;</span>,<span class="at">cex.main=</span><span class="dv">1</span>,<span class="at">col.main=</span><span class="st">&quot;Black&quot;</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
-</div>
-<div id="componentes-del-grafo" class="section level2 hasAnchor" number="2.5">
-<h2><span class="header-section-number">2.5</span> Componentes del grafo<a href="analizando-el-ssdeep.html#componentes-del-grafo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Dibujamos las componentes del grafo con distancias menores o iguales que diez.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="analizando-el-ssdeep.html#cb40-1" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">get_adj_matrix</span>(<span class="dv">10</span>)</span>
+<div id="grafo-completo" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Grafo completo<a href="analizando-el-ssdeep.html#grafo-completo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Vamos a ver qué grafo se dibuja si restringimos menos la búsqueda y ponemos que saque todos los archivos que se parezcan como mínimo en un 60%.
+Se pueden ver varios grupos que forman componentes y muchos otros nodos aislados. Esto puede deberse a que los componentes corresponden a alguna variantes del mismo malware.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="analizando-el-ssdeep.html#cb40-1" aria-hidden="true" tabindex="-1"></a>G1 <span class="ot">&lt;-</span> <span class="fu">get_adj_matrix</span>(<span class="dv">60</span>)</span>
 <span id="cb40-2"><a href="analizando-el-ssdeep.html#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-3"><a href="analizando-el-ssdeep.html#cb40-3" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fu">components</span>(G)</span>
-<span id="cb40-4"><a href="analizando-el-ssdeep.html#cb40-4" aria-hidden="true" tabindex="-1"></a>biggest <span class="ot">&lt;-</span> <span class="fu">which.max</span>(c<span class="sc">$</span>csize)</span>
-<span id="cb40-5"><a href="analizando-el-ssdeep.html#cb40-5" aria-hidden="true" tabindex="-1"></a>vids <span class="ot">&lt;-</span> <span class="fu">V</span>(G)[c<span class="sc">$</span>membership<span class="sc">==</span>biggest]</span>
-<span id="cb40-6"><a href="analizando-el-ssdeep.html#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">induced_subgraph</span>(G, vids), <span class="at">edge.label=</span><span class="fu">E</span>(G)<span class="sc">$</span>dist)</span>
-<span id="cb40-7"><a href="analizando-el-ssdeep.html#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Distancias &lt;= 10 con pesos&quot;</span>,<span class="at">cex.main=</span><span class="dv">1</span>,<span class="at">col.main=</span><span class="st">&quot;Black&quot;</span>)</span></code></pre></div>
+<span id="cb40-3"><a href="analizando-el-ssdeep.html#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(G1)</span>
+<span id="cb40-4"><a href="analizando-el-ssdeep.html#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Grafo completo con distancia &lt;= 60&quot;</span>,<span class="at">cex.main=</span><span class="dv">1</span>,<span class="at">col.main=</span><span class="st">&quot;Black&quot;</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="analizando-el-ssdeep.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">induced_subgraph</span>(G, vids), <span class="at">vertex.size=</span><span class="dv">25</span>)</span>
-<span id="cb41-2"><a href="analizando-el-ssdeep.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Distancias &lt;= 10 sin pesos&quot;</span>,<span class="at">cex.main=</span><span class="dv">1</span>,<span class="at">col.main=</span><span class="st">&quot;Black&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="analizando-el-ssdeep.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">induced_subgraph</span>(G, vids),<span class="at">vertex.size =</span> <span class="dv">10</span>, <span class="at">vertex.color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">vertex.frame.color =</span> <span class="st">&#39;#123456&#39;</span>, <span class="at">vertex.label.cex =</span> .<span class="dv">7</span>,  <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">edge.curved =</span> .<span class="dv">5</span>, <span class="at">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="at">edge.width =</span> .<span class="dv">7</span>)</span>
-<span id="cb42-2"><a href="analizando-el-ssdeep.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Distancias &lt;= 10&quot;</span>,<span class="at">cex.main=</span><span class="dv">1</span>,<span class="at">col.main=</span><span class="st">&quot;Black&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-13-3.png" width="672" /></p>
+<p>Calculamos los componentes y guardamos los nodos del más grande.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="analizando-el-ssdeep.html#cb41-1" aria-hidden="true" tabindex="-1"></a>c1 <span class="ot">&lt;-</span> <span class="fu">components</span>(G1)</span>
+<span id="cb41-2"><a href="analizando-el-ssdeep.html#cb41-2" aria-hidden="true" tabindex="-1"></a>biggest1 <span class="ot">&lt;-</span> <span class="fu">which.max</span>(c1<span class="sc">$</span>csize)</span>
+<span id="cb41-3"><a href="analizando-el-ssdeep.html#cb41-3" aria-hidden="true" tabindex="-1"></a>vids1 <span class="ot">&lt;-</span> <span class="fu">V</span>(G1)[c1<span class="sc">$</span>membership<span class="sc">==</span>biggest1]</span></code></pre></div>
+<p>Dibujamos el subgrafo.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="analizando-el-ssdeep.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">induced_subgraph</span>(G1, vids1), <span class="at">edge.label=</span><span class="fu">E</span>(G1)<span class="sc">$</span>dist)</span>
+<span id="cb42-2"><a href="analizando-el-ssdeep.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Mayor componente con pesos&quot;</span>,<span class="at">cex.main=</span><span class="dv">1</span>,<span class="at">col.main=</span><span class="st">&quot;Black&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="analizando-el-ssdeep.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">induced_subgraph</span>(G1, vids1), <span class="at">vertex.size=</span><span class="dv">25</span>)</span>
+<span id="cb43-2"><a href="analizando-el-ssdeep.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Mayor componente sin pesos&quot;</span>,<span class="at">cex.main=</span><span class="dv">1</span>,<span class="at">col.main=</span><span class="st">&quot;Black&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-15-2.png" width="672" /></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="analizando-el-ssdeep.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">induced_subgraph</span>(G1, vids1),<span class="at">vertex.size =</span> <span class="dv">5</span>, <span class="at">vertex.color =</span> <span class="st">&quot;#1e3f66&quot;</span>, <span class="at">vertex.frame.color =</span> <span class="st">&#39;red&#39;</span>, <span class="at">vertex.label.cex =</span> .<span class="dv">7</span>,  <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">edge.curved =</span> .<span class="dv">5</span>, <span class="at">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="at">edge.width =</span> .<span class="dv">7</span>)</span>
+<span id="cb44-2"><a href="analizando-el-ssdeep.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Mayor componente&quot;</span>,<span class="at">cex.main=</span><span class="dv">1</span>,<span class="at">col.main=</span><span class="st">&quot;Black&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-15-3.png" width="672" /></p>
+<div id="análisis-del-componente" class="section level3 hasAnchor" number="2.6.1">
+<h3><span class="header-section-number">2.6.1</span> Análisis del componente<a href="analizando-el-ssdeep.html#análisis-del-componente" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Usando el algoritmo pagerank y la función grado, ordenamos los nodos por importancia:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="analizando-el-ssdeep.html#cb45-1" aria-hidden="true" tabindex="-1"></a>subgrafo <span class="ot">&lt;-</span> <span class="fu">induced_subgraph</span>(G1, vids1)</span>
+<span id="cb45-2"><a href="analizando-el-ssdeep.html#cb45-2" aria-hidden="true" tabindex="-1"></a>pg <span class="ot">&lt;-</span> <span class="fu">page.rank</span>(subgrafo)</span>
+<span id="cb45-3"><a href="analizando-el-ssdeep.html#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="analizando-el-ssdeep.html#cb45-4" aria-hidden="true" tabindex="-1"></a>importancia <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb45-5"><a href="analizando-el-ssdeep.html#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">grado =</span> <span class="fu">degree</span>(subgrafo),</span>
+<span id="cb45-6"><a href="analizando-el-ssdeep.html#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">page_rank =</span> pg<span class="sc">$</span>vector</span>
+<span id="cb45-7"><a href="analizando-el-ssdeep.html#cb45-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb45-8"><a href="analizando-el-ssdeep.html#cb45-8" aria-hidden="true" tabindex="-1"></a>importancia_sorted <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb45-9"><a href="analizando-el-ssdeep.html#cb45-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">grado =</span> <span class="fu">sort</span>(<span class="fu">degree</span>(subgrafo), <span class="at">decreasing =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb45-10"><a href="analizando-el-ssdeep.html#cb45-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">page_rank =</span> <span class="fu">sort</span>(pg<span class="sc">$</span>vector, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb45-11"><a href="analizando-el-ssdeep.html#cb45-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb45-12"><a href="analizando-el-ssdeep.html#cb45-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-13"><a href="analizando-el-ssdeep.html#cb45-13" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(importancia_sorted, <span class="dv">10</span>))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">grado</th>
+<th align="right">page_rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">82</td>
+<td align="right">62</td>
+<td align="right">0.0197978</td>
+</tr>
+<tr class="even">
+<td align="left">163</td>
+<td align="right">61</td>
+<td align="right">0.0196663</td>
+</tr>
+<tr class="odd">
+<td align="left">47</td>
+<td align="right">60</td>
+<td align="right">0.0190018</td>
+</tr>
+<tr class="even">
+<td align="left">124</td>
+<td align="right">59</td>
+<td align="right">0.0181018</td>
+</tr>
+<tr class="odd">
+<td align="left">111</td>
+<td align="right">58</td>
+<td align="right">0.0180970</td>
+</tr>
+<tr class="even">
+<td align="left">154</td>
+<td align="right">58</td>
+<td align="right">0.0176471</td>
+</tr>
+<tr class="odd">
+<td align="left">54</td>
+<td align="right">57</td>
+<td align="right">0.0174520</td>
+</tr>
+<tr class="even">
+<td align="left">39</td>
+<td align="right">56</td>
+<td align="right">0.0170076</td>
+</tr>
+<tr class="odd">
+<td align="left">67</td>
+<td align="right">56</td>
+<td align="right">0.0170076</td>
+</tr>
+<tr class="even">
+<td align="left">115</td>
+<td align="right">55</td>
+<td align="right">0.0166772</td>
+</tr>
+</tbody>
+</table>
+<p>Resaltamos los nodos con grado mayor que cincuenta:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="analizando-el-ssdeep.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(subgrafo, <span class="at">vertex.size=</span><span class="fu">ifelse</span>(importancia[<span class="fu">V</span>(subgrafo),][<span class="dv">1</span>]<span class="sc">&gt;</span><span class="dv">50</span>,<span class="dv">5</span>, <span class="dv">1</span>), <span class="at">vertex.label=</span><span class="cn">NA</span>, <span class="at">edge.curved =</span> .<span class="dv">5</span>, <span class="at">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="at">edge.width =</span> .<span class="dv">7</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>Si vemos los tamaños de los componentes, hay uno con doce nodos:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="analizando-el-ssdeep.html#cb47-1" aria-hidden="true" tabindex="-1"></a>c1<span class="sc">$</span>csize</span></code></pre></div>
+<pre><code>##  [1]  3  3 99  1  1  1  1  2  1  1  1 12  1  1  1  1  1  1  1  1  1  1  1  1  1
+## [26]  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+## [51]  2  1  1  1  1  2  1  1  1  1  1  1  1  1  1  1  1</code></pre>
+<p>Lo dibujamos, en este caso los json comparten aproximadamente la mitad de código.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="analizando-el-ssdeep.html#cb49-1" aria-hidden="true" tabindex="-1"></a>vids2 <span class="ot">&lt;-</span> <span class="fu">V</span>(G1)[c1<span class="sc">$</span>membership<span class="sc">==</span><span class="dv">12</span>]</span>
+<span id="cb49-2"><a href="analizando-el-ssdeep.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">induced_subgraph</span>(G1, vids2), <span class="at">edge.label=</span><span class="fu">E</span>(G1)<span class="sc">$</span>dist, <span class="at">vertex.size=</span><span class="dv">20</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 </div>
-<div id="comparación-del-mayor-componente" class="section level2 hasAnchor" number="2.6">
-<h2><span class="header-section-number">2.6</span> Comparación del mayor componente<a href="analizando-el-ssdeep.html#comparación-del-mayor-componente" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="grafo-de-distancias-10" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Grafo de distancias &lt;= 10<a href="analizando-el-ssdeep.html#grafo-de-distancias-10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Calculamos y dibujamos las componentes del grafo con distancias menores o iguales que diez.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="analizando-el-ssdeep.html#cb50-1" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">get_adj_matrix</span>(<span class="dv">10</span>)</span>
+<span id="cb50-2"><a href="analizando-el-ssdeep.html#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="analizando-el-ssdeep.html#cb50-3" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fu">components</span>(G)</span>
+<span id="cb50-4"><a href="analizando-el-ssdeep.html#cb50-4" aria-hidden="true" tabindex="-1"></a>biggest <span class="ot">&lt;-</span> <span class="fu">which.max</span>(c<span class="sc">$</span>csize)</span>
+<span id="cb50-5"><a href="analizando-el-ssdeep.html#cb50-5" aria-hidden="true" tabindex="-1"></a>vids <span class="ot">&lt;-</span> <span class="fu">V</span>(G)[c<span class="sc">$</span>membership<span class="sc">==</span>biggest]</span>
+<span id="cb50-6"><a href="analizando-el-ssdeep.html#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">induced_subgraph</span>(G, vids), <span class="at">edge.label=</span><span class="fu">E</span>(G)<span class="sc">$</span>dist)</span>
+<span id="cb50-7"><a href="analizando-el-ssdeep.html#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Distancias &lt;= 10 con pesos&quot;</span>,<span class="at">cex.main=</span><span class="dv">1</span>,<span class="at">col.main=</span><span class="st">&quot;Black&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="analizando-el-ssdeep.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">induced_subgraph</span>(G, vids), <span class="at">vertex.size=</span><span class="dv">25</span>)</span>
+<span id="cb51-2"><a href="analizando-el-ssdeep.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Distancias &lt;= 10 sin pesos&quot;</span>,<span class="at">cex.main=</span><span class="dv">1</span>,<span class="at">col.main=</span><span class="st">&quot;Black&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-20-2.png" width="672" /></p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="analizando-el-ssdeep.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">induced_subgraph</span>(G, vids),<span class="at">vertex.size =</span> <span class="dv">10</span>, <span class="at">vertex.color =</span> <span class="st">&quot;#1e3f66&quot;</span>, <span class="at">vertex.frame.color =</span> <span class="st">&#39;blue&#39;</span>, <span class="at">vertex.label.cex =</span> .<span class="dv">7</span>,  <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">edge.curved =</span> .<span class="dv">5</span>, <span class="at">edge.arrow.size =</span> .<span class="dv">3</span>, <span class="at">edge.width =</span> .<span class="dv">7</span>)</span>
+<span id="cb52-2"><a href="analizando-el-ssdeep.html#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="st">&quot;Distancias &lt;= 10&quot;</span>,<span class="at">cex.main=</span><span class="dv">1</span>,<span class="at">col.main=</span><span class="st">&quot;Black&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-20-3.png" width="672" /></p>
+</div>
+<div id="análisis-del-mayor-componente" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> Análisis del mayor componente<a href="analizando-el-ssdeep.html#análisis-del-mayor-componente" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Todos los archivos tienen el mismo tamaño, subidos desde California en menos de una hora. Con una media de 20 positivos, probablemente sean el mismo archivo.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="analizando-el-ssdeep.html#cb43-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">as</span>(vids, <span class="st">&#39;vector&#39;</span>)</span>
-<span id="cb43-2"><a href="analizando-el-ssdeep.html#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="analizando-el-ssdeep.html#cb43-3" aria-hidden="true" tabindex="-1"></a>compare <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
-<span id="cb43-4"><a href="analizando-el-ssdeep.html#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> v) {</span>
-<span id="cb43-5"><a href="analizando-el-ssdeep.html#cb43-5" aria-hidden="true" tabindex="-1"></a>  compare <span class="ot">&lt;-</span> <span class="fu">rbind</span>(compare, df[i,])</span>
-<span id="cb43-6"><a href="analizando-el-ssdeep.html#cb43-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb43-7"><a href="analizando-el-ssdeep.html#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-8"><a href="analizando-el-ssdeep.html#cb43-8" aria-hidden="true" tabindex="-1"></a>compare <span class="sc">%&gt;%</span> <span class="fu">select</span>(size) <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="analizando-el-ssdeep.html#cb53-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">as</span>(vids, <span class="st">&#39;vector&#39;</span>)</span>
+<span id="cb53-2"><a href="analizando-el-ssdeep.html#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="analizando-el-ssdeep.html#cb53-3" aria-hidden="true" tabindex="-1"></a>compare <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb53-4"><a href="analizando-el-ssdeep.html#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> v) {</span>
+<span id="cb53-5"><a href="analizando-el-ssdeep.html#cb53-5" aria-hidden="true" tabindex="-1"></a>  compare <span class="ot">&lt;-</span> <span class="fu">rbind</span>(compare, df[i,])</span>
+<span id="cb53-6"><a href="analizando-el-ssdeep.html#cb53-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb53-7"><a href="analizando-el-ssdeep.html#cb53-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-8"><a href="analizando-el-ssdeep.html#cb53-8" aria-hidden="true" tabindex="-1"></a>compare <span class="sc">%&gt;%</span> <span class="fu">select</span>(size) <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##      size
 ##     &lt;dbl&gt;
 ## 1 2669106</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="analizando-el-ssdeep.html#cb45-1" aria-hidden="true" tabindex="-1"></a>compare <span class="sc">%&gt;%</span> <span class="fu">select</span>(submission.submitter_country) <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="analizando-el-ssdeep.html#cb55-1" aria-hidden="true" tabindex="-1"></a>compare <span class="sc">%&gt;%</span> <span class="fu">select</span>(submission.submitter_country) <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##   submission.submitter_country
 ##   &lt;chr&gt;                       
 ## 1 CA</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="analizando-el-ssdeep.html#cb47-1" aria-hidden="true" tabindex="-1"></a>times <span class="ot">&lt;-</span> compare <span class="sc">%&gt;%</span> <span class="fu">select</span>(first_seen, scan_date) <span class="sc">%&gt;%</span> </span>
-<span id="cb47-2"><a href="analizando-el-ssdeep.html#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">first_seen =</span> <span class="fu">gsub</span>(<span class="st">&#39;20[0-9]{2}-[0-9]+-[0-9]+&#39;</span>, <span class="st">&#39;&#39;</span>, first_seen), <span class="at">scan_date =</span> <span class="fu">gsub</span>(<span class="st">&#39;20[0-9]{2}-[0-9]+-[0-9]+&#39;</span>, <span class="st">&#39;&#39;</span>, scan_date))</span>
-<span id="cb47-3"><a href="analizando-el-ssdeep.html#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-4"><a href="analizando-el-ssdeep.html#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-5"><a href="analizando-el-ssdeep.html#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(times[,<span class="dv">1</span>], max)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="analizando-el-ssdeep.html#cb57-1" aria-hidden="true" tabindex="-1"></a>times <span class="ot">&lt;-</span> compare <span class="sc">%&gt;%</span> <span class="fu">select</span>(first_seen, scan_date) <span class="sc">%&gt;%</span> </span>
+<span id="cb57-2"><a href="analizando-el-ssdeep.html#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">first_seen =</span> <span class="fu">gsub</span>(<span class="st">&#39;20[0-9]{2}-[0-9]+-[0-9]+&#39;</span>, <span class="st">&#39;&#39;</span>, first_seen), <span class="at">scan_date =</span> <span class="fu">gsub</span>(<span class="st">&#39;20[0-9]{2}-[0-9]+-[0-9]+&#39;</span>, <span class="st">&#39;&#39;</span>, scan_date))</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="analizando-el-ssdeep.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(times[,<span class="dv">1</span>], max)</span></code></pre></div>
 <pre><code>## $first_seen
 ## [1] &quot; 00:46:00&quot;</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="analizando-el-ssdeep.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(times[,<span class="dv">1</span>], min)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="analizando-el-ssdeep.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(times[,<span class="dv">1</span>], min)</span></code></pre></div>
 <pre><code>## $first_seen
 ## [1] &quot; 00:19:22&quot;</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="analizando-el-ssdeep.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Media</span></span>
-<span id="cb51-2"><a href="analizando-el-ssdeep.html#cb51-2" aria-hidden="true" tabindex="-1"></a>compare <span class="sc">%&gt;%</span> <span class="fu">select</span>(positives) <span class="sc">%&gt;%</span> <span class="fu">lapply</span>(., mean)</span></code></pre></div>
+<p>Media y desviación típica</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="analizando-el-ssdeep.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Media</span></span>
+<span id="cb62-2"><a href="analizando-el-ssdeep.html#cb62-2" aria-hidden="true" tabindex="-1"></a>compare <span class="sc">%&gt;%</span> <span class="fu">select</span>(positives) <span class="sc">%&gt;%</span> <span class="fu">lapply</span>(., mean)</span></code></pre></div>
 <pre><code>## $positives
 ## [1] 19.85185</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="analizando-el-ssdeep.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Desviación típica</span></span>
-<span id="cb53-2"><a href="analizando-el-ssdeep.html#cb53-2" aria-hidden="true" tabindex="-1"></a>compare <span class="sc">%&gt;%</span> <span class="fu">select</span>(positives) <span class="sc">%&gt;%</span> <span class="fu">lapply</span>(., sd)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="analizando-el-ssdeep.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Desviación típica</span></span>
+<span id="cb64-2"><a href="analizando-el-ssdeep.html#cb64-2" aria-hidden="true" tabindex="-1"></a>compare <span class="sc">%&gt;%</span> <span class="fu">select</span>(positives) <span class="sc">%&gt;%</span> <span class="fu">lapply</span>(., sd)</span></code></pre></div>
 <pre><code>## $positives
 ## [1] 1.610153</code></pre>
 </div>
-<div id="analizando-los-resultados-de-los-antivirus" class="section level2 hasAnchor" number="2.7">
-<h2><span class="header-section-number">2.7</span> Analizando los resultados de los antivirus<a href="analizando-el-ssdeep.html#analizando-los-resultados-de-los-antivirus" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="analizando-los-resultados-de-los-antivirus" class="section level2 hasAnchor" number="2.9">
+<h2><span class="header-section-number">2.9</span> Analizando los resultados de los antivirus<a href="analizando-el-ssdeep.html#analizando-los-resultados-de-los-antivirus" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Vamos a ver qué resultado da cada antivirus a los json (vértices) del grafo anterior. Si dos antivirus dan el mismo resultado en archivos diferentes que sabemos que son casi iguales es probable que compartan motor.</p>
 <p>La siguiente función recorre el directorio del dataset y crea un dataframe con los antivirus.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="analizando-el-ssdeep.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Entrada: Ruta al fichero</span></span>
-<span id="cb55-2"><a href="analizando-el-ssdeep.html#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Salida: Dataframe con resultados de los AV</span></span>
-<span id="cb55-3"><a href="analizando-el-ssdeep.html#cb55-3" aria-hidden="true" tabindex="-1"></a>get_results <span class="ot">&lt;-</span> <span class="cf">function</span>(json) {</span>
-<span id="cb55-4"><a href="analizando-el-ssdeep.html#cb55-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb55-5"><a href="analizando-el-ssdeep.html#cb55-5" aria-hidden="true" tabindex="-1"></a>  json_data <span class="ot">&lt;-</span> tidyjson<span class="sc">::</span><span class="fu">read_json</span>(json)</span>
-<span id="cb55-6"><a href="analizando-el-ssdeep.html#cb55-6" aria-hidden="true" tabindex="-1"></a>  df_temp <span class="ot">&lt;-</span> json_data <span class="sc">%&gt;%</span> </span>
-<span id="cb55-7"><a href="analizando-el-ssdeep.html#cb55-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather_object</span>() <span class="sc">%&gt;%</span>   </span>
-<span id="cb55-8"><a href="analizando-el-ssdeep.html#cb55-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(name<span class="sc">==</span><span class="st">&#39;scans&#39;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb55-9"><a href="analizando-el-ssdeep.html#cb55-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">spread_all</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb55-10"><a href="analizando-el-ssdeep.html#cb55-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather_object</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb55-11"><a href="analizando-el-ssdeep.html#cb55-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="st">&#39;result&#39;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb55-12"><a href="analizando-el-ssdeep.html#cb55-12" aria-hidden="true" tabindex="-1"></a>    .[<span class="dv">1</span>,] <span class="sc">%&gt;%</span> </span>
-<span id="cb55-13"><a href="analizando-el-ssdeep.html#cb55-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span><span class="fu">last_col</span>())</span>
-<span id="cb55-14"><a href="analizando-el-ssdeep.html#cb55-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb55-15"><a href="analizando-el-ssdeep.html#cb55-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb55-16"><a href="analizando-el-ssdeep.html#cb55-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(df_temp) </span>
-<span id="cb55-17"><a href="analizando-el-ssdeep.html#cb55-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="analizando-el-ssdeep.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Entrada: Ruta al fichero</span></span>
+<span id="cb66-2"><a href="analizando-el-ssdeep.html#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Salida: Dataframe con resultados de los AV</span></span>
+<span id="cb66-3"><a href="analizando-el-ssdeep.html#cb66-3" aria-hidden="true" tabindex="-1"></a>get_results <span class="ot">&lt;-</span> <span class="cf">function</span>(json) {</span>
+<span id="cb66-4"><a href="analizando-el-ssdeep.html#cb66-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb66-5"><a href="analizando-el-ssdeep.html#cb66-5" aria-hidden="true" tabindex="-1"></a>  json_data <span class="ot">&lt;-</span> tidyjson<span class="sc">::</span><span class="fu">read_json</span>(json)</span>
+<span id="cb66-6"><a href="analizando-el-ssdeep.html#cb66-6" aria-hidden="true" tabindex="-1"></a>  df_temp <span class="ot">&lt;-</span> json_data <span class="sc">%&gt;%</span> </span>
+<span id="cb66-7"><a href="analizando-el-ssdeep.html#cb66-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather_object</span>() <span class="sc">%&gt;%</span>   </span>
+<span id="cb66-8"><a href="analizando-el-ssdeep.html#cb66-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(name<span class="sc">==</span><span class="st">&#39;scans&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb66-9"><a href="analizando-el-ssdeep.html#cb66-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">spread_all</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb66-10"><a href="analizando-el-ssdeep.html#cb66-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gather_object</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb66-11"><a href="analizando-el-ssdeep.html#cb66-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">ends_with</span>(<span class="st">&#39;result&#39;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb66-12"><a href="analizando-el-ssdeep.html#cb66-12" aria-hidden="true" tabindex="-1"></a>    .[<span class="dv">1</span>,] <span class="sc">%&gt;%</span> </span>
+<span id="cb66-13"><a href="analizando-el-ssdeep.html#cb66-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span><span class="fu">last_col</span>())</span>
+<span id="cb66-14"><a href="analizando-el-ssdeep.html#cb66-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb66-15"><a href="analizando-el-ssdeep.html#cb66-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb66-16"><a href="analizando-el-ssdeep.html#cb66-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(df_temp) </span>
+<span id="cb66-17"><a href="analizando-el-ssdeep.html#cb66-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>vids tiene los vértices de los grafos calculados. Pasamos los nombres a formato numérico con ceros a la izquierda.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="analizando-el-ssdeep.html#cb56-1" aria-hidden="true" tabindex="-1"></a>ficheros <span class="ot">&lt;-</span> <span class="fu">sapply</span>(vids, <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%04d&quot;</span>, x), <span class="st">&#39;.json&#39;</span>) )</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="analizando-el-ssdeep.html#cb67-1" aria-hidden="true" tabindex="-1"></a>ficheros <span class="ot">&lt;-</span> <span class="fu">sapply</span>(vids, <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%04d&quot;</span>, x), <span class="st">&#39;.json&#39;</span>) )</span></code></pre></div>
 <p>Creamos un dataframe y, por cada vértice, cogemos los escáneres.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="analizando-el-ssdeep.html#cb57-1" aria-hidden="true" tabindex="-1"></a>df_results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
-<span id="cb57-2"><a href="analizando-el-ssdeep.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> ficheros) {</span>
-<span id="cb57-3"><a href="analizando-el-ssdeep.html#cb57-3" aria-hidden="true" tabindex="-1"></a>  df_results <span class="ot">&lt;-</span> <span class="fu">rbind.fill</span>(df_results, <span class="fu">get_results</span>(<span class="fu">paste0</span>(path,i)))</span>
-<span id="cb57-4"><a href="analizando-el-ssdeep.html#cb57-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb57-5"><a href="analizando-el-ssdeep.html#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df_results, <span class="st">&quot;~/Documentos/LCC/ProyectoVT/Proyecto/escaneres.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="analizando-el-ssdeep.html#cb68-1" aria-hidden="true" tabindex="-1"></a>df_results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb68-2"><a href="analizando-el-ssdeep.html#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> ficheros) {</span>
+<span id="cb68-3"><a href="analizando-el-ssdeep.html#cb68-3" aria-hidden="true" tabindex="-1"></a>  df_results <span class="ot">&lt;-</span> <span class="fu">rbind.fill</span>(df_results, <span class="fu">get_results</span>(<span class="fu">paste0</span>(path,i)))</span>
+<span id="cb68-4"><a href="analizando-el-ssdeep.html#cb68-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb68-5"><a href="analizando-el-ssdeep.html#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df_results, <span class="st">&quot;~/Documentos/LCC/ProyectoVT/Proyecto/escaneres.csv&quot;</span>)</span></code></pre></div>
 <p>Leemos y limpiamos el dataframe.</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="analizando-el-ssdeep.html#cb58-1" aria-hidden="true" tabindex="-1"></a>df_results <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;~/Documentos/LCC/ProyectoVT/Proyecto/escaneres.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="analizando-el-ssdeep.html#cb69-1" aria-hidden="true" tabindex="-1"></a>df_results <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;~/Documentos/LCC/ProyectoVT/Proyecto/escaneres.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## New names:
 ## Rows: 27 Columns: 62
 ## ── Column specification
@@ -484,40 +596,367 @@ div.csl-indent {
 ## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
 ## Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ## • `` -&gt; `...1`</code></pre>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="analizando-el-ssdeep.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co">#df_results &lt;- df_results %&gt;% select(-..JSON)</span></span>
-<span id="cb60-2"><a href="analizando-el-ssdeep.html#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df_results) <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">colnames</span>(df_results), <span class="cf">function</span>(x) <span class="fu">gsub</span>(<span class="st">&#39;.result&#39;</span>, <span class="st">&#39;&#39;</span>, x))</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="analizando-el-ssdeep.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co">#df_results &lt;- df_results %&gt;% select(-..JSON)</span></span>
+<span id="cb71-2"><a href="analizando-el-ssdeep.html#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df_results) <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">colnames</span>(df_results), <span class="cf">function</span>(x) <span class="fu">gsub</span>(<span class="st">&#39;.result&#39;</span>, <span class="st">&#39;&#39;</span>, x))</span>
+<span id="cb71-3"><a href="analizando-el-ssdeep.html#cb71-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-4"><a href="analizando-el-ssdeep.html#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Quitar columnas enteras NA</span></span>
+<span id="cb71-5"><a href="analizando-el-ssdeep.html#cb71-5" aria-hidden="true" tabindex="-1"></a>df_results <span class="ot">&lt;-</span> df_results[, <span class="fu">colSums</span>(<span class="fu">is.na</span>(df_results)) <span class="sc">!=</span> <span class="fu">nrow</span>(df_results)]</span>
+<span id="cb71-6"><a href="analizando-el-ssdeep.html#cb71-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-7"><a href="analizando-el-ssdeep.html#cb71-7" aria-hidden="true" tabindex="-1"></a>df_results <span class="ot">&lt;-</span> df_results <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>...<span class="dv">1</span>)</span></code></pre></div>
+<p>Cogemos la columna trece, que no tiene valores NA. Como en realidad todas las columnas son el mismo archivo con ver una sola nos sirve, y podemos ver cómo cada antivirus (excepto los que comparten motor) lo clasifican de manera distinta.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="analizando-el-ssdeep.html#cb72-1" aria-hidden="true" tabindex="-1"></a>j107 <span class="ot">&lt;-</span> df_results[<span class="dv">13</span>,]</span>
+<span id="cb72-2"><a href="analizando-el-ssdeep.html#cb72-2" aria-hidden="true" tabindex="-1"></a>j107 <span class="ot">&lt;-</span> <span class="fu">t</span>(j107)</span>
+<span id="cb72-3"><a href="analizando-el-ssdeep.html#cb72-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(j107, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&#39;0107.json&#39;</span>))</span></code></pre></div>
+<table>
+<colgroup>
+<col width="26%" />
+<col width="73%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">0107.json</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Lionic</td>
+<td align="left">Adware.AndroidOS.Ewind.A!c</td>
+</tr>
+<tr class="even">
+<td align="left">CAT-QuickHeal</td>
+<td align="left">Android.Mobby.GEN20554 (PUP)</td>
+</tr>
+<tr class="odd">
+<td align="left">McAfee</td>
+<td align="left">Artemis!919A1900C529</td>
+</tr>
+<tr class="even">
+<td align="left">K7GW</td>
+<td align="left">Trojan ( 005537a81 )</td>
+</tr>
+<tr class="odd">
+<td align="left">Trustlook</td>
+<td align="left">Android.Malware.General (score:8)</td>
+</tr>
+<tr class="even">
+<td align="left">SymantecMobileInsight</td>
+<td align="left">Trojan:Malapp</td>
+</tr>
+<tr class="odd">
+<td align="left">Symantec</td>
+<td align="left">Trojan.Gen.MBT</td>
+</tr>
+<tr class="even">
+<td align="left">ESET-NOD32</td>
+<td align="left">a variant of Android/AdDisplay.Mobby.I potentially unwanted</td>
+</tr>
+<tr class="odd">
+<td align="left">Cynet</td>
+<td align="left">Malicious (score: 99)</td>
+</tr>
+<tr class="even">
+<td align="left">Kaspersky</td>
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+</tr>
+<tr class="odd">
+<td align="left">F-Secure</td>
+<td align="left">Adware.ADWARE/ANDR.Agent</td>
+</tr>
+<tr class="even">
+<td align="left">DrWeb</td>
+<td align="left">Adware.Mobby.5.origin</td>
+</tr>
+<tr class="odd">
+<td align="left">McAfee-GW-Edition</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="even">
+<td align="left">Sophos</td>
+<td align="left">Android Ewind (PUA)</td>
+</tr>
+<tr class="odd">
+<td align="left">Ikarus</td>
+<td align="left">PUA.AndroidOS.Mobby</td>
+</tr>
+<tr class="even">
+<td align="left">Avast-Mobile</td>
+<td align="left">Android:Evo-gen [Trj]</td>
+</tr>
+<tr class="odd">
+<td align="left">Avira</td>
+<td align="left">ADWARE/ANDR.Agent.FOKP.Gen</td>
+</tr>
+<tr class="even">
+<td align="left">Microsoft</td>
+<td align="left">Adware:AndroidOS/Ewind.A</td>
+</tr>
+<tr class="odd">
+<td align="left">ZoneAlarm</td>
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+</tr>
+<tr class="even">
+<td align="left">BitDefenderFalx</td>
+<td align="left">Android.Riskware.HiddenAds.HA</td>
+</tr>
+<tr class="odd">
+<td align="left">AhnLab-V3</td>
+<td align="left">PUP/Android.Agent.995918</td>
+</tr>
+<tr class="even">
+<td align="left">MaxSecure</td>
+<td align="left">Android.WIN32.Ewind.kp</td>
+</tr>
+<tr class="odd">
+<td align="left">Fortinet</td>
+<td align="left">Android/Erwind.A!tr</td>
+</tr>
+</tbody>
+</table>
 <p>Si seleccionamos los AV Kasperky y ZoneAlarm se observa fácilmente que los resultados son idénticos y seguramente compartan el mismo motor.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="analizando-el-ssdeep.html#cb61-1" aria-hidden="true" tabindex="-1"></a>df_results <span class="sc">%&gt;%</span> <span class="fu">select</span>(Kaspersky, ZoneAlarm)</span></code></pre></div>
-<pre><code>## # A tibble: 27 × 2
-##    Kaspersky                                  ZoneAlarm                         
-##    &lt;chr&gt;                                      &lt;chr&gt;                             
-##  1 not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp &lt;NA&gt;                              
-##  2 not-a-virus:UDS:AdWare.AndroidOS.Ewind.kp  not-a-virus:HEUR:AdWare.AndroidOS…
-##  3 not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp &lt;NA&gt;                              
-##  4 not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp not-a-virus:HEUR:AdWare.AndroidOS…
-##  5 not-a-virus:UDS:AdWare.AndroidOS.Ewind.kp  &lt;NA&gt;                              
-##  6 not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp &lt;NA&gt;                              
-##  7 &lt;NA&gt;                                       &lt;NA&gt;                              
-##  8 not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp not-a-virus:HEUR:AdWare.AndroidOS…
-##  9 not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp not-a-virus:HEUR:AdWare.AndroidOS…
-## 10 not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp &lt;NA&gt;                              
-## # … with 17 more rows</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="analizando-el-ssdeep.html#cb73-1" aria-hidden="true" tabindex="-1"></a>df_results <span class="sc">%&gt;%</span> <span class="fu">select</span>(Kaspersky, ZoneAlarm) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>(.)</span></code></pre></div>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Kaspersky</th>
+<th align="left">ZoneAlarm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">not-a-virus:UDS:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+</tr>
+<tr class="odd">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+</tr>
+<tr class="odd">
+<td align="left">not-a-virus:UDS:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+</tr>
+<tr class="odd">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+</tr>
+<tr class="even">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">not-a-virus:UDS:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+</tr>
+<tr class="even">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+</tr>
+<tr class="even">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+</tr>
+<tr class="even">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+</tr>
+<tr class="even">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+</tr>
+<tr class="odd">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+</tr>
+<tr class="even">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">not-a-virus:HEUR:AdWare.AndroidOS.Ewind.kp</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table>
 <p>McAfee y McAfee GW Edition, normal porque ambos son de McAfee</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="analizando-el-ssdeep.html#cb63-1" aria-hidden="true" tabindex="-1"></a>df_results <span class="sc">%&gt;%</span> <span class="fu">select</span>(McAfee, <span class="st">`</span><span class="at">McAfee-GW-Edition</span><span class="st">`</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 27 × 2
-##    McAfee               `McAfee-GW-Edition`
-##    &lt;chr&gt;                &lt;chr&gt;              
-##  1 Artemis!919A1900C529 Artemis            
-##  2 Artemis!919A1900C529 Artemis            
-##  3 Artemis!919A1900C529 Artemis            
-##  4 Artemis!919A1900C529 Artemis            
-##  5 Artemis!919A1900C529 Artemis            
-##  6 Artemis!919A1900C529 Artemis            
-##  7 Artemis!919A1900C529 Artemis            
-##  8 &lt;NA&gt;                 &lt;NA&gt;               
-##  9 Artemis!919A1900C529 Artemis            
-## 10 Artemis!919A1900C529 Artemis            
-## # … with 17 more rows</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="analizando-el-ssdeep.html#cb74-1" aria-hidden="true" tabindex="-1"></a>df_results <span class="sc">%&gt;%</span> <span class="fu">select</span>(McAfee, <span class="st">`</span><span class="at">McAfee-GW-Edition</span><span class="st">`</span>) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>(.)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">McAfee</th>
+<th align="left">McAfee-GW-Edition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="even">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="odd">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="even">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="odd">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="even">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="odd">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="even">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="odd">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="even">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="even">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="odd">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="odd">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="even">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="odd">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="even">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="even">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="even">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="odd">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="even">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+<tr class="odd">
+<td align="left">Artemis!919A1900C529</td>
+<td align="left">Artemis</td>
+</tr>
+</tbody>
+</table>
 
 </div>
 </div>

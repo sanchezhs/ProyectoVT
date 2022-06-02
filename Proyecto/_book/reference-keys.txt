@@ -36,3 +36,9 @@ grafos
 componentes-del-grafo
 comparación-del-mayor-componente
 analizando-los-resultados-de-los-antivirus
+tab:unnamed-chunk-22
+grafo-completo
+análisis-del-mayor-componente
+componentes-del-subgrafo
+análisis-del-componente
+grafo-de-distancias-10
