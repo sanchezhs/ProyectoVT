@@ -22,7 +22,7 @@ tbl
 #json2 <- fromJSON(paste0(path, "/0001.json"))
 tipos <- json %>% gather_object %>% json_types %>% count(name, type)
 temp <- json %>% enter_object(additional_info) %>%
-        gather_object() %>% filter(name == 'androguard') %>% gather_object() 
+  gather_object() %>% filter(name == 'androguard') %>% gather_object() 
 
 
 ####################################
@@ -72,7 +72,7 @@ perm_df$Permiso <-  lapply(perm_df[,1], function(x) gsub("[0-9a-z.]", '', x))
 perm_df$Tipo <- lapply(perm_df[,2], function(x) ifelse(x == 'dangerous', 1, 0))
 
 ratio <- perm_df %>% select(Tipo) %>% group_by(Tipo) %>%  summarise(Permisos_peligrosos=n(), Total_permisos=nrow(perm_df)) %>% 
-    filter(Tipo==1) %>% select(-Tipo)
+  filter(Tipo==1) %>% select(-Tipo)
 
 
 get_permisos <- function(x) {
@@ -168,7 +168,7 @@ for (i in 1:nrow(df_deep)) {
       print(j)
       indices <- c(indices, i,j)
       print('-----')
-      }
+    }
   }
 }
 View(df)
@@ -239,7 +239,7 @@ df_reducido %>% select(size) %>% unique()
 
 # Subidos todos en 10min
 df_reducido %>% select(first_seen, scan_date) %>% mutate(first_seen= gsub('20[0-9]{2}-[0-9]+-[0-9]+', '',first_seen), scan_date= gsub('20[0-9]{2}-[0-9]+-[0-9]+', '',scan_date)) %>% 
-                arrange(desc(.)) 
+  arrange(desc(.)) 
 # Mismo archivo subido 8 veces
 
 

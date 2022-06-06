@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 ```{r}
 library(igraph)
 library(curl)
@@ -16,7 +21,7 @@ Las funciones *hash* como *MD5*, *SHA256* o otras son útiles si queremos verifi
 
 En nuestro caso si queremos encontrar similitud entre *malware* no podemos usar esas funciones, porque si sabemos que un archivo es peligroso y tenemos su hash calculado, con cambiar un bit de ese archivo ya no lo podríamos detectar.
 
-Por ello existe el programa *ssdeep*, que permite observar pequeñas diferencias entre archivos calculando el *CTPH* (parecido al *hash*).
+Por eso existe el programa *ssdeep*, que permite observar pequeñas diferencias entre archivos calculando el *CTPH* (parecido al *hash*).
 
 Tenemos tres programas de ejemplo escritos en C, y queremos ver en qué porcentaje se parecen.
 
@@ -54,7 +59,7 @@ void main() {
 }
 ```
 
-Ahora calculamos y comparamos el *ssdeep* de los tres programas:
+Calculamos y comparamos el *ssdeep* de los tres programas:
 
 ```{bash, eval=FALSE}
 $ ssdeep -s * > sample_ctph.ssd
@@ -73,16 +78,14 @@ sample1.c es mucho más parecido a sample3.c (en un 80%, mientras que solo un 63
 
 ## Analizando los json
 
-Primero cargamos el directorio Android y el dataframe preprocesado.
+De la misma manera, primero cargamos el directorio Android y el dataframe preprocesado, y luego calculamos el hash como con los ejemplos.
 
-```{r, warning=FALSE}
+```{r, warning=FALSE, message=FALSE}
 path <- "~/Documentos/LCC/ProyectoVT/Proyecto/Android2/"
 nombres_ficheros <- list.files(path)
 df <- read_csv("~/Documentos/LCC/ProyectoVT/Proyecto/virusTotal.csv")
-#df_deep <- read.csv("~/Documentos/LCC/ProyectoVT/Proyecto/analisis_ssdeep.csv")
 ```
-
-Para analizar nuestros *json*, escribimos primero la siguiente función que para cada archivo saca su *sdeep* y crea un *dataframe*:
+Dentro del json, hay un par clave valor que almacena el *CTPH* calculado (*ssdeep*), así que para analizarlo, escribimos primero la siguiente función que crea un *dataframe* con todos los json:
 
 ```{r}
 # Entrada: json
@@ -105,11 +108,9 @@ df_deep <- df_deep %>% select(..JSON)
 colnames(df_deep) <- ('ssdeep')
 ```
 
-Leemos los dataframes, *df_deep* contiene los *hashes CTPH*:
+Una vez tenemos los datos, comparamos dos a dos todos los *ssdeep* usando la función *adist* y almacenamos los índices y su distancia. Índices contiene la distancia del json *i* con el *j* para luego construir una matriz.
 
 ```{r, warning=FALSE, eval=FALSE}
-
-
 # Coge los virus cuya distancia (parecido)
 # en sus ssdeep sea menor que 2
 # y los guarda en *indices*
@@ -125,7 +126,7 @@ for (i in 1:nrow(df_deep)) {
 
 ### Matriz de adyacencias
 
-Creamos una matriz de adyacencias con todos los json, donde la posicion Mij = 1 si la distancia entre los hashes del archivo *i* y el *1* es igual a uno. 
+Creamos una matriz de adyacencias con todos los json, donde en este caso la posicion Mij = 1 si la distancia entre los hashes del archivo *i* y el *j* es igual a uno. 
 
 __Cuanto menor es la distancia, menos diferencia hay entre los hashes y más código comparten.__
 
@@ -142,14 +143,13 @@ __Cuanto menor es la distancia, menos diferencia hay entre los hashes y más có
 ```
 
 
-
-Ahora juntamos todo en la siguiente función:
+Teniendo la matriz de adyacencias el siguiente paso es construir el grafo. Cada vértice es un json, y los arcos conectan json cuya distancia recibe por parámetro *get_adj_matrix*. Una vez se crea el grafo añadimos un atributo a las aristas con su distancia.
 
 ```{r}
 # Entrada: distancia entre json
 # Salida: Grafo=(V,E) 
 #         V = json
-#         E = conexiones entre json con sus distancias como pesos
+#         E = distancias (ssdeep)
 get_adj_matrix <- function(distancia) {
   
   indices <- c()
@@ -184,7 +184,7 @@ get_adj_matrix <- function(distancia) {
 
 ## Grafos
 
-Dibujamos el siguiente grafo donde los vértices indican el json y las aristas su simulitud. Esto quiere decir que, por ejemplo, el grupo 147, 153 y 46 comparte gran parte de código. 
+Dibujamos el siguiente grafo con aquellos json cuyas distancias son menores o iguales que uno. Esto quiere decir que, por ejemplo, el grupo 147, 153 y 46 comparte gran parte de código. 
 
 ```{r}
 G <- get_adj_matrix(1)
@@ -202,10 +202,9 @@ plot(G2, vertex.color='#ADD8E6',
 title("Distancias <= 1",cex.main=1,col.main="Black")
 ```
 
-## Grafo completo
+## Grafo completo, G1
 
 Vamos a ver qué grafo se dibuja si restringimos menos la búsqueda y ponemos que saque todos los archivos que se parezcan como mínimo en un 60%.
-Se pueden ver varios grupos que forman componentes y muchos otros nodos aislados. Esto puede deberse a que los componentes corresponden a alguna variantes del mismo malware.
 
 ```{r}
 G1 <- get_adj_matrix(60)
@@ -215,7 +214,10 @@ title("Grafo completo con distancia <= 60",cex.main=1,col.main="Black")
 
 ```
 
-Calculamos los componentes y guardamos los nodos del más grande.
+
+Se pueden ver varios grupos que forman componentes y muchos otros nodos aislados. Esto puede deberse a que los componentes corresponden a alguna variante del mismo malware.
+
+Calculamos los componentes y guardamos los nodos de aquel más grande.
 
 ```{r}
 c1 <- components(G1)
@@ -233,9 +235,13 @@ title("Mayor componente con pesos",cex.main=1,col.main="Black")
 plot(induced_subgraph(G1, vids1), vertex.size=25)
 title("Mayor componente sin pesos",cex.main=1,col.main="Black")
 
+```
+
+```{r, fig.asp=1.5}
 plot(induced_subgraph(G1, vids1),vertex.size = 5, vertex.color = "#1e3f66", vertex.frame.color = 'red', vertex.label.cex = .7,  vertex.label = NA, edge.curved = .5, edge.arrow.size = .3, edge.width = .7)
 title("Mayor componente",cex.main=1,col.main="Black")
 ```
+
 
 ### Análisis del componente
 
@@ -260,7 +266,7 @@ knitr::kable(head(importancia_sorted, 10))
 
 Resaltamos los nodos con grado mayor que cincuenta:
 
-```{r}
+```{r, fig.asp=1.5}
 plot(subgrafo, vertex.size=ifelse(importancia[V(subgrafo),][1]>50,5, 1), vertex.label=NA, edge.curved = .5, edge.arrow.size = .3, edge.width = .7)
 ```
 
@@ -279,8 +285,102 @@ plot(induced_subgraph(G1, vids2), edge.label=E(G1)$dist, vertex.size=20)
 ```
 
 
+### Algunos gráficos de G1
 
-## Grafo de distancias <= 10
+A continuación se muestran gráficas del componente grande de G1. Transformamos las fechas a formato *date* para poder dibujarlas.
+
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+# Comparacion del componente grande de G1
+v <- as(vids1, 'vector')
+df_grafo <- subset(df, row.names(df) %in% v)
+
+library(plotly)
+
+df_grafo$scan_date <- as.POSIXct(df_grafo$scan_date, format="%Y-%m-%d %H:%M:%S")
+df_grafo$first_seen <- as.POSIXct(df_grafo$first_seen, format="%Y-%m-%d %H:%M:%S")
+colnames(df_grafo)[8] <- 'Pais'
+
+```
+
+
+
+
+Positivos a lo largo del tiempo (fecha de escáner).
+```{r, warning=FALSE, message=FALSE}
+p <- ggplot(df_grafo, aes(x=scan_date, y=positives)) +
+  geom_line() + ylab('Positivos') + xlab('Fecha de escáner') + theme_bw()
+ggplotly(p)
+```
+
+
+
+Tamaño de los json a lo largo del tiempo (fecha de escáner).
+```{r, warning=FALSE, message=FALSE}
+p2 <- ggplot(df_grafo, aes(x=scan_date, y=size)) +
+  geom_line() + ylab('Tamaño') + xlab('Primera vez subido') + theme_bw()
+ggplotly(p2)
+```
+
+
+
+
+Positivos a lo largo del tiempo (primera vez que se subió).
+```{r, warning=FALSE, message=FALSE}
+p3 <- ggplot(df_grafo, aes(x=first_seen, y=positives)) +
+  geom_line() + ylab('Positivos') + xlab('Tiempo') + theme_bw()
+ggplotly(p3)
+```
+
+
+
+
+Regiones desde donde se subió:
+```{r, warning=FALSE, message=FALSE}
+df_grafo %>% select(times_submitted, Pais) %>% group_by(Pais) %>% summarise(times_submitted=sum(times_submitted)) %>% 
+ggplot(data=., aes(y=times_submitted)) + 
+  geom_bar(mapping = aes(fill=Pais, x=Pais), stat = 'identity') + 
+  theme_bw() 
+```
+
+
+Como los datos no están a escala, sumamos uno y aplicamos logaritmo para compararlos mejor:
+
+```{r, warning=FALSE, message=FALSE}
+p_regiones <- df_grafo %>% 
+  select(times_submitted, Pais) %>% 
+  group_by(Pais) %>% 
+  summarise(times_submitted=sum(times_submitted)) %>% 
+  ggplot(data=., aes(y=log(1+times_submitted))) + 
+  geom_bar(mapping = aes(fill=Pais, x=Pais), stat = 'identity') + 
+  ylab('Veces subido') + 
+  xlab('País') +
+  theme_bw() 
+
+  
+ggplotly(p_regiones)
+
+```
+
+
+
+Visualizamos el número de positivos por país:
+
+```{r, warning=FALSE, message=FALSE}
+p_positivos_pais <- df_grafo %>% 
+  select(positives, Pais) %>% 
+  group_by(Pais) %>% summarise(positives=sum(positives)) %>% 
+  ggplot(data=., aes(y=positives)) + 
+  geom_bar(mapping = aes(fill=Pais, x=Pais), stat = 'identity') + 
+  ylab('Positivos') + 
+  xlab('País') +
+  theme_bw() 
+
+ggplotly(p_positivos_pais)
+```
+
+
+
+## Grafo de distancias <= 10 para G
 
 Calculamos y dibujamos las componentes del grafo con distancias menores o iguales que diez.
 ```{r}
@@ -301,7 +401,7 @@ title("Distancias <= 10",cex.main=1,col.main="Black")
 ```
 
 
-## Análisis del mayor componente
+## Análisis del mayor componente de G
 
 Todos los archivos tienen el mismo tamaño, subidos desde California en menos de una hora. Con una media de 20  positivos, probablemente sean el mismo archivo.
 
@@ -320,18 +420,21 @@ times <- compare %>% select(first_seen, scan_date) %>%
   mutate(first_seen = gsub('20[0-9]{2}-[0-9]+-[0-9]+', '', first_seen), scan_date = gsub('20[0-9]{2}-[0-9]+-[0-9]+', '', scan_date))
 ```
 
+Primera y última vez que se subió:
 ```{r}
 lapply(times[,1], max)
 lapply(times[,1], min)
 ```
 
 
-Media y desviación típica
+Media:
 
 ```{r}
 # Media
 compare %>% select(positives) %>% lapply(., mean)
 ```
+
+Desviación típica:
 
 ```{r}
 # Desviación típica
@@ -339,9 +442,9 @@ compare %>% select(positives) %>% lapply(., sd)
 ```
 
 
-## Analizando los resultados de los antivirus
+## Analizando los resultados de los antivirus de G
 
-Vamos a ver qué resultado da cada antivirus a los json (vértices) del grafo anterior. Si dos antivirus dan el mismo resultado en archivos diferentes que sabemos que son casi iguales es probable que compartan motor.
+Vamos a ver qué resultado da cada antivirus a los json (vértices) del grafo G. Si dos antivirus dan el mismo resultado en archivos diferentes que sabemos que son casi iguales es probable que compartan motor.
 
 La siguiente función recorre el directorio del dataset y crea un dataframe con los antivirus.
 ```{r, eval=FALSE}
@@ -387,7 +490,7 @@ write.csv(df_results, "~/Documentos/LCC/ProyectoVT/Proyecto/escaneres.csv")
 
 Leemos y limpiamos el dataframe.
 
-```{r, warning=FALSE, error=FALSE}
+```{r, warning=FALSE, error=FALSE, message=FALSE}
 df_results <- read_csv("~/Documentos/LCC/ProyectoVT/Proyecto/escaneres.csv")
 #df_results <- df_results %>% select(-..JSON)
 colnames(df_results) <- lapply(colnames(df_results), function(x) gsub('.result', '', x))
@@ -411,14 +514,16 @@ knitr::kable(j107, col.names = c('0107.json'))
 Si seleccionamos los AV Kasperky y ZoneAlarm se observa fácilmente que los resultados son idénticos y seguramente compartan el mismo motor.
 
 ```{r}
-df_results %>% select(Kaspersky, ZoneAlarm) %>% knitr::kable(.)
+df_results %>% select(Kaspersky, ZoneAlarm) %>% head(., 10) %>% knitr::kable(.)
 ```
 
 
-McAfee y McAfee GW Edition, normal porque ambos son de McAfee
+McAfee y McAfee GW Edition también, normal porque ambos son de McAfee
 ```{r}
-df_results %>% select(McAfee, `McAfee-GW-Edition`) %>% knitr::kable(.)
+df_results %>% select(McAfee, `McAfee-GW-Edition`) %>% head(., 10) %>% knitr::kable(.)
 ```
+
+
 
 
 

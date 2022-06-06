@@ -42,3 +42,8 @@ análisis-del-mayor-componente
 componentes-del-subgrafo
 análisis-del-componente
 grafo-de-distancias-10
+grafo-completo-g1
+algunos-gráficos-de-g1
+grafo-de-distancias-10-para-g
+análisis-del-mayor-componente-de-g
+analizando-los-resultados-de-los-antivirus-de-g
