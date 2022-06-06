@@ -60,3 +60,66 @@ knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')
 ```
+
+## Preprocesado
+
+Como indicamos antes, lo primero que hicimos fue leer el primer json para tener una idea de que es lo que tenemos
+que hacer.
+```{r}
+library(curl)
+library(tidyjson)
+library(dplyr)
+library(purrr)
+library(tidyverse)
+library(kableExtra)
+
+json_data <- tidyjson::read_json("~/LCC/ProyectoVT/Proyecto/Android2/0001.json")
+
+tbl <- json_data %>%
+  spread_all()
+tbl
+```
+como vemos, usamos el spread_all para obtener todas las variables.
+
+Ahora vamos a hacer lo mismo pero con todos los ficheros json a la vez:
+
+```{r}
+#path <- "~/GitHub/VirusTotal/ProyectoVT/Proyecto/Android2"
+path <- "~/LCC/ProyectoVT/Proyecto/Android2"
+nombres_ficheros <- list.files(path)
+
+j <- 0
+df <- data.frame()
+for (i in nombres_ficheros) {
+  filepath <- file.path(path, paste0(i))
+  i <- tidyjson::read_json(filepath)
+  nombre <- paste0('f_', j)
+#  assign(nombre, i)
+  tbl <- i %>% spread_all(recursive = TRUE)
+  nombre_l <- tbl %>%
+    select(scan_date,first_seen,total,size,times_submitted,positives,
+           submission.submitter_country,additional_info.exiftool.FileType)
+  #name <- paste0('l_',j) 
+  name <- as.data.frame(nombre_l)
+  name <- name[-length(name)]
+#  assign(paste0('l_',j) , nombre_l)
+  
+  df <- rbind(df, name)
+  
+  
+  j <- j+1
+}
+
+```
+Con esto hemos preprocesado todos los archivos json y los metemos en un data frame. Hemos seleccionado
+las variables que creemos mas relevantes.
+
+Finalmente, mostramos el dataset resultante y lo guardamos como un .csv para tenerlo a mano.
+```{r}
+
+kable(df, booktabs = TRUE) %>%
+  kable_styling(font_size = 10)
+#write.csv(df,"~/GitHub/VirusTotal/ProyectoVT/Proyecto/virusTotal.csv", row.names = FALSE)## Importar dataset
+write.csv(df, "~/LCC/ProyectoVT/Proyecto/virusTotal.csv")
+```
+

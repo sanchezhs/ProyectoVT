@@ -1,0 +1,179 @@
+--- 
+title: "Virus Total"
+author: "Samuel Sánchez Toca y Alejandro Medina Astorga"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  Este libro de bookdown contiene el proyecto LCC sobre analizar el dataset de VirusTotal.
+link-citations: yes
+github-repo: https://github.com/samuel-uma/ProyectoVT
+---
+
+# Analisis exploratorio
+
+## Dplyr
+
+  
+Primero cargamos las librerias y leemos el csv que anteriormente generamos
+```{r}
+library(dplyr)
+library(tidyverse)
+library(kableExtra)
+#virusTotal <- read.csv('~/GitHub/VirusTotal/ProyectoVT/Proyecto/virusTotal.csv')
+virusTotal <- read.csv('~/LCC/ProyectoVT/Proyecto/virusTotal.csv')
+
+```
+Vamos a añadir una columna year y cambiamos los nombres de algunas columnas para que sean mas legibles
+
+```{r}
+virusTotal <- virusTotal %>% 
+  mutate(Year = substr(virusTotal$first_seen, 0, 4))
+
+virusTotal <- virusTotal %>%
+  rename(country = submission.submitter_country)
+
+virusTotal <- virusTotal %>%
+  rename(file_type = additional_info.exiftool.FileType)
+
+
+
+kable(virusTotal, booktabs = TRUE) %>%
+  kable_styling(font_size = 10)
+
+```
+
+Vamos a encontrar los 10 archivos mas pesados del dataset  
+  
+```{r}
+virusTotal1 <- virusTotal %>%
+  arrange(desc(size)) %>%
+  slice(1:10)
+kable(virusTotal1, booktabs = TRUE) %>%
+  kable_styling(font_size = 10)
+```
+
+
+Pasamos a ordenar el dataset dependiendo del tipo del archivo
+
+```{r}
+virusTotal2 <- virusTotal %>%
+  arrange(file_type)
+kable(virusTotal2, booktabs = TRUE) %>%
+  kable_styling(font_size = 10)
+```
+
+Mostrar los archivos que son mas pesados que la media
+
+```{r}
+
+mediaSize <- mean(virusTotal$size)
+mediaSize
+
+virusTotal3 <- virusTotal %>%
+  filter(virusTotal$size > mediaSize)%>%
+  arrange(size)
+kable(virusTotal3, booktabs = TRUE) %>%
+  kable_styling(font_size = 10)
+```
+
+Buscamos el primer archivo registrado
+```{r}
+
+virusTotal4 <- virusTotal %>%
+  arrange(first_seen)%>%
+  select(first_seen,Year,size,times_submitted,positives,file_type)%>%
+  slice(1)
+kable(virusTotal4, booktabs = TRUE) %>%
+  kable_styling(font_size = 10)
+```
+
+
+Por ultimo vamos a contar los archivos dependiendo de su tipo
+
+```{r}
+virusTotal5 <- virusTotal%>%
+  group_by(file_type)%>%
+  summarise(
+    n = n()
+  )
+kable(virusTotal5, booktabs = TRUE) %>%
+  kable_styling(font_size = 10)
+```
+
+## Visualizacion
+
+Vamos a analizar el dataset a traves de los graficos.
+
+Empezamos con el numero de positivos y las veces que se repiten con *Histogramas*.
+```{r}
+
+library(ggplot2)
+ggplot(virusTotal, aes(x=positives)) + geom_histogram(binwidth = 0.5)
+```
+
+Aqui vemos una grafica de los años
+```{r}
+ggplot(virusTotal, aes(x=Year)) + geom_bar(binwidth = 0.9)
+```
+
+Ahora visualizaremos lo anterior pero con los colores dependiendo del pais
+```{r}
+ggplot(virusTotal, aes(x=positives, fill=country)) + 
+  geom_histogram(binwidth = 0.5)
+              
+ggplot(virusTotal, aes(x=Year, fill=country)) + 
+  geom_bar(binwidth = 0.9)
+```
+
+Y respecto al tipo del archivo
+```{r}
+ggplot(virusTotal, aes(x=positives, fill=file_type)) + 
+  geom_histogram(binwidth = 1)
+
+ggplot(virusTotal, aes(x=Year, fill=file_type)) + 
+  geom_bar(binwidth = 1)
+```
+
+
+Y tambien veremos el numero de positivos dependiendo del año
+```{r}
+ggplot(virusTotal, aes(x=positives, fill=Year)) + 
+  geom_histogram(binwidth = 1)
+```
+
+Ahora usaremos *Graficos de puntos*.
+```{r}
+ggplot(data=virusTotal, aes(x=positives, y=Year)) +
+  geom_point(aes(colour=file_type), shape=15, size=5)
+
+ggplot(data=virusTotal, aes(x=country, y=positives)) +
+  geom_point(aes(colour=file_type), shape=15, size=5)
+```
+De esta ultima grafica sacamos que los archivos tipo DEX solo vienen del pais CZ
+
+
+```{r}
+ggplot(data=virusTotal, aes(x=country, y=positives)) +
+  geom_point(aes(colour=Year), shape=15, size=5)
+```
+
+
+Por ultimo usaremos *graficos de barras*.
+```{r}
+
+ggplot(virusTotal, aes(x=Year, y=positives, fill=file_type)) +
+  geom_bar(stat="identity", position="dodge")
+
+ggplot(virusTotal, aes(x=Year, y=positives, fill=file_type)) +
+  geom_bar(stat="identity", position="dodge")
+
+ggplot(virusTotal, aes(x=country, y=positives, fill=Year)) +
+  geom_bar(stat="identity", position="dodge")
+```
+
+
+

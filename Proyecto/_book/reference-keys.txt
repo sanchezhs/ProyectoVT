@@ -47,3 +47,8 @@ algunos-gráficos-de-g1
 grafo-de-distancias-10-para-g
 análisis-del-mayor-componente-de-g
 analizando-los-resultados-de-los-antivirus-de-g
+preprocesado
+analisis-exploratorio
+dplyr
+url-your-book-url-like-httpsbookdown.orgyihuibookdown-1
+visualizacion
