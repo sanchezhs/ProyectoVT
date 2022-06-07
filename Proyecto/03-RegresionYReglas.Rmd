@@ -1,0 +1,141 @@
+---
+title: "Virus Total"
+author: "Samuel Sánchez Toca y Alejandro Medina Astorga"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  Este libro de bookdown contiene el proyecto LCC sobre analizar el dataset de VirusTotal.
+link-citations: yes
+github-repo: https://github.com/samuel-uma/ProyectoVT
+
+# Regresion y reglas de asociación
+## Regresion
+```{r warning=FALSE,message=FALSE}
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+library(readr)
+
+virusTotal <- read.csv('~/LCC/ProyectoVT/Proyecto/virusTotal.csv')
+virusTotal <- virusTotal %>% 
+  mutate(Year = substr(virusTotal$first_seen, 0, 4))
+
+virusTotal <- virusTotal %>%
+  rename(country = submission.submitter_country)
+
+virusTotal <- virusTotal %>%
+  rename(file_type = additional_info.exiftool.FileType)
+
+```
+
+Ahora el tamaño de los archivos lo pasamos a gb para un manejo mas fácil
+
+```{r}
+virusTotal <- virusTotal %>% 
+  mutate(size = virusTotal$size/1000000)
+```
+
+Vamos a ver todas las graficas de nuestro dataset:
+  
+```{r}
+plot(virusTotal)
+```
+  
+Como vemos no parece que tengamos una relación directa por parte de dos variables, hemos pensado que estaría
+bien analizar o ver si hay una relacion entre el tamaño que tiene un archivo y si es positivo o no ya que
+podriamos pensar de que al pesar mas un archivo es mas propenso a traer algun tipo de software malicioso.
+
+
+Vamos a analizar el tamaño frente al numero de positivos para ver si existe algun tipo de correlacion
+
+```{r}
+ggplot2::ggplot(virusTotal,aes(x=size, y=positives))+geom_point()+geom_line()
+
+f1 <- lm(positives~size, data = virusTotal)
+
+plot(f1)
+```
+
+Y aqui vemos todas las graficas disponibles
+
+```{r}
+summary(f1)
+```
+
+
+De aqui podemos sacar que la correlacion es practicamente nula, solo el 5,54% de la 
+variabilidad de los positivos tiene que ver con el tamaño, por lo tanto nuestro primer acercamiento
+es erroneo.
+
+```{r}
+ggplot(virusTotal, aes(x = size, y = positives)) +
+  geom_point() +
+  geom_line(aes(x = size, y = predict(f1,virusTotal)),col="blue") + geom_line()
+```
+
+Sin embargo con la grafica en el que vemos la prediccion, observamos que la tendencia es a tener menor numero de positivos cuanto mayor sea el tamaño del archivo analizado
+
+
+## Reglas de asociación
+
+```{r warning=FALSE,message=FALSE}
+library(arules)
+```
+
+
+Utilizando apriori vamos a ver las reglas de nuestro dataset
+```{r warning=FALSE}
+mis_reglas <- apriori(virusTotal,  parameter = list(supp = 0.28818, conf = 0.27634,minlen=2))
+```
+```{r}
+length(mis_reglas)
+```
+Este es el numero de reglas que podemos encontrar en nuestro dataset
+
+El resumen de las reglas obtenidas seria el siguiente:
+  
+```{r}
+summary(mis_reglas)
+```
+
+Como podemos ver en el resumen, nos muestran datos de las reglas generadas, podemos ver por ejemplo que la media
+obtenida en el soporte es de 0.28818 lo cual no es muy alto e indica que la media de las reglas obtenidas no son muy frecuentes.
+La confianza tenemos una media de 0.27634 lo cual nos dice que la media en el dataset indica que el 27,63%
+de las X tambien contienen a Y.
+
+Estas son todas las reglas calculadas
+
+```{r}
+  
+inspect(mis_reglas)
+```
+
+
+Vamos a ordenar las reglas por lift y mostramos las 10 reglas con mas lift
+```{r}
+mis_reglas_lift <- sort(mis_reglas, by = "lift")
+inspect(mis_reglas_lift[1:10])
+```
+
+
+Vamos a ordenar las reglas por support y mostramos las 10 reglas con mas support
+```{r}
+mis_reglas_support <- sort(mis_reglas, by = "support")
+inspect(mis_reglas_support[1:10])
+```
+
+Como sabemos, el soporte nos indica el porcentaje de frecuencia con el que pasa esa regla
+vemos como cuando el año es 2021 en el 63,3% de la veces el tipo de archivo es ZIP
+
+Vamos a ordenar las reglas por confianza y mostramos las 10 reglas con mas confianza
+```{r}
+mis_reglas_confidence <- sort(mis_reglas, by = "confidence")
+inspect(mis_reglas_confidence[1:10])
+```
+
+De aqui podemos sacar por ejemplo que el pais CA solo ha enviado archivos de tipo ZIP y en 2021 o tambien por ejemplo como vimos anteriormente en los graficos que el pais CZ siempre envia DEX de tipo de archivo.
+

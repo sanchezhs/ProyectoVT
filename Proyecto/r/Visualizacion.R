@@ -3,8 +3,11 @@
 
 library(ggplot2)
 #virusTotal <- read.csv('~/GitHub/VirusTotal/ProyectoVT/Proyecto/virusTotal.csv')
-virusTotal <- read.csv('~/Documentos/R/Proyecto/ProyectoVT/Proyecto/virusTotal.csv')
+virusTotal <- read.csv('~/LCC/ProyectoVT/Proyecto/virusTotal.csv')
 virusTotal
+
+virusTotal <- virusTotal %>% 
+  mutate(Year = substr(virusTotal$first_seen, 0, 4))
 ##Cambiamos los nombre por unos mas legibles
 virusTotal <- virusTotal %>%
   rename(country = submission.submitter_country)
@@ -16,7 +19,7 @@ ggplot(virusTotal, aes(x=positives)) + geom_histogram(binwidth = 0.5)
 
 
 ## Aqui vemos una grafica de los años
-ggplot(virusTotal, aes(x=Year)) + geom_histogram(binwidth = 0.9)
+ggplot(virusTotal, aes(x=Year)) + geom_bar(binwidth = 0.9)
 
 
 ## Ahora visualizaremos lo anterior pero con los colores dependiendo del pais

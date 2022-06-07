@@ -52,3 +52,6 @@ analisis-exploratorio
 dplyr
 url-your-book-url-like-httpsbookdown.orgyihuibookdown-1
 visualizacion
+regresion
+reglas-de-asociación
+regresion-y-reglas-de-asociación
