@@ -23,7 +23,7 @@
 <meta name="author" content="Samuel Sánchez Toca y Alejandro Medina Astorga" />
 
 
-<meta name="date" content="2022-06-07" />
+<meta name="date" content="2022-06-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,13 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -160,7 +167,7 @@ div.csl-indent {
 <li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> url: your book url like <span>https://bookdown.org/yihui/bookdown</span></a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preprocesado de datos</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#inicio"><i class="fa fa-check"></i><b>1.1</b> Inicio</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#renombrando-los-archivos"><i class="fa fa-check"></i><b>1.2</b> Renombrando los archivos</a></li>
@@ -191,7 +198,12 @@ div.csl-indent {
 <li class="chapter" data-level="3.8" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#análisis-del-mayor-componente-de-g"><i class="fa fa-check"></i><b>3.8</b> Análisis del mayor componente de G</a></li>
 <li class="chapter" data-level="3.9" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#analizando-los-resultados-de-los-antivirus-de-g"><i class="fa fa-check"></i><b>3.9</b> Analizando los resultados de los antivirus de G</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="parts.html"><a href="parts.html"><i class="fa fa-check"></i><b>4</b> Parts</a></li>
+<li class="chapter" data-level="4" data-path="regresion-reglas-de-asociación-y-clustering.html"><a href="regresion-reglas-de-asociación-y-clustering.html"><i class="fa fa-check"></i><b>4</b> Regresion, reglas de asociación y Clustering</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="regresion-reglas-de-asociación-y-clustering.html"><a href="regresion-reglas-de-asociación-y-clustering.html#regresion"><i class="fa fa-check"></i><b>4.1</b> Regresion</a></li>
+<li class="chapter" data-level="4.2" data-path="regresion-reglas-de-asociación-y-clustering.html"><a href="regresion-reglas-de-asociación-y-clustering.html#reglas-de-asociación"><i class="fa fa-check"></i><b>4.2</b> Reglas de asociación</a></li>
+<li class="chapter" data-level="4.3" data-path="regresion-reglas-de-asociación-y-clustering.html"><a href="regresion-reglas-de-asociación-y-clustering.html#clustering"><i class="fa fa-check"></i><b>4.3</b> Clustering</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>5</b> Footnotes and citations</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>5.1</b> Footnotes</a></li>
@@ -235,30 +247,39 @@ div.csl-indent {
 <div id="dplyr" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Dplyr<a href="analisis-exploratorio.html#dplyr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Primero cargamos las librerias y leemos el csv que anteriormente generamos</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="analisis-exploratorio.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-2"><a href="analisis-exploratorio.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="analisis-exploratorio.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb1-4"><a href="analisis-exploratorio.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#virusTotal &lt;- read.csv(&#39;~/GitHub/VirusTotal/ProyectoVT/Proyecto/virusTotal.csv&#39;)</span></span>
-<span id="cb1-5"><a href="analisis-exploratorio.html#cb1-5" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;~/LCC/ProyectoVT/Proyecto/virusTotal.csv&#39;</span>)</span></code></pre></div>
-<p>Vamos a añadir una columna year y cambiamos los nombres de algunas columnas para que sean mas legibles</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="analisis-exploratorio.html#cb2-1" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span> </span>
-<span id="cb2-2"><a href="analisis-exploratorio.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">substr</span>(virusTotal<span class="sc">$</span>first_seen, <span class="dv">0</span>, <span class="dv">4</span>))</span>
-<span id="cb2-3"><a href="analisis-exploratorio.html#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="analisis-exploratorio.html#cb2-4" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
-<span id="cb2-5"><a href="analisis-exploratorio.html#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">country =</span> submission.submitter_country)</span>
-<span id="cb2-6"><a href="analisis-exploratorio.html#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="analisis-exploratorio.html#cb2-7" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
-<span id="cb2-8"><a href="analisis-exploratorio.html#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">file_type =</span> additional_info.exiftool.FileType)</span>
-<span id="cb2-9"><a href="analisis-exploratorio.html#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="analisis-exploratorio.html#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="analisis-exploratorio.html#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="analisis-exploratorio.html#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(virusTotal,<span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-13"><a href="analisis-exploratorio.html#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="analisis-exploratorio.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb9-2"><a href="analisis-exploratorio.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-3"><a href="analisis-exploratorio.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb9-4"><a href="analisis-exploratorio.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#virusTotal &lt;- read.csv(&#39;~/GitHub/VirusTotal/ProyectoVT/Proyecto/virusTotal.csv&#39;)</span></span>
+<span id="cb9-5"><a href="analisis-exploratorio.html#cb9-5" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;~/Documentos/LCC/ProyectoVT/Proyecto/virusTotal.csv&#39;</span>)</span></code></pre></div>
+<p>Vamos a añadir una columna year y cambiamos los nombres de algunas columnas para que sean más legibles.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="analisis-exploratorio.html#cb10-1" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="analisis-exploratorio.html#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">substr</span>(virusTotal<span class="sc">$</span>first_seen, <span class="dv">0</span>, <span class="dv">4</span>))</span>
+<span id="cb10-3"><a href="analisis-exploratorio.html#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="analisis-exploratorio.html#cb10-4" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="analisis-exploratorio.html#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">country =</span> submission.submitter_country)</span>
+<span id="cb10-6"><a href="analisis-exploratorio.html#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="analisis-exploratorio.html#cb10-7" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
+<span id="cb10-8"><a href="analisis-exploratorio.html#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">file_type =</span> additional_info.exiftool.FileType)</span>
+<span id="cb10-9"><a href="analisis-exploratorio.html#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="analisis-exploratorio.html#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="analisis-exploratorio.html#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="analisis-exploratorio.html#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(virusTotal,<span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-13"><a href="analisis-exploratorio.html#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">10</span>)</span></code></pre></div>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:right;">
 X
+</th>
+<th style="text-align:right;">
+…1
+</th>
+<th style="text-align:right;">
+…2
+</th>
+<th style="text-align:right;">
+…3
 </th>
 <th style="text-align:left;">
 scan_date
@@ -294,6 +315,15 @@ Year
 <td style="text-align:right;">
 1
 </td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
 <td style="text-align:left;">
 2021-11-03 08:53:57
 </td>
@@ -323,6 +353,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
 <td style="text-align:right;">
 2
 </td>
@@ -358,6 +397,15 @@ ZIP
 <td style="text-align:right;">
 3
 </td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3
+</td>
 <td style="text-align:left;">
 2021-11-03 08:12:06
 </td>
@@ -387,6 +435,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+4
+</td>
 <td style="text-align:right;">
 4
 </td>
@@ -422,6 +479,15 @@ ZIP
 <td style="text-align:right;">
 5
 </td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+5
+</td>
 <td style="text-align:left;">
 2021-11-03 08:54:32
 </td>
@@ -451,6 +517,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+6
+</td>
 <td style="text-align:right;">
 6
 </td>
@@ -486,6 +561,15 @@ ZIP
 <td style="text-align:right;">
 7
 </td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+7
+</td>
 <td style="text-align:left;">
 2021-11-03 07:43:10
 </td>
@@ -515,6 +599,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+8
+</td>
 <td style="text-align:right;">
 8
 </td>
@@ -550,6 +643,15 @@ ZIP
 <td style="text-align:right;">
 9
 </td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+9
+</td>
 <td style="text-align:left;">
 2021-11-03 00:19:30
 </td>
@@ -579,6 +681,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+10
+</td>
 <td style="text-align:right;">
 10
 </td>
@@ -612,17 +723,26 @@ DEX
 </tr>
 </tbody>
 </table>
-<p>Vamos a encontrar los 10 archivos mas pesados del dataset</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="analisis-exploratorio.html#cb3-1" aria-hidden="true" tabindex="-1"></a>virusTotal1 <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="analisis-exploratorio.html#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(size)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="analisis-exploratorio.html#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb3-4"><a href="analisis-exploratorio.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(virusTotal1,<span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="analisis-exploratorio.html#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p>Vamos a encontrar los 10 archivos más pesados del dataset</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="analisis-exploratorio.html#cb11-1" aria-hidden="true" tabindex="-1"></a>virusTotal1 <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="analisis-exploratorio.html#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(size)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="analisis-exploratorio.html#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb11-4"><a href="analisis-exploratorio.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(virusTotal1,<span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="analisis-exploratorio.html#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">10</span>)</span></code></pre></div>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:right;">
 X
+</th>
+<th style="text-align:right;">
+…1
+</th>
+<th style="text-align:right;">
+…2
+</th>
+<th style="text-align:right;">
+…3
 </th>
 <th style="text-align:left;">
 scan_date
@@ -658,6 +778,15 @@ Year
 <td style="text-align:right;">
 85
 </td>
+<td style="text-align:right;">
+85
+</td>
+<td style="text-align:right;">
+85
+</td>
+<td style="text-align:right;">
+85
+</td>
 <td style="text-align:left;">
 2021-11-03 08:30:37
 </td>
@@ -687,6 +816,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+64
+</td>
 <td style="text-align:right;">
 64
 </td>
@@ -722,6 +860,15 @@ ZIP
 <td style="text-align:right;">
 50
 </td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+50
+</td>
 <td style="text-align:left;">
 2021-11-03 07:33:53
 </td>
@@ -751,6 +898,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+103
+</td>
+<td style="text-align:right;">
+103
+</td>
+<td style="text-align:right;">
+103
+</td>
 <td style="text-align:right;">
 103
 </td>
@@ -786,6 +942,15 @@ ZIP
 <td style="text-align:right;">
 34
 </td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+34
+</td>
 <td style="text-align:left;">
 2021-11-03 08:16:18
 </td>
@@ -815,6 +980,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+105
+</td>
+<td style="text-align:right;">
+105
+</td>
+<td style="text-align:right;">
+105
+</td>
 <td style="text-align:right;">
 105
 </td>
@@ -850,6 +1024,15 @@ ZIP
 <td style="text-align:right;">
 16
 </td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+16
+</td>
 <td style="text-align:left;">
 2021-11-03 08:16:40
 </td>
@@ -879,6 +1062,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:right;">
+49
+</td>
 <td style="text-align:right;">
 49
 </td>
@@ -914,6 +1106,15 @@ ZIP
 <td style="text-align:right;">
 175
 </td>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+175
+</td>
 <td style="text-align:left;">
 2021-11-03 08:23:25
 </td>
@@ -943,6 +1144,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+58
+</td>
 <td style="text-align:right;">
 58
 </td>
@@ -977,15 +1187,24 @@ ZIP
 </tbody>
 </table>
 <p>Pasamos a ordenar el dataset dependiendo del tipo del archivo</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="analisis-exploratorio.html#cb4-1" aria-hidden="true" tabindex="-1"></a>virusTotal2 <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="analisis-exploratorio.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(file_type)</span>
-<span id="cb4-3"><a href="analisis-exploratorio.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(virusTotal2,<span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-4"><a href="analisis-exploratorio.html#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="analisis-exploratorio.html#cb12-1" aria-hidden="true" tabindex="-1"></a>virusTotal2 <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="analisis-exploratorio.html#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(file_type)</span>
+<span id="cb12-3"><a href="analisis-exploratorio.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(virusTotal2,<span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="analisis-exploratorio.html#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">10</span>)</span></code></pre></div>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:right;">
 X
+</th>
+<th style="text-align:right;">
+…1
+</th>
+<th style="text-align:right;">
+…2
+</th>
+<th style="text-align:right;">
+…3
 </th>
 <th style="text-align:left;">
 scan_date
@@ -1021,6 +1240,15 @@ Year
 <td style="text-align:right;">
 10
 </td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+10
+</td>
 <td style="text-align:left;">
 2021-11-03 08:00:30
 </td>
@@ -1050,6 +1278,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+15
+</td>
 <td style="text-align:right;">
 15
 </td>
@@ -1085,6 +1322,15 @@ DEX
 <td style="text-align:right;">
 20
 </td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+20
+</td>
 <td style="text-align:left;">
 2021-11-03 09:00:20
 </td>
@@ -1114,6 +1360,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+21
+</td>
 <td style="text-align:right;">
 21
 </td>
@@ -1149,6 +1404,15 @@ DEX
 <td style="text-align:right;">
 23
 </td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+23
+</td>
 <td style="text-align:left;">
 2021-11-03 07:40:40
 </td>
@@ -1178,6 +1442,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+24
+</td>
 <td style="text-align:right;">
 24
 </td>
@@ -1213,6 +1486,15 @@ DEX
 <td style="text-align:right;">
 26
 </td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+26
+</td>
 <td style="text-align:left;">
 2021-11-03 07:39:47
 </td>
@@ -1242,6 +1524,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+27
+</td>
 <td style="text-align:right;">
 27
 </td>
@@ -1277,6 +1568,15 @@ DEX
 <td style="text-align:right;">
 28
 </td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+28
+</td>
 <td style="text-align:left;">
 2021-11-03 08:00:41
 </td>
@@ -1306,6 +1606,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+30
+</td>
 <td style="text-align:right;">
 30
 </td>
@@ -1339,20 +1648,29 @@ DEX
 </tr>
 </tbody>
 </table>
-<p>Mostrar los archivos que son mas pesados que la media</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="analisis-exploratorio.html#cb5-1" aria-hidden="true" tabindex="-1"></a>mediaSize <span class="ot">&lt;-</span> <span class="fu">mean</span>(virusTotal<span class="sc">$</span>size)</span>
-<span id="cb5-2"><a href="analisis-exploratorio.html#cb5-2" aria-hidden="true" tabindex="-1"></a>mediaSize</span></code></pre></div>
+<p>Mostrar los archivos que son más pesados que la media</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="analisis-exploratorio.html#cb13-1" aria-hidden="true" tabindex="-1"></a>mediaSize <span class="ot">&lt;-</span> <span class="fu">mean</span>(virusTotal<span class="sc">$</span>size)</span>
+<span id="cb13-2"><a href="analisis-exploratorio.html#cb13-2" aria-hidden="true" tabindex="-1"></a>mediaSize</span></code></pre></div>
 <pre><code>## [1] 5621897</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="analisis-exploratorio.html#cb7-1" aria-hidden="true" tabindex="-1"></a>virusTotal3 <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="analisis-exploratorio.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(virusTotal<span class="sc">$</span>size <span class="sc">&gt;</span> mediaSize)<span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="analisis-exploratorio.html#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(size)</span>
-<span id="cb7-4"><a href="analisis-exploratorio.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(virusTotal3,<span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-5"><a href="analisis-exploratorio.html#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="analisis-exploratorio.html#cb15-1" aria-hidden="true" tabindex="-1"></a>virusTotal3 <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="analisis-exploratorio.html#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(virusTotal<span class="sc">$</span>size <span class="sc">&gt;</span> mediaSize)<span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="analisis-exploratorio.html#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(size)</span>
+<span id="cb15-4"><a href="analisis-exploratorio.html#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(virusTotal3,<span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="analisis-exploratorio.html#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">10</span>)</span></code></pre></div>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:right;">
 X
+</th>
+<th style="text-align:right;">
+…1
+</th>
+<th style="text-align:right;">
+…2
+</th>
+<th style="text-align:right;">
+…3
 </th>
 <th style="text-align:left;">
 scan_date
@@ -1388,6 +1706,15 @@ Year
 <td style="text-align:right;">
 110
 </td>
+<td style="text-align:right;">
+110
+</td>
+<td style="text-align:right;">
+110
+</td>
+<td style="text-align:right;">
+110
+</td>
 <td style="text-align:left;">
 2021-11-03 07:52:59
 </td>
@@ -1417,6 +1744,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+17
+</td>
 <td style="text-align:right;">
 17
 </td>
@@ -1452,6 +1788,15 @@ ZIP
 <td style="text-align:right;">
 70
 </td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+70
+</td>
 <td style="text-align:left;">
 2021-11-03 07:55:40
 </td>
@@ -1481,6 +1826,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+38
+</td>
 <td style="text-align:right;">
 38
 </td>
@@ -1516,6 +1870,15 @@ ZIP
 <td style="text-align:right;">
 156
 </td>
+<td style="text-align:right;">
+156
+</td>
+<td style="text-align:right;">
+156
+</td>
+<td style="text-align:right;">
+156
+</td>
 <td style="text-align:left;">
 2021-11-03 07:56:23
 </td>
@@ -1545,6 +1908,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+161
+</td>
+<td style="text-align:right;">
+161
+</td>
+<td style="text-align:right;">
+161
+</td>
 <td style="text-align:right;">
 161
 </td>
@@ -1580,6 +1952,15 @@ ZIP
 <td style="text-align:right;">
 43
 </td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+43
+</td>
 <td style="text-align:left;">
 2021-11-03 07:54:09
 </td>
@@ -1609,6 +1990,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+29
+</td>
 <td style="text-align:right;">
 29
 </td>
@@ -1644,6 +2034,15 @@ ZIP
 <td style="text-align:right;">
 63
 </td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+63
+</td>
 <td style="text-align:left;">
 2021-11-03 07:38:33
 </td>
@@ -1673,6 +2072,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+152
+</td>
+<td style="text-align:right;">
+152
+</td>
+<td style="text-align:right;">
+152
+</td>
 <td style="text-align:right;">
 152
 </td>
@@ -1707,12 +2115,12 @@ ZIP
 </tbody>
 </table>
 <p>Buscamos el primer archivo registrado</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="analisis-exploratorio.html#cb8-1" aria-hidden="true" tabindex="-1"></a>virusTotal4 <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="analisis-exploratorio.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(first_seen)<span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href="analisis-exploratorio.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(first_seen,Year,size,times_submitted,positives,file_type)<span class="sc">%&gt;%</span></span>
-<span id="cb8-4"><a href="analisis-exploratorio.html#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>)</span>
-<span id="cb8-5"><a href="analisis-exploratorio.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(virusTotal4,<span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb8-6"><a href="analisis-exploratorio.html#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="analisis-exploratorio.html#cb16-1" aria-hidden="true" tabindex="-1"></a>virusTotal4 <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="analisis-exploratorio.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(first_seen)<span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="analisis-exploratorio.html#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(first_seen,Year,size,times_submitted,positives,file_type)<span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="analisis-exploratorio.html#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>)</span>
+<span id="cb16-5"><a href="analisis-exploratorio.html#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(virusTotal4,<span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-6"><a href="analisis-exploratorio.html#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">10</span>)</span></code></pre></div>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1759,14 +2167,14 @@ DEX
 </tr>
 </tbody>
 </table>
-<p>Por ultimo vamos a contar los archivos dependiendo de su tipo</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="analisis-exploratorio.html#cb9-1" aria-hidden="true" tabindex="-1"></a>virusTotal5 <span class="ot">&lt;-</span> virusTotal<span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="analisis-exploratorio.html#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(file_type)<span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="analisis-exploratorio.html#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb9-4"><a href="analisis-exploratorio.html#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
-<span id="cb9-5"><a href="analisis-exploratorio.html#cb9-5" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb9-6"><a href="analisis-exploratorio.html#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(virusTotal5,<span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-7"><a href="analisis-exploratorio.html#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p>Por último vamos a contar los archivos dependiendo de su tipo</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="analisis-exploratorio.html#cb17-1" aria-hidden="true" tabindex="-1"></a>virusTotal5 <span class="ot">&lt;-</span> virusTotal<span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="analisis-exploratorio.html#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(file_type)<span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="analisis-exploratorio.html#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb17-4"><a href="analisis-exploratorio.html#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
+<span id="cb17-5"><a href="analisis-exploratorio.html#cb17-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb17-6"><a href="analisis-exploratorio.html#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(virusTotal5,<span class="dv">10</span>), <span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-7"><a href="analisis-exploratorio.html#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">10</span>)</span></code></pre></div>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1800,62 +2208,65 @@ ZIP
 </div>
 <div id="visualizacion" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Visualizacion<a href="analisis-exploratorio.html#visualizacion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Vamos a analizar el dataset a traves de los graficos.</p>
+<p>Vamos a analizar el dataset a traves de los gráficos.</p>
 <p>Empezamos con el numero de positivos y las veces que se repiten con <em>Histogramas</em>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="analisis-exploratorio.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb10-2"><a href="analisis-exploratorio.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>positives)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="analisis-exploratorio.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>positives)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
-<p>Aqui vemos una grafica de los años</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="analisis-exploratorio.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>Year)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">binwidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="analisis-exploratorio.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb18-2"><a href="analisis-exploratorio.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>positives)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&#39;Positivos&#39;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&#39;Nº de veces&#39;</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<p>Aquí vemos una gráfica de los años según las veces que aparecen en el dataset</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="analisis-exploratorio.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>Year)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">binwidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span>  <span class="fu">xlab</span>(<span class="st">&#39;Año&#39;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&#39;Nº de veces&#39;</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
 <pre><code>## Warning: Ignoring unknown parameters: binwidth</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="analisis-exploratorio.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>Year)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">binwidth =</span> <span class="fl">0.9</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
+<p>Ahora visualizaremos lo anterior pero con los colores dependiendo del país</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="analisis-exploratorio.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>positives, <span class="at">fill=</span>country)) <span class="sc">+</span> </span>
+<span id="cb21-2"><a href="analisis-exploratorio.html#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&#39;Año&#39;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&#39;Nº de veces&#39;</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="analisis-exploratorio.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>Year, <span class="at">fill=</span>country)) <span class="sc">+</span> </span>
+<span id="cb22-2"><a href="analisis-exploratorio.html#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">binwidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&#39;Año&#39;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&#39;Nº de veces&#39;</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
 <pre><code>## Warning: Ignoring unknown parameters: binwidth</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-9-2.png" width="672" /></p>
-<p>Ahora visualizaremos lo anterior pero con los colores dependiendo del pais</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="analisis-exploratorio.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>positives, <span class="at">fill=</span>country)) <span class="sc">+</span> </span>
-<span id="cb16-2"><a href="analisis-exploratorio.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="analisis-exploratorio.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>Year, <span class="at">fill=</span>country)) <span class="sc">+</span> </span>
-<span id="cb17-2"><a href="analisis-exploratorio.html#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">binwidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
-<pre><code>## Warning: Ignoring unknown parameters: binwidth</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-87-2.png" width="672" /></p>
 <p>Y respecto al tipo del archivo</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="analisis-exploratorio.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>positives, <span class="at">fill=</span>file_type)) <span class="sc">+</span> </span>
-<span id="cb19-2"><a href="analisis-exploratorio.html#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="analisis-exploratorio.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>Year, <span class="at">fill=</span>file_type)) <span class="sc">+</span> </span>
-<span id="cb20-2"><a href="analisis-exploratorio.html#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="analisis-exploratorio.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>positives, <span class="at">fill=</span>file_type)) <span class="sc">+</span> </span>
+<span id="cb24-2"><a href="analisis-exploratorio.html#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&#39;Año&#39;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&#39;Tipo de archivo&#39;</span>) <span class="sc">+</span>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="analisis-exploratorio.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>Year, <span class="at">fill=</span>file_type)) <span class="sc">+</span> </span>
+<span id="cb25-2"><a href="analisis-exploratorio.html#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&#39;Año&#39;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&#39;Tipo de archivo&#39;</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
 <pre><code>## Warning: Ignoring unknown parameters: binwidth</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
-<p>Y tambien veremos el numero de positivos dependiendo del año</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="analisis-exploratorio.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>positives, <span class="at">fill=</span>Year)) <span class="sc">+</span> </span>
-<span id="cb22-2"><a href="analisis-exploratorio.html#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
-<p>Ahora usaremos <em>Graficos de puntos</em>.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="analisis-exploratorio.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>positives, <span class="at">y=</span>Year)) <span class="sc">+</span></span>
-<span id="cb23-2"><a href="analisis-exploratorio.html#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour=</span>file_type), <span class="at">shape=</span><span class="dv">15</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="analisis-exploratorio.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>country, <span class="at">y=</span>positives)) <span class="sc">+</span></span>
-<span id="cb24-2"><a href="analisis-exploratorio.html#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour=</span>file_type), <span class="at">shape=</span><span class="dv">15</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-13-2.png" width="672" />
-De esta ultima grafica sacamos que los archivos tipo DEX solo vienen del pais CZ</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="analisis-exploratorio.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>country, <span class="at">y=</span>positives)) <span class="sc">+</span></span>
-<span id="cb25-2"><a href="analisis-exploratorio.html#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour=</span>Year), <span class="at">shape=</span><span class="dv">15</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<p>Por ultimo usaremos <em>graficos de barras</em>.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="analisis-exploratorio.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>Year, <span class="at">y=</span>positives, <span class="at">fill=</span>file_type)) <span class="sc">+</span></span>
-<span id="cb26-2"><a href="analisis-exploratorio.html#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">position=</span><span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="analisis-exploratorio.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>Year, <span class="at">y=</span>positives, <span class="at">fill=</span>file_type)) <span class="sc">+</span></span>
-<span id="cb27-2"><a href="analisis-exploratorio.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">position=</span><span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-15-2.png" width="672" /></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="analisis-exploratorio.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>country, <span class="at">y=</span>positives, <span class="at">fill=</span>Year)) <span class="sc">+</span></span>
-<span id="cb28-2"><a href="analisis-exploratorio.html#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">position=</span><span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-15-3.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-88-2.png" width="672" /></p>
+<p>Y también veremos el número de positivos dependiendo del año</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="analisis-exploratorio.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>positives, <span class="at">fill=</span>Year)) <span class="sc">+</span> </span>
+<span id="cb27-2"><a href="analisis-exploratorio.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&#39;Positivos&#39;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&#39;Nº positivos&#39;</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
+<p>Ahora usaremos <em>Gráficos de puntos</em> para mostrar el número de positivos por país.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="analisis-exploratorio.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>positives, <span class="at">y=</span>Year)) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="analisis-exploratorio.html#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour=</span>file_type), <span class="at">shape=</span><span class="dv">15</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&#39;País&#39;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&#39;Nº positivos&#39;</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="analisis-exploratorio.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>country, <span class="at">y=</span>positives)) <span class="sc">+</span></span>
+<span id="cb29-2"><a href="analisis-exploratorio.html#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour=</span>file_type), <span class="at">shape=</span><span class="dv">15</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&#39;País&#39;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&#39;Nº positivos&#39;</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-90-2.png" width="672" />
+De esta última gráfica sacamos que los archivos tipo DEX solo vienen de República Checa.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="analisis-exploratorio.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>country, <span class="at">y=</span>positives)) <span class="sc">+</span></span>
+<span id="cb30-2"><a href="analisis-exploratorio.html#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour=</span>Year), <span class="at">shape=</span><span class="dv">15</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&#39;País&#39;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&#39;Nº positivos&#39;</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+<p>Por último usaremos <em>gráficos de barras</em>.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="analisis-exploratorio.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>Year, <span class="at">y=</span>positives, <span class="at">fill=</span>file_type)) <span class="sc">+</span></span>
+<span id="cb31-2"><a href="analisis-exploratorio.html#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">position=</span><span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&#39;País&#39;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&#39;Nº positivos&#39;</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="analisis-exploratorio.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>Year, <span class="at">y=</span>positives, <span class="at">fill=</span>file_type)) <span class="sc">+</span></span>
+<span id="cb32-2"><a href="analisis-exploratorio.html#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">position=</span><span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&#39;País&#39;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&#39;Nº positivos&#39;</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-92-2.png" width="672" /></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="analisis-exploratorio.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x=</span>country, <span class="at">y=</span>positives, <span class="at">fill=</span>Year)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="analisis-exploratorio.html#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">position=</span><span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&#39;País&#39;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&#39;Nº positivos&#39;</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-92-3.png" width="672" /></p>
 
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="analisis-exploratorio.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb34-2"><a href="analisis-exploratorio.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(curl)</span>
+<span id="cb34-3"><a href="analisis-exploratorio.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyjson)</span>
+<span id="cb34-4"><a href="analisis-exploratorio.html#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb34-5"><a href="analisis-exploratorio.html#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb34-6"><a href="analisis-exploratorio.html#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb34-7"><a href="analisis-exploratorio.html#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix)</span>
+<span id="cb34-8"><a href="analisis-exploratorio.html#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
 </div>
 </div>
             </section>
@@ -1918,6 +2329,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

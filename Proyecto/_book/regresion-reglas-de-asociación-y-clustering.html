@@ -52,6 +52,15 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -158,17 +167,17 @@ div.csl-indent {
 <li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> url: your book url like <span>https://bookdown.org/yihui/bookdown</span></a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preprocesado de datos</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#inicio"><i class="fa fa-check"></i><b>1.1</b> Inicio</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#renombrando-los-archivos"><i class="fa fa-check"></i><b>1.2</b> Renombrando los archivos</a></li>
 <li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#datos-iniciales"><i class="fa fa-check"></i><b>1.3</b> Datos iniciales</a></li>
 <li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#preprocesado"><i class="fa fa-check"></i><b>1.4</b> Preprocesado</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="url-your-book-url-like-httpsbookdown.orgyihuibookdown-1.html"><a href="url-your-book-url-like-httpsbookdown.orgyihuibookdown-1.html"><i class="fa fa-check"></i><b>2</b> url: your book url like <span>https://bookdown.org/yihui/bookdown</span></a>
+<li class="chapter" data-level="2" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html"><i class="fa fa-check"></i><b>2</b> Analisis exploratorio</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="url-your-book-url-like-httpsbookdown.orgyihuibookdown-1.html"><a href="url-your-book-url-like-httpsbookdown.orgyihuibookdown-1.html#dplyr"><i class="fa fa-check"></i><b>2.1</b> Dplyr</a></li>
-<li class="chapter" data-level="2.2" data-path="url-your-book-url-like-httpsbookdown.orgyihuibookdown-1.html"><a href="url-your-book-url-like-httpsbookdown.orgyihuibookdown-1.html#visualizacion"><i class="fa fa-check"></i><b>2.2</b> Visualizacion</a></li>
+<li class="chapter" data-level="2.1" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html#dplyr"><i class="fa fa-check"></i><b>2.1</b> Dplyr</a></li>
+<li class="chapter" data-level="2.2" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html#visualizacion"><i class="fa fa-check"></i><b>2.2</b> Visualizacion</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html"><i class="fa fa-check"></i><b>3</b> Analizando el <em>ssdeep</em></a>
 <ul>
@@ -237,39 +246,39 @@ div.csl-indent {
 <h1><span class="header-section-number">Chapter 4</span> Regresion, reglas de asociación y Clustering<a href="regresion-reglas-de-asociación-y-clustering.html#regresion-reglas-de-asociación-y-clustering" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="regresion" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> Regresion<a href="regresion-reglas-de-asociación-y-clustering.html#regresion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-4"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-5"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-6" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;~/LCC/ProyectoVT/Proyecto/virusTotal.csv&#39;</span>)</span>
-<span id="cb1-7"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-8" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span> </span>
-<span id="cb1-9"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">substr</span>(virusTotal<span class="sc">$</span>first_seen, <span class="dv">0</span>, <span class="dv">4</span>))</span>
-<span id="cb1-10"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-11" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
-<span id="cb1-12"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">country =</span> submission.submitter_country)</span>
-<span id="cb1-13"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-14" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
-<span id="cb1-15"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">file_type =</span> additional_info.exiftool.FileType)</span></code></pre></div>
-<p>Ahora el tamaño de los archivos lo pasamos a gb para un manejo mas fácil</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb2-1" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span> </span>
-<span id="cb2-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">size =</span> virusTotal<span class="sc">$</span>size<span class="sc">/</span><span class="dv">1000000</span>)</span></code></pre></div>
-<p>Vamos a ver todas las graficas de nuestro dataset:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(virusTotal)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb86-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb86-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb86-4"><a href="regresion-reglas-de-asociación-y-clustering.html#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb86-5"><a href="regresion-reglas-de-asociación-y-clustering.html#cb86-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-6"><a href="regresion-reglas-de-asociación-y-clustering.html#cb86-6" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;~/Documentos/LCC/ProyectoVT/Proyecto/virusTotal.csv&#39;</span>)</span>
+<span id="cb86-7"><a href="regresion-reglas-de-asociación-y-clustering.html#cb86-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-8"><a href="regresion-reglas-de-asociación-y-clustering.html#cb86-8" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span> </span>
+<span id="cb86-9"><a href="regresion-reglas-de-asociación-y-clustering.html#cb86-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">substr</span>(virusTotal<span class="sc">$</span>first_seen, <span class="dv">0</span>, <span class="dv">4</span>))</span>
+<span id="cb86-10"><a href="regresion-reglas-de-asociación-y-clustering.html#cb86-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-11"><a href="regresion-reglas-de-asociación-y-clustering.html#cb86-11" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
+<span id="cb86-12"><a href="regresion-reglas-de-asociación-y-clustering.html#cb86-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">country =</span> submission.submitter_country)</span>
+<span id="cb86-13"><a href="regresion-reglas-de-asociación-y-clustering.html#cb86-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-14"><a href="regresion-reglas-de-asociación-y-clustering.html#cb86-14" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
+<span id="cb86-15"><a href="regresion-reglas-de-asociación-y-clustering.html#cb86-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">file_type =</span> additional_info.exiftool.FileType)</span></code></pre></div>
+<p>Pasamos el tamaño de los archivos a MB</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb87-1" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span> </span>
+<span id="cb87-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">size =</span> virusTotal<span class="sc">$</span>size<span class="sc">/</span><span class="dv">1000000</span>)</span></code></pre></div>
+<p>Vamos a ver todas las gráficas de nuestro dataset:</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(virusTotal)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-134-1.png" width="672" /></p>
 <p>Como vemos no parece que tengamos una relación directa por parte de dos variables, hemos pensado que estaría
-bien analizar o ver si hay una relacion entre el tamaño que tiene un archivo y si es positivo o no ya que
-podriamos pensar de que al pesar mas un archivo es mas propenso a traer algun tipo de software malicioso.</p>
-<p>Vamos a analizar el tamaño frente al numero de positivos para ver si existe algun tipo de correlacion</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb4-1" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(virusTotal,<span class="fu">aes</span>(<span class="at">x=</span>size, <span class="at">y=</span>positives))<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb5-1" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(positives<span class="sc">~</span>size, <span class="at">data =</span> virusTotal)</span>
-<span id="cb5-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f1)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-4-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-4-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-4-4.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-4-5.png" width="672" /></p>
-<p>Y aqui vemos todas las graficas disponibles</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(f1)</span></code></pre></div>
+bien analizar o ver si hay una relacion entre el tamaño que tiene un archivo y si es positivo o no, ya que
+podriamos pensar de que al pesar más un archivo es más propenso a traer algun tipo de software malicioso.</p>
+<p>Vamos a analizar el tamaño frente al numero de positivos para ver si existe algun tipo de correlación</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb89-1" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(virusTotal,<span class="fu">aes</span>(<span class="at">x=</span>size, <span class="at">y=</span>positives))<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-135-1.png" width="672" /></p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb90-1" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(positives<span class="sc">~</span>size, <span class="at">data =</span> virusTotal)</span>
+<span id="cb90-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb90-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f1)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-135-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-135-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-135-4.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-135-5.png" width="672" /></p>
+<p>Vemos un resumen del modelo</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(f1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = positives ~ size, data = virusTotal)
@@ -290,25 +299,24 @@ podriamos pensar de que al pesar mas un archivo es mas propenso a traer algun ti
 ## F-statistic: 10.62 on 1 and 181 DF,  p-value: 0.001339</code></pre>
 <p>De aqui podemos sacar que la correlacion es practicamente nula, solo el 5,54% de la
 variabilidad de los positivos tiene que ver con el tamaño, por lo tanto nuestro primer acercamiento
-es erroneo.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x =</span> size, <span class="at">y =</span> positives)) <span class="sc">+</span></span>
-<span id="cb8-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb8-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> size, <span class="at">y =</span> <span class="fu">predict</span>(f1,virusTotal)),<span class="at">col=</span><span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>Sin embargo con la grafica en el que vemos la prediccion, observamos que la tendencia es a tener menor numero de positivos cuanto mayor sea el tamaño del archivo analizado</p>
+es erróneo, y no podemos aceptar la hipótesis alternativa.</p>
+<p>No obstante, hemos dibujado la grafica y observamos que la tendencia es a tener menor numero de positivos cuanto mayor sea el tamaño del archivo analizado.
+Pero teniendo el cuenta los valores de R^2 ajustado y el p valor, este modelo no sirve para predecir.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x =</span> size, <span class="at">y =</span> positives)) <span class="sc">+</span></span>
+<span id="cb93-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb93-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb93-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb93-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> size, <span class="at">y =</span> <span class="fu">predict</span>(f1,virusTotal)),<span class="at">col=</span><span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-137-1.png" width="672" /></p>
 </div>
 <div id="reglas-de-asociación" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Reglas de asociación<a href="regresion-reglas-de-asociación-y-clustering.html#reglas-de-asociación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arules)</span></code></pre></div>
-<p>Utilizando apriori vamos a ver las reglas de nuestro dataset</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb10-1" aria-hidden="true" tabindex="-1"></a>mis_reglas <span class="ot">&lt;-</span> <span class="fu">apriori</span>(virusTotal,  <span class="at">parameter =</span> <span class="fu">list</span>(<span class="at">supp =</span> <span class="fl">0.28818</span>, <span class="at">conf =</span> <span class="fl">0.27634</span>,<span class="at">minlen=</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arules)</span></code></pre></div>
+<p>Utilizamos apriori para buscar todas las reglas posibles con suporte &gt; 0.28 y confianza &gt; 0.27. Hemos impuesto una longitud mínima de dos para filtrar las reglas con antecedente vacío.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb95-1" aria-hidden="true" tabindex="-1"></a>mis_reglas <span class="ot">&lt;-</span> <span class="fu">apriori</span>(virusTotal,  <span class="at">parameter =</span> <span class="fu">list</span>(<span class="at">supp =</span> <span class="fl">0.28818</span>, <span class="at">conf =</span> <span class="fl">0.27634</span>, <span class="at">minlen=</span><span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## Apriori
 ## 
 ## Parameter specification:
-##  confidence minval smax arem  aval originalSupport maxtime support minlen
-##     0.27634    0.1    1 none FALSE            TRUE       5 0.28818      2
-##  maxlen target  ext
-##      10  rules TRUE
+##  confidence minval smax arem  aval originalSupport maxtime support minlen maxlen target  ext
+##     0.27634    0.1    1 none FALSE            TRUE       5 0.28818      2     10  rules TRUE
 ## 
 ## Algorithmic control:
 ##  filter tree heap memopt load sort verbose
@@ -317,41 +325,34 @@ es erroneo.</p>
 ## Absolute minimum support count: 52 
 ## 
 ## set item appearances ...[0 item(s)] done [0.00s].
-## set transactions ...[405 item(s), 183 transaction(s)] done [0.00s].
-## sorting and recoding items ... [18 item(s)] done [0.00s].
+## set transactions ...[414 item(s), 183 transaction(s)] done [0.00s].
+## sorting and recoding items ... [27 item(s)] done [0.00s].
 ## creating transaction tree ... done [0.00s].
 ## checking subsets of size 1 2 3 4 done [0.00s].
-## writing ... [69 rule(s)] done [0.00s].
+## writing ... [153 rule(s)] done [0.00s].
 ## creating S4 object  ... done [0.00s].</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(mis_reglas)</span></code></pre></div>
-<pre><code>## [1] 69</code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(mis_reglas)</span></code></pre></div>
+<pre><code>## [1] 153</code></pre>
 <p>Este es el numero de reglas que podemos encontrar en nuestro dataset
-El resumen de las reglas obtenidas seria el siguiente:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mis_reglas)</span></code></pre></div>
-<pre><code>## set of 69 rules
+El resumen de las reglas obtenidas sería el siguiente:</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mis_reglas)</span></code></pre></div>
+<pre><code>## set of 153 rules
 ## 
 ## rule length distribution (lhs + rhs):sizes
 ##  2  3  4 
-## 34 27  8 
+## 70 63 20 
 ## 
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   2.000   2.000   3.000   2.623   3.000   4.000 
+##   2.000   2.000   3.000   2.673   3.000   4.000 
 ## 
 ## summary of quality measures:
-##     support         confidence        coverage           lift      
-##  Min.   :0.2896   Min.   :0.4240   Min.   :0.2896   Min.   :1.158  
-##  1st Qu.:0.2951   1st Qu.:0.5760   1st Qu.:0.3060   1st Qu.:1.402  
-##  Median :0.3060   Median :0.9310   Median :0.3661   Median :1.500  
-##  Mean   :0.3397   Mean   :0.8164   Mean   :0.4468   Mean   :1.642  
-##  3rd Qu.:0.3169   3rd Qu.:1.0000   3rd Qu.:0.5519   3rd Qu.:1.778  
-##  Max.   :0.6339   Max.   :1.0000   Max.   :0.6831   Max.   :3.155  
-##      count       
-##  Min.   : 53.00  
-##  1st Qu.: 54.00  
-##  Median : 56.00  
-##  Mean   : 62.17  
-##  3rd Qu.: 58.00  
-##  Max.   :116.00  
+##     support         confidence        coverage           lift           count       
+##  Min.   :0.2896   Min.   :0.4240   Min.   :0.2896   Min.   :1.158   Min.   : 53.00  
+##  1st Qu.:0.3060   1st Qu.:0.9474   1st Qu.:0.3333   1st Qu.:1.500   1st Qu.: 56.00  
+##  Median :0.3333   Median :1.0000   Median :0.3333   Median :3.000   Median : 61.00  
+##  Mean   :0.3362   Mean   :0.9172   Mean   :0.3845   Mean   :2.388   Mean   : 61.53  
+##  3rd Qu.:0.3333   3rd Qu.:1.0000   3rd Qu.:0.3333   3rd Qu.:3.000   3rd Qu.: 61.00  
+##  Max.   :0.6339   Max.   :1.0000   Max.   :0.6831   Max.   :3.155   Max.   :116.00  
 ## 
 ## mining info:
 ##        data ntransactions support confidence
@@ -363,203 +364,343 @@ obtenida en el soporte es de 0.28818 lo cual no es muy alto e indica que la medi
 La confianza tenemos una media de 0.27634 lo cual nos dice que la media en el dataset indica que el 27,63%
 de las X tambien contienen a Y.</p>
 <p>Estas son todas las reglas calculadas</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(mis_reglas)</span></code></pre></div>
-<pre><code>##      lhs                                rhs                              support confidence  coverage     lift count
-## [1]  {country=CA}                    =&gt; {times_submitted=[1,2)}        0.3060109  1.0000000 0.3060109 1.811881    56
-## [2]  {times_submitted=[1,2)}         =&gt; {country=CA}                   0.3060109  0.5544554 0.5519126 1.811881    56
-## [3]  {country=CA}                    =&gt; {Year=2021}                    0.3060109  1.0000000 0.3060109 1.500000    56
-## [4]  {Year=2021}                     =&gt; {country=CA}                   0.3060109  0.4590164 0.6666667 1.500000    56
-## [5]  {country=CA}                    =&gt; {file_type=ZIP}                0.3060109  1.0000000 0.3060109 1.464000    56
-## [6]  {file_type=ZIP}                 =&gt; {country=CA}                   0.3060109  0.4480000 0.6830601 1.464000    56
-## [7]  {file_type=DEX}                 =&gt; {country=CZ}                   0.3169399  1.0000000 0.3169399 3.155172    58
-## [8]  {country=CZ}                    =&gt; {file_type=DEX}                0.3169399  1.0000000 0.3169399 3.155172    58
-## [9]  {file_type=DEX}                 =&gt; {times_submitted=[2,3.54e+03]} 0.2950820  0.9310345 0.3169399 2.077796    54
-## [10] {times_submitted=[2,3.54e+03]}  =&gt; {file_type=DEX}                0.2950820  0.6585366 0.4480874 2.077796    54
-## [11] {country=CZ}                    =&gt; {times_submitted=[2,3.54e+03]} 0.2950820  0.9310345 0.3169399 2.077796    54
-## [12] {times_submitted=[2,3.54e+03]}  =&gt; {country=CZ}                   0.2950820  0.6585366 0.4480874 2.077796    54
-## [13] {size=[3.03,178]}               =&gt; {Year=2021}                    0.2896175  0.8688525 0.3333333 1.303279    53
-## [14] {Year=2021}                     =&gt; {size=[3.03,178]}              0.2896175  0.4344262 0.6666667 1.303279    53
-## [15] {size=[3.03,178]}               =&gt; {file_type=ZIP}                0.3005464  0.9016393 0.3333333 1.320000    55
-## [16] {file_type=ZIP}                 =&gt; {size=[3.03,178]}              0.3005464  0.4400000 0.6830601 1.320000    55
-## [17] {size=[1.85,3.03)}              =&gt; {times_submitted=[1,2)}        0.2950820  0.8852459 0.3333333 1.603960    54
-## [18] {times_submitted=[1,2)}         =&gt; {size=[1.85,3.03)}             0.2950820  0.5346535 0.5519126 1.603960    54
-## [19] {size=[1.85,3.03)}              =&gt; {Year=2021}                    0.3114754  0.9344262 0.3333333 1.401639    57
-## [20] {Year=2021}                     =&gt; {size=[1.85,3.03)}             0.3114754  0.4672131 0.6666667 1.401639    57
-## [21] {size=[1.85,3.03)}              =&gt; {file_type=ZIP}                0.3005464  0.9016393 0.3333333 1.320000    55
-## [22] {file_type=ZIP}                 =&gt; {size=[1.85,3.03)}             0.3005464  0.4400000 0.6830601 1.320000    55
-## [23] {positives=[19,23)}             =&gt; {file_type=ZIP}                0.2896175  0.7910448 0.3661202 1.158090    53
-## [24] {file_type=ZIP}                 =&gt; {positives=[19,23)}            0.2896175  0.4240000 0.6830601 1.158090    53
-## [25] {total=[62,64]}                 =&gt; {Year=2021}                    0.3497268  0.8888889 0.3934426 1.333333    64
-## [26] {Year=2021}                     =&gt; {total=[62,64]}                0.3497268  0.5245902 0.6666667 1.333333    64
-## [27] {total=[62,64]}                 =&gt; {file_type=ZIP}                0.3934426  1.0000000 0.3934426 1.464000    72
-## [28] {file_type=ZIP}                 =&gt; {total=[62,64]}                0.3934426  0.5760000 0.6830601 1.464000    72
-## [29] {times_submitted=[1,2)}         =&gt; {Year=2021}                    0.5519126  1.0000000 0.5519126 1.500000   101
-## [30] {Year=2021}                     =&gt; {times_submitted=[1,2)}        0.5519126  0.8278689 0.6666667 1.500000   101
-## [31] {times_submitted=[1,2)}         =&gt; {file_type=ZIP}                0.5300546  0.9603960 0.5519126 1.406020    97
-## [32] {file_type=ZIP}                 =&gt; {times_submitted=[1,2)}        0.5300546  0.7760000 0.6830601 1.406020    97
-## [33] {Year=2021}                     =&gt; {file_type=ZIP}                0.6338798  0.9508197 0.6666667 1.392000   116
-## [34] {file_type=ZIP}                 =&gt; {Year=2021}                    0.6338798  0.9280000 0.6830601 1.392000   116
-## [35] {times_submitted=[1,2),                                                                                        
-##       country=CA}                    =&gt; {Year=2021}                    0.3060109  1.0000000 0.3060109 1.500000    56
-## [36] {country=CA,                                                                                                   
-##       Year=2021}                     =&gt; {times_submitted=[1,2)}        0.3060109  1.0000000 0.3060109 1.811881    56
-## [37] {times_submitted=[1,2),                                                                                        
-##       Year=2021}                     =&gt; {country=CA}                   0.3060109  0.5544554 0.5519126 1.811881    56
-## [38] {times_submitted=[1,2),                                                                                        
-##       country=CA}                    =&gt; {file_type=ZIP}                0.3060109  1.0000000 0.3060109 1.464000    56
-## [39] {country=CA,                                                                                                   
-##       file_type=ZIP}                 =&gt; {times_submitted=[1,2)}        0.3060109  1.0000000 0.3060109 1.811881    56
-## [40] {times_submitted=[1,2),                                                                                        
-##       file_type=ZIP}                 =&gt; {country=CA}                   0.3060109  0.5773196 0.5300546 1.886598    56
-## [41] {country=CA,                                                                                                   
-##       Year=2021}                     =&gt; {file_type=ZIP}                0.3060109  1.0000000 0.3060109 1.464000    56
-## [42] {country=CA,                                                                                                   
-##       file_type=ZIP}                 =&gt; {Year=2021}                    0.3060109  1.0000000 0.3060109 1.500000    56
-## [43] {file_type=ZIP,                                                                                                
-##       Year=2021}                     =&gt; {country=CA}                   0.3060109  0.4827586 0.6338798 1.577586    56
-## [44] {country=CZ,                                                                                                   
-##       file_type=DEX}                 =&gt; {times_submitted=[2,3.54e+03]} 0.2950820  0.9310345 0.3169399 2.077796    54
-## [45] {times_submitted=[2,3.54e+03],                                                                                 
-##       file_type=DEX}                 =&gt; {country=CZ}                   0.2950820  1.0000000 0.2950820 3.155172    54
-## [46] {times_submitted=[2,3.54e+03],                                                                                 
-##       country=CZ}                    =&gt; {file_type=DEX}                0.2950820  1.0000000 0.2950820 3.155172    54
-## [47] {size=[1.85,3.03),                                                                                             
-##       times_submitted=[1,2)}         =&gt; {Year=2021}                    0.2950820  1.0000000 0.2950820 1.500000    54
-## [48] {size=[1.85,3.03),                                                                                             
-##       Year=2021}                     =&gt; {times_submitted=[1,2)}        0.2950820  0.9473684 0.3114754 1.716519    54
-## [49] {times_submitted=[1,2),                                                                                        
-##       Year=2021}                     =&gt; {size=[1.85,3.03)}             0.2950820  0.5346535 0.5519126 1.603960    54
-## [50] {size=[1.85,3.03),                                                                                             
-##       times_submitted=[1,2)}         =&gt; {file_type=ZIP}                0.2896175  0.9814815 0.2950820 1.436889    53
-## [51] {size=[1.85,3.03),                                                                                             
-##       file_type=ZIP}                 =&gt; {times_submitted=[1,2)}        0.2896175  0.9636364 0.3005464 1.745995    53
-## [52] {times_submitted=[1,2),                                                                                        
-##       file_type=ZIP}                 =&gt; {size=[1.85,3.03)}             0.2896175  0.5463918 0.5300546 1.639175    53
-## [53] {size=[1.85,3.03),                                                                                             
-##       Year=2021}                     =&gt; {file_type=ZIP}                0.2950820  0.9473684 0.3114754 1.386947    54
-## [54] {size=[1.85,3.03),                                                                                             
-##       file_type=ZIP}                 =&gt; {Year=2021}                    0.2950820  0.9818182 0.3005464 1.472727    54
-## [55] {file_type=ZIP,                                                                                                
-##       Year=2021}                     =&gt; {size=[1.85,3.03)}             0.2950820  0.4655172 0.6338798 1.396552    54
-## [56] {total=[62,64],                                                                                                
-##       Year=2021}                     =&gt; {file_type=ZIP}                0.3497268  1.0000000 0.3497268 1.464000    64
-## [57] {total=[62,64],                                                                                                
-##       file_type=ZIP}                 =&gt; {Year=2021}                    0.3497268  0.8888889 0.3934426 1.333333    64
-## [58] {file_type=ZIP,                                                                                                
-##       Year=2021}                     =&gt; {total=[62,64]}                0.3497268  0.5517241 0.6338798 1.402299    64
-## [59] {times_submitted=[1,2),                                                                                        
-##       Year=2021}                     =&gt; {file_type=ZIP}                0.5300546  0.9603960 0.5519126 1.406020    97
-## [60] {times_submitted=[1,2),                                                                                        
-##       file_type=ZIP}                 =&gt; {Year=2021}                    0.5300546  1.0000000 0.5300546 1.500000    97
-## [61] {file_type=ZIP,                                                                                                
-##       Year=2021}                     =&gt; {times_submitted=[1,2)}        0.5300546  0.8362069 0.6338798 1.515108    97
-## [62] {times_submitted=[1,2),                                                                                        
-##       country=CA,                                                                                                   
-##       Year=2021}                     =&gt; {file_type=ZIP}                0.3060109  1.0000000 0.3060109 1.464000    56
-## [63] {times_submitted=[1,2),                                                                                        
-##       country=CA,                                                                                                   
-##       file_type=ZIP}                 =&gt; {Year=2021}                    0.3060109  1.0000000 0.3060109 1.500000    56
-## [64] {country=CA,                                                                                                   
-##       file_type=ZIP,                                                                                                
-##       Year=2021}                     =&gt; {times_submitted=[1,2)}        0.3060109  1.0000000 0.3060109 1.811881    56
-## [65] {times_submitted=[1,2),                                                                                        
-##       file_type=ZIP,                                                                                                
-##       Year=2021}                     =&gt; {country=CA}                   0.3060109  0.5773196 0.5300546 1.886598    56
-## [66] {size=[1.85,3.03),                                                                                             
-##       times_submitted=[1,2),                                                                                        
-##       Year=2021}                     =&gt; {file_type=ZIP}                0.2896175  0.9814815 0.2950820 1.436889    53
-## [67] {size=[1.85,3.03),                                                                                             
-##       times_submitted=[1,2),                                                                                        
-##       file_type=ZIP}                 =&gt; {Year=2021}                    0.2896175  1.0000000 0.2896175 1.500000    53
-## [68] {size=[1.85,3.03),                                                                                             
-##       file_type=ZIP,                                                                                                
-##       Year=2021}                     =&gt; {times_submitted=[1,2)}        0.2896175  0.9814815 0.2950820 1.778328    53
-## [69] {times_submitted=[1,2),                                                                                        
-##       file_type=ZIP,                                                                                                
-##       Year=2021}                     =&gt; {size=[1.85,3.03)}             0.2896175  0.5463918 0.5300546 1.639175    53</code></pre>
-<p>Vamos a ordenar las reglas por lift y mostramos las 10 reglas con mas lift</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb18-1" aria-hidden="true" tabindex="-1"></a>mis_reglas_lift <span class="ot">&lt;-</span> <span class="fu">sort</span>(mis_reglas, <span class="at">by =</span> <span class="st">&quot;lift&quot;</span>)</span>
-<span id="cb18-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(mis_reglas_lift[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div>
-<pre><code>##      lhs                                rhs                              support confidence  coverage     lift count
-## [1]  {file_type=DEX}                 =&gt; {country=CZ}                   0.3169399  1.0000000 0.3169399 3.155172    58
-## [2]  {country=CZ}                    =&gt; {file_type=DEX}                0.3169399  1.0000000 0.3169399 3.155172    58
-## [3]  {times_submitted=[2,3.54e+03],                                                                                 
-##       file_type=DEX}                 =&gt; {country=CZ}                   0.2950820  1.0000000 0.2950820 3.155172    54
-## [4]  {times_submitted=[2,3.54e+03],                                                                                 
-##       country=CZ}                    =&gt; {file_type=DEX}                0.2950820  1.0000000 0.2950820 3.155172    54
-## [5]  {file_type=DEX}                 =&gt; {times_submitted=[2,3.54e+03]} 0.2950820  0.9310345 0.3169399 2.077796    54
-## [6]  {times_submitted=[2,3.54e+03]}  =&gt; {file_type=DEX}                0.2950820  0.6585366 0.4480874 2.077796    54
-## [7]  {country=CZ}                    =&gt; {times_submitted=[2,3.54e+03]} 0.2950820  0.9310345 0.3169399 2.077796    54
-## [8]  {times_submitted=[2,3.54e+03]}  =&gt; {country=CZ}                   0.2950820  0.6585366 0.4480874 2.077796    54
-## [9]  {country=CZ,                                                                                                   
-##       file_type=DEX}                 =&gt; {times_submitted=[2,3.54e+03]} 0.2950820  0.9310345 0.3169399 2.077796    54
-## [10] {times_submitted=[1,2),                                                                                        
-##       file_type=ZIP}                 =&gt; {country=CA}                   0.3060109  0.5773196 0.5300546 1.886598    56</code></pre>
-<p>Vamos a ordenar las reglas por support y mostramos las 10 reglas con mas support</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb20-1" aria-hidden="true" tabindex="-1"></a>mis_reglas_support <span class="ot">&lt;-</span> <span class="fu">sort</span>(mis_reglas, <span class="at">by =</span> <span class="st">&quot;support&quot;</span>)</span>
-<span id="cb20-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(mis_reglas_support[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div>
-<pre><code>##      lhs                                       rhs                    
-## [1]  {Year=2021}                            =&gt; {file_type=ZIP}        
-## [2]  {file_type=ZIP}                        =&gt; {Year=2021}            
-## [3]  {times_submitted=[1,2)}                =&gt; {Year=2021}            
-## [4]  {Year=2021}                            =&gt; {times_submitted=[1,2)}
-## [5]  {times_submitted=[1,2)}                =&gt; {file_type=ZIP}        
-## [6]  {file_type=ZIP}                        =&gt; {times_submitted=[1,2)}
-## [7]  {times_submitted=[1,2), Year=2021}     =&gt; {file_type=ZIP}        
-## [8]  {times_submitted=[1,2), file_type=ZIP} =&gt; {Year=2021}            
-## [9]  {file_type=ZIP, Year=2021}             =&gt; {times_submitted=[1,2)}
-## [10] {total=[62,64]}                        =&gt; {file_type=ZIP}        
-##      support   confidence coverage  lift     count
-## [1]  0.6338798 0.9508197  0.6666667 1.392000 116  
-## [2]  0.6338798 0.9280000  0.6830601 1.392000 116  
-## [3]  0.5519126 1.0000000  0.5519126 1.500000 101  
-## [4]  0.5519126 0.8278689  0.6666667 1.500000 101  
-## [5]  0.5300546 0.9603960  0.5519126 1.406020  97  
-## [6]  0.5300546 0.7760000  0.6830601 1.406020  97  
-## [7]  0.5300546 0.9603960  0.5519126 1.406020  97  
-## [8]  0.5300546 1.0000000  0.5300546 1.500000  97  
-## [9]  0.5300546 0.8362069  0.6338798 1.515108  97  
-## [10] 0.3934426 1.0000000  0.3934426 1.464000  72</code></pre>
-<p>Como sabemos, el soporte nos indica el porcentaje de frecuencia con el que pasa esa regla
-vemos como cuando el año es 2021 en el 63,3% de la veces el tipo de archivo es ZIP</p>
-<p>Vamos a ordenar las reglas por confianza y mostramos las 10 reglas con mas confianza</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb22-1" aria-hidden="true" tabindex="-1"></a>mis_reglas_confidence <span class="ot">&lt;-</span> <span class="fu">sort</span>(mis_reglas, <span class="at">by =</span> <span class="st">&quot;confidence&quot;</span>)</span>
-<span id="cb22-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(mis_reglas_confidence[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div>
-<pre><code>##      lhs                                    rhs                     support  
-## [1]  {country=CA}                        =&gt; {times_submitted=[1,2)} 0.3060109
-## [2]  {country=CA}                        =&gt; {Year=2021}             0.3060109
-## [3]  {country=CA}                        =&gt; {file_type=ZIP}         0.3060109
-## [4]  {file_type=DEX}                     =&gt; {country=CZ}            0.3169399
-## [5]  {country=CZ}                        =&gt; {file_type=DEX}         0.3169399
-## [6]  {total=[62,64]}                     =&gt; {file_type=ZIP}         0.3934426
-## [7]  {times_submitted=[1,2)}             =&gt; {Year=2021}             0.5519126
-## [8]  {times_submitted=[1,2), country=CA} =&gt; {Year=2021}             0.3060109
-## [9]  {country=CA, Year=2021}             =&gt; {times_submitted=[1,2)} 0.3060109
-## [10] {times_submitted=[1,2), country=CA} =&gt; {file_type=ZIP}         0.3060109
-##      confidence coverage  lift     count
-## [1]  1          0.3060109 1.811881  56  
-## [2]  1          0.3060109 1.500000  56  
-## [3]  1          0.3060109 1.464000  56  
-## [4]  1          0.3169399 3.155172  58  
-## [5]  1          0.3169399 3.155172  58  
-## [6]  1          0.3934426 1.464000  72  
-## [7]  1          0.5519126 1.500000 101  
-## [8]  1          0.3060109 1.500000  56  
-## [9]  1          0.3060109 1.811881  56  
-## [10] 1          0.3060109 1.464000  56</code></pre>
-<p>De aqui podemos sacar por ejemplo que el pais CA solo ha enviado archivos de tipo ZIP y en 2021 o tambien por ejemplo como vimos anteriormente en los graficos que el pais CZ siempre envia DEX de tipo de archivo.</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(mis_reglas)</span></code></pre></div>
+<pre><code>##       lhs                                rhs                              support confidence  coverage     lift count
+## [1]   {country=CA}                    =&gt; {times_submitted=[1,2)}        0.3060109  1.0000000 0.3060109 1.811881    56
+## [2]   {times_submitted=[1,2)}         =&gt; {country=CA}                   0.3060109  0.5544554 0.5519126 1.811881    56
+## [3]   {country=CA}                    =&gt; {Year=2021}                    0.3060109  1.0000000 0.3060109 1.500000    56
+## [4]   {Year=2021}                     =&gt; {country=CA}                   0.3060109  0.4590164 0.6666667 1.500000    56
+## [5]   {country=CA}                    =&gt; {file_type=ZIP}                0.3060109  1.0000000 0.3060109 1.464000    56
+## [6]   {file_type=ZIP}                 =&gt; {country=CA}                   0.3060109  0.4480000 0.6830601 1.464000    56
+## [7]   {file_type=DEX}                 =&gt; {country=CZ}                   0.3169399  1.0000000 0.3169399 3.155172    58
+## [8]   {country=CZ}                    =&gt; {file_type=DEX}                0.3169399  1.0000000 0.3169399 3.155172    58
+## [9]   {file_type=DEX}                 =&gt; {times_submitted=[2,3.54e+03]} 0.2950820  0.9310345 0.3169399 2.077796    54
+## [10]  {times_submitted=[2,3.54e+03]}  =&gt; {file_type=DEX}                0.2950820  0.6585366 0.4480874 2.077796    54
+## [11]  {country=CZ}                    =&gt; {times_submitted=[2,3.54e+03]} 0.2950820  0.9310345 0.3169399 2.077796    54
+## [12]  {times_submitted=[2,3.54e+03]}  =&gt; {country=CZ}                   0.2950820  0.6585366 0.4480874 2.077796    54
+## [13]  {...2=[122,183]}                =&gt; {...3=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [14]  {...3=[122,183]}                =&gt; {...2=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [15]  {...2=[122,183]}                =&gt; {X=[122,183]}                  0.3333333  1.0000000 0.3333333 3.000000    61
+## [16]  {X=[122,183]}                   =&gt; {...2=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [17]  {...2=[122,183]}                =&gt; {...1=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [18]  {...1=[122,183]}                =&gt; {...2=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [19]  {...3=[122,183]}                =&gt; {X=[122,183]}                  0.3333333  1.0000000 0.3333333 3.000000    61
+## [20]  {X=[122,183]}                   =&gt; {...3=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [21]  {...3=[122,183]}                =&gt; {...1=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [22]  {...1=[122,183]}                =&gt; {...3=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [23]  {X=[122,183]}                   =&gt; {...1=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [24]  {...1=[122,183]}                =&gt; {X=[122,183]}                  0.3333333  1.0000000 0.3333333 3.000000    61
+## [25]  {size=[3.03,178]}               =&gt; {Year=2021}                    0.2896175  0.8688525 0.3333333 1.303279    53
+## [26]  {Year=2021}                     =&gt; {size=[3.03,178]}              0.2896175  0.4344262 0.6666667 1.303279    53
+## [27]  {size=[3.03,178]}               =&gt; {file_type=ZIP}                0.3005464  0.9016393 0.3333333 1.320000    55
+## [28]  {file_type=ZIP}                 =&gt; {size=[3.03,178]}              0.3005464  0.4400000 0.6830601 1.320000    55
+## [29]  {X=[61.7,122)}                  =&gt; {...1=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [30]  {...1=[61.7,122)}               =&gt; {X=[61.7,122)}                 0.3333333  1.0000000 0.3333333 3.000000    61
+## [31]  {X=[61.7,122)}                  =&gt; {...2=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [32]  {...2=[61.7,122)}               =&gt; {X=[61.7,122)}                 0.3333333  1.0000000 0.3333333 3.000000    61
+## [33]  {X=[61.7,122)}                  =&gt; {...3=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [34]  {...3=[61.7,122)}               =&gt; {X=[61.7,122)}                 0.3333333  1.0000000 0.3333333 3.000000    61
+## [35]  {...1=[61.7,122)}               =&gt; {...2=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [36]  {...2=[61.7,122)}               =&gt; {...1=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [37]  {...1=[61.7,122)}               =&gt; {...3=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [38]  {...3=[61.7,122)}               =&gt; {...1=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [39]  {...2=[61.7,122)}               =&gt; {...3=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [40]  {...3=[61.7,122)}               =&gt; {...2=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [41]  {...1=[1,61.7)}                 =&gt; {...2=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [42]  {...2=[1,61.7)}                 =&gt; {...1=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [43]  {...1=[1,61.7)}                 =&gt; {...3=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [44]  {...3=[1,61.7)}                 =&gt; {...1=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [45]  {...1=[1,61.7)}                 =&gt; {X=[1,61.7)}                   0.3333333  1.0000000 0.3333333 3.000000    61
+## [46]  {X=[1,61.7)}                    =&gt; {...1=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [47]  {...2=[1,61.7)}                 =&gt; {...3=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [48]  {...3=[1,61.7)}                 =&gt; {...2=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [49]  {...2=[1,61.7)}                 =&gt; {X=[1,61.7)}                   0.3333333  1.0000000 0.3333333 3.000000    61
+## [50]  {X=[1,61.7)}                    =&gt; {...2=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [51]  {...3=[1,61.7)}                 =&gt; {X=[1,61.7)}                   0.3333333  1.0000000 0.3333333 3.000000    61
+## [52]  {X=[1,61.7)}                    =&gt; {...3=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [53]  {size=[1.85,3.03)}              =&gt; {times_submitted=[1,2)}        0.2950820  0.8852459 0.3333333 1.603960    54
+## [54]  {times_submitted=[1,2)}         =&gt; {size=[1.85,3.03)}             0.2950820  0.5346535 0.5519126 1.603960    54
+## [55]  {size=[1.85,3.03)}              =&gt; {Year=2021}                    0.3114754  0.9344262 0.3333333 1.401639    57
+## [56]  {Year=2021}                     =&gt; {size=[1.85,3.03)}             0.3114754  0.4672131 0.6666667 1.401639    57
+## [57]  {size=[1.85,3.03)}              =&gt; {file_type=ZIP}                0.3005464  0.9016393 0.3333333 1.320000    55
+## [58]  {file_type=ZIP}                 =&gt; {size=[1.85,3.03)}             0.3005464  0.4400000 0.6830601 1.320000    55
+## [59]  {positives=[19,23)}             =&gt; {file_type=ZIP}                0.2896175  0.7910448 0.3661202 1.158090    53
+## [60]  {file_type=ZIP}                 =&gt; {positives=[19,23)}            0.2896175  0.4240000 0.6830601 1.158090    53
+## [61]  {total=[62,64]}                 =&gt; {Year=2021}                    0.3497268  0.8888889 0.3934426 1.333333    64
+## [62]  {Year=2021}                     =&gt; {total=[62,64]}                0.3497268  0.5245902 0.6666667 1.333333    64
+## [63]  {total=[62,64]}                 =&gt; {file_type=ZIP}                0.3934426  1.0000000 0.3934426 1.464000    72
+## [64]  {file_type=ZIP}                 =&gt; {total=[62,64]}                0.3934426  0.5760000 0.6830601 1.464000    72
+## [65]  {times_submitted=[1,2)}         =&gt; {Year=2021}                    0.5519126  1.0000000 0.5519126 1.500000   101
+## [66]  {Year=2021}                     =&gt; {times_submitted=[1,2)}        0.5519126  0.8278689 0.6666667 1.500000   101
+## [67]  {times_submitted=[1,2)}         =&gt; {file_type=ZIP}                0.5300546  0.9603960 0.5519126 1.406020    97
+## [68]  {file_type=ZIP}                 =&gt; {times_submitted=[1,2)}        0.5300546  0.7760000 0.6830601 1.406020    97
+## [69]  {Year=2021}                     =&gt; {file_type=ZIP}                0.6338798  0.9508197 0.6666667 1.392000   116
+## [70]  {file_type=ZIP}                 =&gt; {Year=2021}                    0.6338798  0.9280000 0.6830601 1.392000   116
+## [71]  {times_submitted=[1,2),                                                                                        
+##        country=CA}                    =&gt; {Year=2021}                    0.3060109  1.0000000 0.3060109 1.500000    56
+## [72]  {country=CA,                                                                                                   
+##        Year=2021}                     =&gt; {times_submitted=[1,2)}        0.3060109  1.0000000 0.3060109 1.811881    56
+## [73]  {times_submitted=[1,2),                                                                                        
+##        Year=2021}                     =&gt; {country=CA}                   0.3060109  0.5544554 0.5519126 1.811881    56
+## [74]  {times_submitted=[1,2),                                                                                        
+##        country=CA}                    =&gt; {file_type=ZIP}                0.3060109  1.0000000 0.3060109 1.464000    56
+## [75]  {country=CA,                                                                                                   
+##        file_type=ZIP}                 =&gt; {times_submitted=[1,2)}        0.3060109  1.0000000 0.3060109 1.811881    56
+## [76]  {times_submitted=[1,2),                                                                                        
+##        file_type=ZIP}                 =&gt; {country=CA}                   0.3060109  0.5773196 0.5300546 1.886598    56
+## [77]  {country=CA,                                                                                                   
+##        Year=2021}                     =&gt; {file_type=ZIP}                0.3060109  1.0000000 0.3060109 1.464000    56
+## [78]  {country=CA,                                                                                                   
+##        file_type=ZIP}                 =&gt; {Year=2021}                    0.3060109  1.0000000 0.3060109 1.500000    56
+## [79]  {file_type=ZIP,                                                                                                
+##        Year=2021}                     =&gt; {country=CA}                   0.3060109  0.4827586 0.6338798 1.577586    56
+## [80]  {country=CZ,                                                                                                   
+##        file_type=DEX}                 =&gt; {times_submitted=[2,3.54e+03]} 0.2950820  0.9310345 0.3169399 2.077796    54
+## [81]  {times_submitted=[2,3.54e+03],                                                                                 
+##        file_type=DEX}                 =&gt; {country=CZ}                   0.2950820  1.0000000 0.2950820 3.155172    54
+## [82]  {times_submitted=[2,3.54e+03],                                                                                 
+##        country=CZ}                    =&gt; {file_type=DEX}                0.2950820  1.0000000 0.2950820 3.155172    54
+## [83]  {...2=[122,183],                                                                                               
+##        ...3=[122,183]}                =&gt; {X=[122,183]}                  0.3333333  1.0000000 0.3333333 3.000000    61
+## [84]  {X=[122,183],                                                                                                  
+##        ...2=[122,183]}                =&gt; {...3=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [85]  {X=[122,183],                                                                                                  
+##        ...3=[122,183]}                =&gt; {...2=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [86]  {...2=[122,183],                                                                                               
+##        ...3=[122,183]}                =&gt; {...1=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [87]  {...1=[122,183],                                                                                               
+##        ...2=[122,183]}                =&gt; {...3=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [88]  {...1=[122,183],                                                                                               
+##        ...3=[122,183]}                =&gt; {...2=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [89]  {X=[122,183],                                                                                                  
+##        ...2=[122,183]}                =&gt; {...1=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [90]  {...1=[122,183],                                                                                               
+##        ...2=[122,183]}                =&gt; {X=[122,183]}                  0.3333333  1.0000000 0.3333333 3.000000    61
+## [91]  {X=[122,183],                                                                                                  
+##        ...1=[122,183]}                =&gt; {...2=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [92]  {X=[122,183],                                                                                                  
+##        ...3=[122,183]}                =&gt; {...1=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [93]  {...1=[122,183],                                                                                               
+##        ...3=[122,183]}                =&gt; {X=[122,183]}                  0.3333333  1.0000000 0.3333333 3.000000    61
+## [94]  {X=[122,183],                                                                                                  
+##        ...1=[122,183]}                =&gt; {...3=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [95]  {X=[61.7,122),                                                                                                 
+##        ...1=[61.7,122)}               =&gt; {...2=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [96]  {X=[61.7,122),                                                                                                 
+##        ...2=[61.7,122)}               =&gt; {...1=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [97]  {...1=[61.7,122),                                                                                              
+##        ...2=[61.7,122)}               =&gt; {X=[61.7,122)}                 0.3333333  1.0000000 0.3333333 3.000000    61
+## [98]  {X=[61.7,122),                                                                                                 
+##        ...1=[61.7,122)}               =&gt; {...3=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [99]  {X=[61.7,122),                                                                                                 
+##        ...3=[61.7,122)}               =&gt; {...1=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [100] {...1=[61.7,122),                                                                                              
+##        ...3=[61.7,122)}               =&gt; {X=[61.7,122)}                 0.3333333  1.0000000 0.3333333 3.000000    61
+## [101] {X=[61.7,122),                                                                                                 
+##        ...2=[61.7,122)}               =&gt; {...3=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [102] {X=[61.7,122),                                                                                                 
+##        ...3=[61.7,122)}               =&gt; {...2=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [103] {...2=[61.7,122),                                                                                              
+##        ...3=[61.7,122)}               =&gt; {X=[61.7,122)}                 0.3333333  1.0000000 0.3333333 3.000000    61
+## [104] {...1=[61.7,122),                                                                                              
+##        ...2=[61.7,122)}               =&gt; {...3=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [105] {...1=[61.7,122),                                                                                              
+##        ...3=[61.7,122)}               =&gt; {...2=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [106] {...2=[61.7,122),                                                                                              
+##        ...3=[61.7,122)}               =&gt; {...1=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [107] {...1=[1,61.7),                                                                                                
+##        ...2=[1,61.7)}                 =&gt; {...3=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [108] {...1=[1,61.7),                                                                                                
+##        ...3=[1,61.7)}                 =&gt; {...2=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [109] {...2=[1,61.7),                                                                                                
+##        ...3=[1,61.7)}                 =&gt; {...1=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [110] {...1=[1,61.7),                                                                                                
+##        ...2=[1,61.7)}                 =&gt; {X=[1,61.7)}                   0.3333333  1.0000000 0.3333333 3.000000    61
+## [111] {X=[1,61.7),                                                                                                   
+##        ...1=[1,61.7)}                 =&gt; {...2=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [112] {X=[1,61.7),                                                                                                   
+##        ...2=[1,61.7)}                 =&gt; {...1=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [113] {...1=[1,61.7),                                                                                                
+##        ...3=[1,61.7)}                 =&gt; {X=[1,61.7)}                   0.3333333  1.0000000 0.3333333 3.000000    61
+## [114] {X=[1,61.7),                                                                                                   
+##        ...1=[1,61.7)}                 =&gt; {...3=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [115] {X=[1,61.7),                                                                                                   
+##        ...3=[1,61.7)}                 =&gt; {...1=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [116] {...2=[1,61.7),                                                                                                
+##        ...3=[1,61.7)}                 =&gt; {X=[1,61.7)}                   0.3333333  1.0000000 0.3333333 3.000000    61
+## [117] {X=[1,61.7),                                                                                                   
+##        ...2=[1,61.7)}                 =&gt; {...3=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [118] {X=[1,61.7),                                                                                                   
+##        ...3=[1,61.7)}                 =&gt; {...2=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [119] {size=[1.85,3.03),                                                                                             
+##        times_submitted=[1,2)}         =&gt; {Year=2021}                    0.2950820  1.0000000 0.2950820 1.500000    54
+## [120] {size=[1.85,3.03),                                                                                             
+##        Year=2021}                     =&gt; {times_submitted=[1,2)}        0.2950820  0.9473684 0.3114754 1.716519    54
+## [121] {times_submitted=[1,2),                                                                                        
+##        Year=2021}                     =&gt; {size=[1.85,3.03)}             0.2950820  0.5346535 0.5519126 1.603960    54
+## [122] {size=[1.85,3.03),                                                                                             
+##        times_submitted=[1,2)}         =&gt; {file_type=ZIP}                0.2896175  0.9814815 0.2950820 1.436889    53
+## [123] {size=[1.85,3.03),                                                                                             
+##        file_type=ZIP}                 =&gt; {times_submitted=[1,2)}        0.2896175  0.9636364 0.3005464 1.745995    53
+## [124] {times_submitted=[1,2),                                                                                        
+##        file_type=ZIP}                 =&gt; {size=[1.85,3.03)}             0.2896175  0.5463918 0.5300546 1.639175    53
+## [125] {size=[1.85,3.03),                                                                                             
+##        Year=2021}                     =&gt; {file_type=ZIP}                0.2950820  0.9473684 0.3114754 1.386947    54
+## [126] {size=[1.85,3.03),                                                                                             
+##        file_type=ZIP}                 =&gt; {Year=2021}                    0.2950820  0.9818182 0.3005464 1.472727    54
+## [127] {file_type=ZIP,                                                                                                
+##        Year=2021}                     =&gt; {size=[1.85,3.03)}             0.2950820  0.4655172 0.6338798 1.396552    54
+## [128] {total=[62,64],                                                                                                
+##        Year=2021}                     =&gt; {file_type=ZIP}                0.3497268  1.0000000 0.3497268 1.464000    64
+## [129] {total=[62,64],                                                                                                
+##        file_type=ZIP}                 =&gt; {Year=2021}                    0.3497268  0.8888889 0.3934426 1.333333    64
+## [130] {file_type=ZIP,                                                                                                
+##        Year=2021}                     =&gt; {total=[62,64]}                0.3497268  0.5517241 0.6338798 1.402299    64
+## [131] {times_submitted=[1,2),                                                                                        
+##        Year=2021}                     =&gt; {file_type=ZIP}                0.5300546  0.9603960 0.5519126 1.406020    97
+## [132] {times_submitted=[1,2),                                                                                        
+##        file_type=ZIP}                 =&gt; {Year=2021}                    0.5300546  1.0000000 0.5300546 1.500000    97
+## [133] {file_type=ZIP,                                                                                                
+##        Year=2021}                     =&gt; {times_submitted=[1,2)}        0.5300546  0.8362069 0.6338798 1.515108    97
+## [134] {times_submitted=[1,2),                                                                                        
+##        country=CA,                                                                                                   
+##        Year=2021}                     =&gt; {file_type=ZIP}                0.3060109  1.0000000 0.3060109 1.464000    56
+## [135] {times_submitted=[1,2),                                                                                        
+##        country=CA,                                                                                                   
+##        file_type=ZIP}                 =&gt; {Year=2021}                    0.3060109  1.0000000 0.3060109 1.500000    56
+## [136] {country=CA,                                                                                                   
+##        file_type=ZIP,                                                                                                
+##        Year=2021}                     =&gt; {times_submitted=[1,2)}        0.3060109  1.0000000 0.3060109 1.811881    56
+## [137] {times_submitted=[1,2),                                                                                        
+##        file_type=ZIP,                                                                                                
+##        Year=2021}                     =&gt; {country=CA}                   0.3060109  0.5773196 0.5300546 1.886598    56
+## [138] {X=[122,183],                                                                                                  
+##        ...2=[122,183],                                                                                               
+##        ...3=[122,183]}                =&gt; {...1=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [139] {...1=[122,183],                                                                                               
+##        ...2=[122,183],                                                                                               
+##        ...3=[122,183]}                =&gt; {X=[122,183]}                  0.3333333  1.0000000 0.3333333 3.000000    61
+## [140] {X=[122,183],                                                                                                  
+##        ...1=[122,183],                                                                                               
+##        ...2=[122,183]}                =&gt; {...3=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [141] {X=[122,183],                                                                                                  
+##        ...1=[122,183],                                                                                               
+##        ...3=[122,183]}                =&gt; {...2=[122,183]}               0.3333333  1.0000000 0.3333333 3.000000    61
+## [142] {X=[61.7,122),                                                                                                 
+##        ...1=[61.7,122),                                                                                              
+##        ...2=[61.7,122)}               =&gt; {...3=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [143] {X=[61.7,122),                                                                                                 
+##        ...1=[61.7,122),                                                                                              
+##        ...3=[61.7,122)}               =&gt; {...2=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [144] {X=[61.7,122),                                                                                                 
+##        ...2=[61.7,122),                                                                                              
+##        ...3=[61.7,122)}               =&gt; {...1=[61.7,122)}              0.3333333  1.0000000 0.3333333 3.000000    61
+## [145] {...1=[61.7,122),                                                                                              
+##        ...2=[61.7,122),                                                                                              
+##        ...3=[61.7,122)}               =&gt; {X=[61.7,122)}                 0.3333333  1.0000000 0.3333333 3.000000    61
+## [146] {...1=[1,61.7),                                                                                                
+##        ...2=[1,61.7),                                                                                                
+##        ...3=[1,61.7)}                 =&gt; {X=[1,61.7)}                   0.3333333  1.0000000 0.3333333 3.000000    61
+## [147] {X=[1,61.7),                                                                                                   
+##        ...1=[1,61.7),                                                                                                
+##        ...2=[1,61.7)}                 =&gt; {...3=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [148] {X=[1,61.7),                                                                                                   
+##        ...1=[1,61.7),                                                                                                
+##        ...3=[1,61.7)}                 =&gt; {...2=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [149] {X=[1,61.7),                                                                                                   
+##        ...2=[1,61.7),                                                                                                
+##        ...3=[1,61.7)}                 =&gt; {...1=[1,61.7)}                0.3333333  1.0000000 0.3333333 3.000000    61
+## [150] {size=[1.85,3.03),                                                                                             
+##        times_submitted=[1,2),                                                                                        
+##        Year=2021}                     =&gt; {file_type=ZIP}                0.2896175  0.9814815 0.2950820 1.436889    53
+## [151] {size=[1.85,3.03),                                                                                             
+##        times_submitted=[1,2),                                                                                        
+##        file_type=ZIP}                 =&gt; {Year=2021}                    0.2896175  1.0000000 0.2896175 1.500000    53
+## [152] {size=[1.85,3.03),                                                                                             
+##        file_type=ZIP,                                                                                                
+##        Year=2021}                     =&gt; {times_submitted=[1,2)}        0.2896175  0.9814815 0.2950820 1.778328    53
+## [153] {times_submitted=[1,2),                                                                                        
+##        file_type=ZIP,                                                                                                
+##        Year=2021}                     =&gt; {size=[1.85,3.03)}             0.2896175  0.5463918 0.5300546 1.639175    53</code></pre>
+<p>Vamos a ordenar las reglas por lift y mostramos las diez reglas con más <em>lift</em></p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb103-1" aria-hidden="true" tabindex="-1"></a>mis_reglas_lift <span class="ot">&lt;-</span> <span class="fu">sort</span>(mis_reglas, <span class="at">by =</span> <span class="st">&quot;lift&quot;</span>)</span>
+<span id="cb103-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(mis_reglas_lift[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div>
+<pre><code>##      lhs                                              rhs              support   confidence
+## [1]  {file_type=DEX}                               =&gt; {country=CZ}     0.3169399 1         
+## [2]  {country=CZ}                                  =&gt; {file_type=DEX}  0.3169399 1         
+## [3]  {times_submitted=[2,3.54e+03], file_type=DEX} =&gt; {country=CZ}     0.2950820 1         
+## [4]  {times_submitted=[2,3.54e+03], country=CZ}    =&gt; {file_type=DEX}  0.2950820 1         
+## [5]  {...2=[122,183]}                              =&gt; {...3=[122,183]} 0.3333333 1         
+## [6]  {...3=[122,183]}                              =&gt; {...2=[122,183]} 0.3333333 1         
+## [7]  {...2=[122,183]}                              =&gt; {X=[122,183]}    0.3333333 1         
+## [8]  {X=[122,183]}                                 =&gt; {...2=[122,183]} 0.3333333 1         
+## [9]  {...2=[122,183]}                              =&gt; {...1=[122,183]} 0.3333333 1         
+## [10] {...1=[122,183]}                              =&gt; {...2=[122,183]} 0.3333333 1         
+##      coverage  lift     count
+## [1]  0.3169399 3.155172 58   
+## [2]  0.3169399 3.155172 58   
+## [3]  0.2950820 3.155172 54   
+## [4]  0.2950820 3.155172 54   
+## [5]  0.3333333 3.000000 61   
+## [6]  0.3333333 3.000000 61   
+## [7]  0.3333333 3.000000 61   
+## [8]  0.3333333 3.000000 61   
+## [9]  0.3333333 3.000000 61   
+## [10] 0.3333333 3.000000 61</code></pre>
+<p>Vamos a ordenar las reglas por support y mostramos las diez reglas con más soporte</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb105-1" aria-hidden="true" tabindex="-1"></a>mis_reglas_support <span class="ot">&lt;-</span> <span class="fu">sort</span>(mis_reglas, <span class="at">by =</span> <span class="st">&quot;support&quot;</span>)</span>
+<span id="cb105-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(mis_reglas_support[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div>
+<pre><code>##      lhs                                       rhs                     support   confidence
+## [1]  {Year=2021}                            =&gt; {file_type=ZIP}         0.6338798 0.9508197 
+## [2]  {file_type=ZIP}                        =&gt; {Year=2021}             0.6338798 0.9280000 
+## [3]  {times_submitted=[1,2)}                =&gt; {Year=2021}             0.5519126 1.0000000 
+## [4]  {Year=2021}                            =&gt; {times_submitted=[1,2)} 0.5519126 0.8278689 
+## [5]  {times_submitted=[1,2)}                =&gt; {file_type=ZIP}         0.5300546 0.9603960 
+## [6]  {file_type=ZIP}                        =&gt; {times_submitted=[1,2)} 0.5300546 0.7760000 
+## [7]  {times_submitted=[1,2), Year=2021}     =&gt; {file_type=ZIP}         0.5300546 0.9603960 
+## [8]  {times_submitted=[1,2), file_type=ZIP} =&gt; {Year=2021}             0.5300546 1.0000000 
+## [9]  {file_type=ZIP, Year=2021}             =&gt; {times_submitted=[1,2)} 0.5300546 0.8362069 
+## [10] {total=[62,64]}                        =&gt; {file_type=ZIP}         0.3934426 1.0000000 
+##      coverage  lift     count
+## [1]  0.6666667 1.392000 116  
+## [2]  0.6830601 1.392000 116  
+## [3]  0.5519126 1.500000 101  
+## [4]  0.6666667 1.500000 101  
+## [5]  0.5519126 1.406020  97  
+## [6]  0.6830601 1.406020  97  
+## [7]  0.5519126 1.406020  97  
+## [8]  0.5300546 1.500000  97  
+## [9]  0.6338798 1.515108  97  
+## [10] 0.3934426 1.464000  72</code></pre>
+<p>Como sabemos, el soporte nos indica en qué porcentaje el patrón encontrado aparece en el dataset, y
+vemos que cuando el año es 2021 en el 63,3% de la veces el tipo de archivo es ZIP.</p>
+<p>Vamos a ordenar las reglas por confianza y mostramos las diez reglas con más confianza</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb107-1" aria-hidden="true" tabindex="-1"></a>mis_reglas_confidence <span class="ot">&lt;-</span> <span class="fu">sort</span>(mis_reglas, <span class="at">by =</span> <span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb107-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(mis_reglas_confidence[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div>
+<pre><code>##      lhs                 rhs                     support   confidence coverage  lift     count
+## [1]  {country=CA}     =&gt; {times_submitted=[1,2)} 0.3060109 1          0.3060109 1.811881 56   
+## [2]  {country=CA}     =&gt; {Year=2021}             0.3060109 1          0.3060109 1.500000 56   
+## [3]  {country=CA}     =&gt; {file_type=ZIP}         0.3060109 1          0.3060109 1.464000 56   
+## [4]  {file_type=DEX}  =&gt; {country=CZ}            0.3169399 1          0.3169399 3.155172 58   
+## [5]  {country=CZ}     =&gt; {file_type=DEX}         0.3169399 1          0.3169399 3.155172 58   
+## [6]  {...2=[122,183]} =&gt; {...3=[122,183]}        0.3333333 1          0.3333333 3.000000 61   
+## [7]  {...3=[122,183]} =&gt; {...2=[122,183]}        0.3333333 1          0.3333333 3.000000 61   
+## [8]  {...2=[122,183]} =&gt; {X=[122,183]}           0.3333333 1          0.3333333 3.000000 61   
+## [9]  {X=[122,183]}    =&gt; {...2=[122,183]}        0.3333333 1          0.3333333 3.000000 61   
+## [10] {...2=[122,183]} =&gt; {...1=[122,183]}        0.3333333 1          0.3333333 3.000000 61</code></pre>
+<p>De aquí podemos sacar que el pais CA solo ha enviado archivos de tipo ZIP en 2021, o también como mostramos en la parte de visualización que República Checa siempre envia DEX como tipo de archivo.</p>
 </div>
 <div id="clustering" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Clustering<a href="regresion-reglas-de-asociación-y-clustering.html#clustering" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span></code></pre></div>
 <p>Preparamos el kmeans con 4 centros y usaremos el tamaño frente al numero de positivos</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb25-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb25-3" aria-hidden="true" tabindex="-1"></a>virus <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span>   </span>
-<span id="cb25-4"><a href="regresion-reglas-de-asociación-y-clustering.html#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">&quot;size&quot;</span>,<span class="st">&quot;positives&quot;</span>))<span class="sc">%&gt;%</span>   </span>
-<span id="cb25-5"><a href="regresion-reglas-de-asociación-y-clustering.html#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kmeans</span>(<span class="at">centers=</span><span class="dv">4</span>, <span class="at">nstart=</span><span class="dv">10</span>)</span>
-<span id="cb25-6"><a href="regresion-reglas-de-asociación-y-clustering.html#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-7"><a href="regresion-reglas-de-asociación-y-clustering.html#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(virus)</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb110-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb110-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb110-3" aria-hidden="true" tabindex="-1"></a>virus <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span>   </span>
+<span id="cb110-4"><a href="regresion-reglas-de-asociación-y-clustering.html#cb110-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">&quot;size&quot;</span>,<span class="st">&quot;positives&quot;</span>))<span class="sc">%&gt;%</span>   </span>
+<span id="cb110-5"><a href="regresion-reglas-de-asociación-y-clustering.html#cb110-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kmeans</span>(<span class="at">centers=</span><span class="dv">4</span>, <span class="at">nstart=</span><span class="dv">10</span>)</span>
+<span id="cb110-6"><a href="regresion-reglas-de-asociación-y-clustering.html#cb110-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-7"><a href="regresion-reglas-de-asociación-y-clustering.html#cb110-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(virus)</span></code></pre></div>
 <pre><code>## List of 9
 ##  $ cluster     : int [1:183] 4 4 4 2 4 4 4 4 4 2 ...
 ##  $ centers     : num [1:4, 1:2] 178.36 1.76 74.81 4.49 15 ...
@@ -575,31 +716,31 @@ vemos como cuando el año es 2021 en el 63,3% de la veces el tipo de archivo es 
 ##  $ ifault      : int 0
 ##  - attr(*, &quot;class&quot;)= chr &quot;kmeans&quot;</code></pre>
 <p>Vemos el tamaño de los clusters y de los centroides</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb27-1" aria-hidden="true" tabindex="-1"></a>virus<span class="sc">$</span>size</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb112-1" aria-hidden="true" tabindex="-1"></a>virus<span class="sc">$</span>size</span></code></pre></div>
 <pre><code>## [1]   1  65   3 114</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb29-1" aria-hidden="true" tabindex="-1"></a>virus<span class="sc">$</span>centers</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb114-1" aria-hidden="true" tabindex="-1"></a>virus<span class="sc">$</span>centers</span></code></pre></div>
 <pre><code>##         size positives
 ## 1 178.355426  15.00000
 ## 2   1.761319  26.61538
 ## 3  74.811670  16.00000
 ## 4   4.487114  18.86842</code></pre>
-<p>Ahora vamos a visualizar un grafico del tamaño(eje X) frente al numero de positivos(eje Y), lo dibujaremos con colores
-segun el cluster al que pertenezcay la etiqueta sera el tipo de archivo analizado.</p>
-<p>Como la grafica quedaba muy comprimida la vamos a mostrar por partes para un mejor entendimiento</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(virusTotal<span class="sc">$</span>size,virusTotal<span class="sc">$</span>positives, <span class="at">type=</span><span class="st">&quot;n&quot;</span>,<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>), <span class="at">xlab =</span> <span class="st">&quot;size&quot;</span>,<span class="at">ylab =</span> <span class="st">&quot;positives&quot;</span>)</span>
-<span id="cb31-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span>virusTotal<span class="sc">$</span>size, <span class="at">y=</span>virusTotal<span class="sc">$</span>positives, <span class="at">labels=</span>virusTotal<span class="sc">$</span>file_type,</span>
-<span id="cb31-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb31-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span>virus<span class="sc">$</span>cluster<span class="sc">+</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
-<p>Aqui vemos los archivos de entre 0 y 10 gb que es donde se concentran la mayoria</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(virusTotal<span class="sc">$</span>size,virusTotal<span class="sc">$</span>positives, <span class="at">type=</span><span class="st">&quot;n&quot;</span>,<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">11</span>,<span class="dv">100</span>), <span class="at">xlab =</span> <span class="st">&quot;size&quot;</span>,<span class="at">ylab =</span> <span class="st">&quot;positives&quot;</span>)</span>
-<span id="cb32-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span>virusTotal<span class="sc">$</span>size, <span class="at">y=</span>virusTotal<span class="sc">$</span>positives, <span class="at">labels=</span>virusTotal<span class="sc">$</span>file_type,</span>
-<span id="cb32-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb32-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span>virus<span class="sc">$</span>cluster<span class="sc">+</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
-<p>Aqui los archivos entre 11 y 100 gb que aunque haya menos tambien podemos ver los clusters en los que se agrupan</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(virusTotal<span class="sc">$</span>size,virusTotal<span class="sc">$</span>positives, <span class="at">type=</span><span class="st">&quot;n&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;size&quot;</span>,<span class="at">ylab =</span> <span class="st">&quot;positives&quot;</span>)</span>
-<span id="cb33-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span>virusTotal<span class="sc">$</span>size, <span class="at">y=</span>virusTotal<span class="sc">$</span>positives, <span class="at">labels=</span>virusTotal<span class="sc">$</span>file_type,</span>
-<span id="cb33-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb33-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span>virus<span class="sc">$</span>cluster<span class="sc">+</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>Ahora vamos a visualizar un grafico del tamaño (eje X) frente al numero de positivos (eje Y), lo dibujaremos con colores
+según el cluster al que pertenezca y la etiqueta será el tipo de archivo analizado.</p>
+<p>Como la gráfica quedaba muy comprimida la vamos a mostrar por partes para un mejor entendimiento</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(virusTotal<span class="sc">$</span>size,virusTotal<span class="sc">$</span>positives, <span class="at">type=</span><span class="st">&quot;n&quot;</span>,<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>), <span class="at">xlab =</span> <span class="st">&quot;size&quot;</span>,<span class="at">ylab =</span> <span class="st">&quot;positives&quot;</span>)</span>
+<span id="cb116-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span>virusTotal<span class="sc">$</span>size, <span class="at">y=</span>virusTotal<span class="sc">$</span>positives, <span class="at">labels=</span>virusTotal<span class="sc">$</span>file_type,</span>
+<span id="cb116-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb116-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span>virus<span class="sc">$</span>cluster<span class="sc">+</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-148-1.png" width="672" /></p>
+<p>Aqui vemos los archivos de entre 0 y 10 MB que es donde se concentran la mayoría</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(virusTotal<span class="sc">$</span>size,virusTotal<span class="sc">$</span>positives, <span class="at">type=</span><span class="st">&quot;n&quot;</span>,<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">11</span>,<span class="dv">100</span>), <span class="at">xlab =</span> <span class="st">&quot;size&quot;</span>,<span class="at">ylab =</span> <span class="st">&quot;positives&quot;</span>)</span>
+<span id="cb117-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span>virusTotal<span class="sc">$</span>size, <span class="at">y=</span>virusTotal<span class="sc">$</span>positives, <span class="at">labels=</span>virusTotal<span class="sc">$</span>file_type,</span>
+<span id="cb117-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb117-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span>virus<span class="sc">$</span>cluster<span class="sc">+</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-149-1.png" width="672" /></p>
+<p>Aqui los archivos entre 11 y 100 MB que aunque haya menos tambien podemos ver los clusters en los que se agrupan</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(virusTotal<span class="sc">$</span>size,virusTotal<span class="sc">$</span>positives, <span class="at">type=</span><span class="st">&quot;n&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;size&quot;</span>,<span class="at">ylab =</span> <span class="st">&quot;positives&quot;</span>)</span>
+<span id="cb118-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb118-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span>virusTotal<span class="sc">$</span>size, <span class="at">y=</span>virusTotal<span class="sc">$</span>positives, <span class="at">labels=</span>virusTotal<span class="sc">$</span>file_type,</span>
+<span id="cb118-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb118-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span>virus<span class="sc">$</span>cluster<span class="sc">+</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-150-1.png" width="672" /></p>
 <p>Y por ultimo aqui ya vemos la gráfica al completo</p>
 
 </div>
@@ -664,6 +805,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

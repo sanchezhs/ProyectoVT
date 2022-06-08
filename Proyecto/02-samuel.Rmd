@@ -83,7 +83,7 @@ De la misma manera, primero cargamos el directorio Android y el dataframe prepro
 ```{r, warning=FALSE, message=FALSE}
 path <- "~/Documentos/LCC/ProyectoVT/Proyecto/Android2/"
 nombres_ficheros <- list.files(path)
-df <- read_csv("~/Documentos/LCC/ProyectoVT/Proyecto/virusTotal.csv")
+df <- read_csv("~/Documentos/LCC/ProyectoVT/Proyecto/virusTotalCap2.csv")
 ```
 Dentro del json, hay un par clave valor que almacena el *CTPH* calculado (*ssdeep*), así que para analizarlo, escribimos primero la siguiente función que crea un *dataframe* con todos los json:
 
@@ -202,6 +202,25 @@ plot(G2, vertex.color='#ADD8E6',
 title("Distancias <= 1",cex.main=1,col.main="Black")
 ```
 
+Construimos un dataframe con los nodos para analizarlos
+
+```{r}
+vertices <- V(G2)$name
+df_1 <- subset(df, row.names(df) %in% vertices)
+```
+
+Información sobre los nodos
+
+```{r}
+df_1 %>% select(submission.submitter_country) %>% unique()
+df_1 %>% select(scan_date) 
+df_1 %>% select(positives) 
+df_1 %>% select(size) %>% unique()
+df_1 %>% select(times_submitted) %>% unique()
+df_1 %>% select(first_seen)
+```
+
+
 ## Grafo completo, G1
 
 Vamos a ver qué grafo se dibuja si restringimos menos la búsqueda y ponemos que saque todos los archivos que se parezcan como mínimo en un 60%.
@@ -298,11 +317,17 @@ library(plotly)
 
 df_grafo$scan_date <- as.POSIXct(df_grafo$scan_date, format="%Y-%m-%d %H:%M:%S")
 df_grafo$first_seen <- as.POSIXct(df_grafo$first_seen, format="%Y-%m-%d %H:%M:%S")
-colnames(df_grafo)[8] <- 'Pais'
 
+# Cambiamos el nombre de la columna
+colnames(df_grafo)[which(colnames(df_grafo)=='submission.submitter_country')] <- 'Pais'
 ```
 
 
+Se subieron en un intervalo de nueve horas
+
+```{r}
+max(df_grafo$scan_date)-min(df_grafo$scan_date)
+```
 
 
 Positivos a lo largo del tiempo (fecha de escáner).
@@ -472,7 +497,7 @@ get_results <- function(json) {
 
 
 
-vids tiene los vértices de los grafos calculados. Pasamos los nombres a formato numérico con ceros a la izquierda.
+*vids* tiene los vértices de los grafos calculados. Pasamos los nombres a formato numérico con ceros a la izquierda.
 
 ```{r}
 ficheros <- sapply(vids, function(x) paste0(sprintf("%04d", x), '.json') )

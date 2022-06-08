@@ -23,7 +23,7 @@
 <meta name="author" content="Samuel Sánchez Toca y Alejandro Medina Astorga" />
 
 
-<meta name="date" content="2022-06-07" />
+<meta name="date" content="2022-06-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 
-<link rel="next" href="url-your-book-url-like-httpsbookdown.html"/>
+<link rel="next" href="analisis-exploratorio.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -54,6 +54,13 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -167,10 +174,10 @@ div.csl-indent {
 <li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#datos-iniciales"><i class="fa fa-check"></i><b>1.3</b> Datos iniciales</a></li>
 <li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#preprocesado"><i class="fa fa-check"></i><b>1.4</b> Preprocesado</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="url-your-book-url-like-httpsbookdown.html"><a href="url-your-book-url-like-httpsbookdown.html"><i class="fa fa-check"></i><b>2</b> url: your book url like <span>https://bookdown.org/yihui/bookdown</span></a>
+<li class="chapter" data-level="2" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html"><i class="fa fa-check"></i><b>2</b> Analisis exploratorio</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="url-your-book-url-like-httpsbookdown.html"><a href="url-your-book-url-like-httpsbookdown.html#dplyr"><i class="fa fa-check"></i><b>2.1</b> Dplyr</a></li>
-<li class="chapter" data-level="2.2" data-path="url-your-book-url-like-httpsbookdown.html"><a href="url-your-book-url-like-httpsbookdown.html#visualizacion"><i class="fa fa-check"></i><b>2.2</b> Visualizacion</a></li>
+<li class="chapter" data-level="2.1" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html#dplyr"><i class="fa fa-check"></i><b>2.1</b> Dplyr</a></li>
+<li class="chapter" data-level="2.2" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html#visualizacion"><i class="fa fa-check"></i><b>2.2</b> Visualizacion</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html"><i class="fa fa-check"></i><b>3</b> Analizando el <em>ssdeep</em></a>
 <ul>
@@ -191,10 +198,11 @@ div.csl-indent {
 <li class="chapter" data-level="3.8" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#análisis-del-mayor-componente-de-g"><i class="fa fa-check"></i><b>3.8</b> Análisis del mayor componente de G</a></li>
 <li class="chapter" data-level="3.9" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#analizando-los-resultados-de-los-antivirus-de-g"><i class="fa fa-check"></i><b>3.9</b> Analizando los resultados de los antivirus de G</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="url-your-book-url-like-httpsbookdown.orgyihuibookdown-1.html"><a href="url-your-book-url-like-httpsbookdown.orgyihuibookdown-1.html"><i class="fa fa-check"></i><b>4</b> url: your book url like <span>https://bookdown.org/yihui/bookdown</span></a>
+<li class="chapter" data-level="4" data-path="regresion-reglas-de-asociación-y-clustering.html"><a href="regresion-reglas-de-asociación-y-clustering.html"><i class="fa fa-check"></i><b>4</b> Regresion, reglas de asociación y Clustering</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="url-your-book-url-like-httpsbookdown.orgyihuibookdown-1.html"><a href="url-your-book-url-like-httpsbookdown.orgyihuibookdown-1.html#regresion"><i class="fa fa-check"></i><b>4.1</b> Regresion</a></li>
-<li class="chapter" data-level="4.2" data-path="url-your-book-url-like-httpsbookdown.orgyihuibookdown-1.html"><a href="url-your-book-url-like-httpsbookdown.orgyihuibookdown-1.html#reglas-de-asociación"><i class="fa fa-check"></i><b>4.2</b> Reglas de asociación</a></li>
+<li class="chapter" data-level="4.1" data-path="regresion-reglas-de-asociación-y-clustering.html"><a href="regresion-reglas-de-asociación-y-clustering.html#regresion"><i class="fa fa-check"></i><b>4.1</b> Regresion</a></li>
+<li class="chapter" data-level="4.2" data-path="regresion-reglas-de-asociación-y-clustering.html"><a href="regresion-reglas-de-asociación-y-clustering.html#reglas-de-asociación"><i class="fa fa-check"></i><b>4.2</b> Reglas de asociación</a></li>
+<li class="chapter" data-level="4.3" data-path="regresion-reglas-de-asociación-y-clustering.html"><a href="regresion-reglas-de-asociación-y-clustering.html#clustering"><i class="fa fa-check"></i><b>4.3</b> Clustering</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>5</b> Footnotes and citations</a>
 <ul>
@@ -237,15 +245,15 @@ div.csl-indent {
 <div id="header">
 <h1 class="title">Virus Total</h1>
 <p class="author"><em>Samuel Sánchez Toca y Alejandro Medina Astorga</em></p>
-<p class="date"><em>2022-06-07</em></p>
+<p class="date"><em>2022-06-08</em></p>
 </div>
 <div id="preprocesado-de-datos" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Preprocesado de datos<a href="index.html#preprocesado-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Este es el proyecto realizado por Samuel Sánchez Toca y Alejandro Medina Astorga para la asignatura Laboratorio de Computación Científica para el dataset <strong>VirusTotal</strong>.</p>
 <div id="inicio" class="section level2 hasAnchor" number="1.1">
 <h2><span class="header-section-number">1.1</span> Inicio<a href="index.html#inicio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Primero tuvimos que analizar los datos que recibimos los cuales venian en archivos .json por lo que teniamos que extraerlos de estos archivos y al tener tantas columnas decidir cuales de estas eran mas útiles para su posterior analisis.</p>
-<p>Para el preprocesado, hemos usado las librerías <em>jsonlite, tidyjson, jsonlite</em> y <em>tidyverse</em> para manejar los archivos. El dataset consta de casi doscientos ficheros <em>json</em> con la información obtenida al analizarlos con distintos antivirus, el primer paso es, por tanto, ver cómo están estructurados los datos para decidir con qué información nos vamos a quedar.</p>
+<p>Primero tuvimos que preprocesar los datos que venían en formato <em>json</em>, por lo que tuvimos que extraerlos y decidir qué información iba a resultar más útil para su analisis.</p>
+<p>Para el preprocesado, hemos usado las librerías <em>jsonlite, tidyjson, jsonlite</em> y <em>tidyverse</em> para manejar los archivos. El dataset consta de casi doscientos ficheros con la información obtenida al analizarlos con distintos antivirus, el primer paso es, por tanto, ver cómo están estructurados los datos para decidir con qué información nos vamos a quedar.</p>
 </div>
 <div id="renombrando-los-archivos" class="section level2 hasAnchor" number="1.2">
 <h2><span class="header-section-number">1.2</span> Renombrando los archivos<a href="index.html#renombrando-los-archivos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -260,7 +268,7 @@ done
 </div>
 <div id="datos-iniciales" class="section level2 hasAnchor" number="1.3">
 <h2><span class="header-section-number">1.3</span> Datos iniciales<a href="index.html#datos-iniciales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Primero, obtenemos los nombres de todos los archivos y los guardamos en la variable <em>nombres_ficheros</em>:</p>
+<p>Primero, listamos los nombres de todos los archivos y los guardamos en la variable <em>nombres_ficheros</em>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">&quot;~/Documentos/LCC/ProyectoVT/Proyecto/Android2&quot;</span></span>
 <span id="cb2-2"><a href="index.html#cb2-2" aria-hidden="true" tabindex="-1"></a>nombres_ficheros <span class="ot">&lt;-</span> <span class="fu">list.files</span>(path)</span></code></pre></div>
 <p>Empezamos importando el primer fichero, usando la función <em>read_json</em> de la librería <em>tidyjson</em> obtenemos:</p>
@@ -270,90 +278,69 @@ done
 <h2><span class="header-section-number">1.4</span> Preprocesado<a href="index.html#preprocesado" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Como indicamos antes, lo primero que hicimos fue leer el primer json para tener una idea de que es lo que tenemos
 que hacer.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="index.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(curl)</span></code></pre></div>
-<pre><code>## Using libcurl 7.64.1 with Schannel</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="index.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyjson)</span></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;tidyjson&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:stats&#39;:
-## 
-##     filter</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="index.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="index.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
-<span id="cb13-2"><a href="index.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --</code></pre>
-<pre><code>## v ggplot2 3.3.5     v readr   2.1.2
-## v tibble  3.1.6     v stringr 1.4.0
-## v tidyr   1.2.0     v forcats 0.5.1</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-## x dplyr::filter()     masks tidyjson::filter(), stats::filter()
-## x dplyr::lag()        masks stats::lag()
-## x readr::parse_date() masks curl::parse_date()</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="index.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;kableExtra&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     group_rows</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="index.html#cb20-1" aria-hidden="true" tabindex="-1"></a>json_data <span class="ot">&lt;-</span> tidyjson<span class="sc">::</span><span class="fu">read_json</span>(<span class="st">&quot;~/LCC/ProyectoVT/Proyecto/Android2/0001.json&quot;</span>)</span>
-<span id="cb20-2"><a href="index.html#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="index.html#cb20-3" aria-hidden="true" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> json_data <span class="sc">%&gt;%</span></span>
-<span id="cb20-4"><a href="index.html#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread_all</span>()</span>
-<span id="cb20-5"><a href="index.html#cb20-5" aria-hidden="true" tabindex="-1"></a>tbl</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="index.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(curl)</span>
+<span id="cb4-2"><a href="index.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyjson)</span>
+<span id="cb4-3"><a href="index.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb4-4"><a href="index.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb4-5"><a href="index.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-6"><a href="index.html#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb4-7"><a href="index.html#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bookdown)</span>
+<span id="cb4-8"><a href="index.html#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="index.html#cb4-9" aria-hidden="true" tabindex="-1"></a>json_data <span class="ot">&lt;-</span> tidyjson<span class="sc">::</span><span class="fu">read_json</span>(<span class="st">&quot;~/Documentos/LCC/ProyectoVT/Proyecto/Android2/0001.json&quot;</span>)</span>
+<span id="cb4-10"><a href="index.html#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="index.html#cb4-11" aria-hidden="true" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> json_data <span class="sc">%&gt;%</span></span>
+<span id="cb4-12"><a href="index.html#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread_all</span>()</span>
+<span id="cb4-13"><a href="index.html#cb4-13" aria-hidden="true" tabindex="-1"></a>tbl</span></code></pre></div>
 <pre><code>## # A tbl_json: 1 x 337 tibble with a &quot;JSON&quot; attribute
-##   ..JSON        document.id vhash scan_date first_seen total   size authentihash
-##   &lt;chr&gt;               &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;lgl&gt;       
-## 1 &quot;{\&quot;vhash\&quot;:~           1 f6e2~ 2021-11-~ 2021-11-0~    61 1.96e6 NA          
-## # ... with 329 more variables: times_submitted &lt;dbl&gt;, harmless_votes &lt;dbl&gt;,
-## #   malicious_votes &lt;dbl&gt;, sha256 &lt;chr&gt;, type &lt;chr&gt;, scan_id &lt;chr&gt;,
-## #   unique_sources &lt;dbl&gt;, positives &lt;dbl&gt;, ssdeep &lt;chr&gt;, md5 &lt;chr&gt;,
-## #   permalink &lt;chr&gt;, sha1 &lt;chr&gt;, response_code &lt;dbl&gt;,
-## #   community_reputation &lt;dbl&gt;, verbose_msg &lt;chr&gt;, last_seen &lt;chr&gt;,
-## #   additional_info.trid &lt;chr&gt;, additional_info.magic &lt;chr&gt;,
-## #   submission.submitter_region &lt;chr&gt;, submission.date &lt;chr&gt;, ...</code></pre>
-<p>como vemos, usamos el spread_all para obtener todas las variables.</p>
-<p>Ahora vamos a hacer lo mismo pero con todos los ficheros json a la vez:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="index.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#path &lt;- &quot;~/GitHub/VirusTotal/ProyectoVT/Proyecto/Android2&quot;</span></span>
-<span id="cb22-2"><a href="index.html#cb22-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">&quot;~/LCC/ProyectoVT/Proyecto/Android2&quot;</span></span>
-<span id="cb22-3"><a href="index.html#cb22-3" aria-hidden="true" tabindex="-1"></a>nombres_ficheros <span class="ot">&lt;-</span> <span class="fu">list.files</span>(path)</span>
-<span id="cb22-4"><a href="index.html#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-5"><a href="index.html#cb22-5" aria-hidden="true" tabindex="-1"></a>j <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb22-6"><a href="index.html#cb22-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
-<span id="cb22-7"><a href="index.html#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> nombres_ficheros) {</span>
-<span id="cb22-8"><a href="index.html#cb22-8" aria-hidden="true" tabindex="-1"></a>  filepath <span class="ot">&lt;-</span> <span class="fu">file.path</span>(path, <span class="fu">paste0</span>(i))</span>
-<span id="cb22-9"><a href="index.html#cb22-9" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> tidyjson<span class="sc">::</span><span class="fu">read_json</span>(filepath)</span>
-<span id="cb22-10"><a href="index.html#cb22-10" aria-hidden="true" tabindex="-1"></a>  nombre <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&#39;f_&#39;</span>, j)</span>
-<span id="cb22-11"><a href="index.html#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  assign(nombre, i)</span></span>
-<span id="cb22-12"><a href="index.html#cb22-12" aria-hidden="true" tabindex="-1"></a>  tbl <span class="ot">&lt;-</span> i <span class="sc">%&gt;%</span> <span class="fu">spread_all</span>(<span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb22-13"><a href="index.html#cb22-13" aria-hidden="true" tabindex="-1"></a>  nombre_l <span class="ot">&lt;-</span> tbl <span class="sc">%&gt;%</span></span>
-<span id="cb22-14"><a href="index.html#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(scan_date,first_seen,total,size,times_submitted,positives,</span>
-<span id="cb22-15"><a href="index.html#cb22-15" aria-hidden="true" tabindex="-1"></a>           submission.submitter_country,additional_info.exiftool.FileType)</span>
-<span id="cb22-16"><a href="index.html#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">#name &lt;- paste0(&#39;l_&#39;,j) </span></span>
-<span id="cb22-17"><a href="index.html#cb22-17" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(nombre_l)</span>
-<span id="cb22-18"><a href="index.html#cb22-18" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">&lt;-</span> name[<span class="sc">-</span><span class="fu">length</span>(name)]</span>
-<span id="cb22-19"><a href="index.html#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="co">#  assign(paste0(&#39;l_&#39;,j) , nombre_l)</span></span>
-<span id="cb22-20"><a href="index.html#cb22-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-21"><a href="index.html#cb22-21" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(df, name)</span>
-<span id="cb22-22"><a href="index.html#cb22-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-23"><a href="index.html#cb22-23" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-24"><a href="index.html#cb22-24" aria-hidden="true" tabindex="-1"></a>  j <span class="ot">&lt;-</span> j<span class="sc">+</span><span class="dv">1</span></span>
-<span id="cb22-25"><a href="index.html#cb22-25" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+##   ..JSON        document.id vhash scan_date first_seen total   size authentihash times_submitted
+##   &lt;chr&gt;               &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;lgl&gt;                  &lt;dbl&gt;
+## 1 &quot;{\&quot;vhash\&quot;:…           1 f6e2… 2021-11-… 2021-11-0…    61 1.96e6 NA                         1
+## # … with 328 more variables: harmless_votes &lt;dbl&gt;, malicious_votes &lt;dbl&gt;, sha256 &lt;chr&gt;,
+## #   type &lt;chr&gt;, scan_id &lt;chr&gt;, unique_sources &lt;dbl&gt;, positives &lt;dbl&gt;, ssdeep &lt;chr&gt;, md5 &lt;chr&gt;,
+## #   permalink &lt;chr&gt;, sha1 &lt;chr&gt;, response_code &lt;dbl&gt;, community_reputation &lt;dbl&gt;,
+## #   verbose_msg &lt;chr&gt;, last_seen &lt;chr&gt;, additional_info.trid &lt;chr&gt;,
+## #   additional_info.magic &lt;chr&gt;, submission.submitter_region &lt;chr&gt;, submission.date &lt;chr&gt;,
+## #   submission.submitter_country &lt;chr&gt;, submission.filename &lt;chr&gt;,
+## #   additional_info.exiftool.MIMEType &lt;chr&gt;, …</code></pre>
+<p>como vemos, <em>spread_all</em> transforma los pares clave valor en columnas de forma recursiva.</p>
+<p>Ahora vamos a hacer lo mismo pero con todos los ficheros:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="index.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#path &lt;- &quot;~/GitHub/VirusTotal/ProyectoVT/Proyecto/Android2&quot;</span></span>
+<span id="cb6-2"><a href="index.html#cb6-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">&quot;~/Documentos/LCC/ProyectoVT/Proyecto/Android2&quot;</span></span>
+<span id="cb6-3"><a href="index.html#cb6-3" aria-hidden="true" tabindex="-1"></a>nombres_ficheros <span class="ot">&lt;-</span> <span class="fu">list.files</span>(path)</span>
+<span id="cb6-4"><a href="index.html#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="index.html#cb6-5" aria-hidden="true" tabindex="-1"></a>j <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb6-6"><a href="index.html#cb6-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb6-7"><a href="index.html#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> nombres_ficheros) {</span>
+<span id="cb6-8"><a href="index.html#cb6-8" aria-hidden="true" tabindex="-1"></a>  filepath <span class="ot">&lt;-</span> <span class="fu">file.path</span>(path, <span class="fu">paste0</span>(i))</span>
+<span id="cb6-9"><a href="index.html#cb6-9" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> tidyjson<span class="sc">::</span><span class="fu">read_json</span>(filepath)</span>
+<span id="cb6-10"><a href="index.html#cb6-10" aria-hidden="true" tabindex="-1"></a>  tbl <span class="ot">&lt;-</span> i <span class="sc">%&gt;%</span> <span class="fu">spread_all</span>(<span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-11"><a href="index.html#cb6-11" aria-hidden="true" tabindex="-1"></a>  nombre_l <span class="ot">&lt;-</span> tbl <span class="sc">%&gt;%</span></span>
+<span id="cb6-12"><a href="index.html#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(scan_date,first_seen,total,size,times_submitted,positives,</span>
+<span id="cb6-13"><a href="index.html#cb6-13" aria-hidden="true" tabindex="-1"></a>           submission.submitter_country,additional_info.exiftool.FileType)</span>
+<span id="cb6-14"><a href="index.html#cb6-14" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(nombre_l)</span>
+<span id="cb6-15"><a href="index.html#cb6-15" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">&lt;-</span> name[<span class="sc">-</span><span class="fu">length</span>(name)]</span>
+<span id="cb6-16"><a href="index.html#cb6-16" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(df, name)</span>
+<span id="cb6-17"><a href="index.html#cb6-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-18"><a href="index.html#cb6-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-19"><a href="index.html#cb6-19" aria-hidden="true" tabindex="-1"></a>  j <span class="ot">&lt;-</span> j<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb6-20"><a href="index.html#cb6-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Con esto hemos preprocesado todos los archivos json y los metemos en un data frame. Hemos seleccionado
-las variables que creemos mas relevantes.</p>
+las columnas <em>scan_date</em>, <em>first_seen</em>, <em>total</em>, <em>size</em>, <em>times_submitted</em>, <em>country</em>, <em>fileType</em>.</p>
 <p>Finalmente, mostramos el dataset resultante y lo guardamos como un .csv para tenerlo a mano.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="index.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df, <span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="index.html#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="index.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(df, <span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="index.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">10</span>)</span></code></pre></div>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
+<th style="text-align:right;">
+…1
+</th>
+<th style="text-align:right;">
+…2
+</th>
+<th style="text-align:right;">
+…3
+</th>
 <th style="text-align:left;">
 scan_date
 </th>
@@ -382,6 +369,15 @@ additional_info.exiftool.FileType
 </thead>
 <tbody>
 <tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
 <td style="text-align:left;">
 2021-11-03 08:53:57
 </td>
@@ -408,6 +404,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
 <td style="text-align:left;">
 2021-11-03 00:26:03
 </td>
@@ -434,6 +439,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+3
+</td>
 <td style="text-align:left;">
 2021-11-03 08:12:06
 </td>
@@ -460,6 +474,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+4
+</td>
 <td style="text-align:left;">
 2021-11-03 08:44:36
 </td>
@@ -486,6 +509,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+5
+</td>
 <td style="text-align:left;">
 2021-11-03 08:54:32
 </td>
@@ -512,6 +544,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+6
+</td>
 <td style="text-align:left;">
 2021-11-03 08:22:50
 </td>
@@ -538,6 +579,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+7
+</td>
 <td style="text-align:left;">
 2021-11-03 07:43:10
 </td>
@@ -564,6 +614,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+8
+</td>
 <td style="text-align:left;">
 2021-11-03 00:25:19
 </td>
@@ -590,6 +649,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+9
+</td>
 <td style="text-align:left;">
 2021-11-03 00:19:30
 </td>
@@ -616,6 +684,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+10
+</td>
 <td style="text-align:left;">
 2021-11-03 08:00:30
 </td>
@@ -642,6 +719,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+11
+</td>
 <td style="text-align:left;">
 2021-11-03 07:53:39
 </td>
@@ -668,6 +754,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+12
+</td>
 <td style="text-align:left;">
 2021-11-03 00:45:24
 </td>
@@ -694,6 +789,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+13
+</td>
 <td style="text-align:left;">
 2021-11-03 08:44:15
 </td>
@@ -720,6 +824,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+14
+</td>
 <td style="text-align:left;">
 2021-11-03 07:54:34
 </td>
@@ -746,6 +859,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+15
+</td>
 <td style="text-align:left;">
 2021-11-03 09:16:16
 </td>
@@ -772,6 +894,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+16
+</td>
 <td style="text-align:left;">
 2021-11-03 08:16:40
 </td>
@@ -798,6 +929,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+17
+</td>
 <td style="text-align:left;">
 2021-11-03 07:54:29
 </td>
@@ -824,6 +964,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+18
+</td>
 <td style="text-align:left;">
 2021-11-03 00:00:26
 </td>
@@ -850,6 +999,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+19
+</td>
 <td style="text-align:left;">
 2021-11-03 00:37:21
 </td>
@@ -876,6 +1034,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+20
+</td>
 <td style="text-align:left;">
 2021-11-03 09:00:20
 </td>
@@ -902,6 +1069,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+21
+</td>
 <td style="text-align:left;">
 2021-11-03 07:50:10
 </td>
@@ -928,6 +1104,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+22
+</td>
 <td style="text-align:left;">
 2021-11-03 00:45:04
 </td>
@@ -954,6 +1139,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+23
+</td>
 <td style="text-align:left;">
 2021-11-03 07:40:40
 </td>
@@ -980,6 +1174,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+24
+</td>
 <td style="text-align:left;">
 2021-11-03 08:46:27
 </td>
@@ -1006,6 +1209,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+25
+</td>
 <td style="text-align:left;">
 2021-11-03 07:55:42
 </td>
@@ -1032,6 +1244,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+26
+</td>
 <td style="text-align:left;">
 2021-11-03 07:39:47
 </td>
@@ -1058,6 +1279,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+27
+</td>
 <td style="text-align:left;">
 2021-11-03 07:39:19
 </td>
@@ -1084,6 +1314,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+28
+</td>
 <td style="text-align:left;">
 2021-11-03 08:00:41
 </td>
@@ -1110,6 +1349,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+29
+</td>
 <td style="text-align:left;">
 2021-11-03 07:40:00
 </td>
@@ -1136,6 +1384,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+30
+</td>
 <td style="text-align:left;">
 2021-11-03 07:39:44
 </td>
@@ -1162,6 +1419,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+31
+</td>
 <td style="text-align:left;">
 2021-11-03 00:10:40
 </td>
@@ -1188,6 +1454,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+32
+</td>
 <td style="text-align:left;">
 2021-11-03 07:46:10
 </td>
@@ -1214,6 +1489,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+33
+</td>
 <td style="text-align:left;">
 2021-11-03 00:08:52
 </td>
@@ -1240,6 +1524,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+34
+</td>
 <td style="text-align:left;">
 2021-11-03 08:16:18
 </td>
@@ -1266,6 +1559,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+35
+</td>
 <td style="text-align:left;">
 2021-11-03 08:24:09
 </td>
@@ -1292,6 +1594,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+36
+</td>
 <td style="text-align:left;">
 2021-11-03 07:50:25
 </td>
@@ -1318,6 +1629,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+37
+</td>
+<td style="text-align:right;">
+37
+</td>
+<td style="text-align:right;">
+37
+</td>
 <td style="text-align:left;">
 2021-11-03 08:28:49
 </td>
@@ -1344,6 +1664,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+38
+</td>
 <td style="text-align:left;">
 2021-11-03 07:54:48
 </td>
@@ -1370,6 +1699,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+39
+</td>
 <td style="text-align:left;">
 2021-11-03 08:32:38
 </td>
@@ -1396,6 +1734,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+40
+</td>
 <td style="text-align:left;">
 2021-11-03 08:18:57
 </td>
@@ -1422,6 +1769,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+41
+</td>
+<td style="text-align:right;">
+41
+</td>
+<td style="text-align:right;">
+41
+</td>
 <td style="text-align:left;">
 2021-11-03 09:15:59
 </td>
@@ -1448,6 +1804,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+42
+</td>
+<td style="text-align:right;">
+42
+</td>
+<td style="text-align:right;">
+42
+</td>
 <td style="text-align:left;">
 2021-11-03 08:16:20
 </td>
@@ -1474,6 +1839,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+43
+</td>
 <td style="text-align:left;">
 2021-11-03 07:54:09
 </td>
@@ -1500,6 +1874,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+44
+</td>
 <td style="text-align:left;">
 2021-11-03 07:44:23
 </td>
@@ -1526,6 +1909,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+45
+</td>
 <td style="text-align:left;">
 2021-11-03 09:22:12
 </td>
@@ -1552,6 +1944,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+46
+</td>
 <td style="text-align:left;">
 2021-11-03 00:19:22
 </td>
@@ -1578,6 +1979,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:right;">
+47
+</td>
 <td style="text-align:left;">
 2021-11-03 08:15:31
 </td>
@@ -1604,6 +2014,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+48
+</td>
 <td style="text-align:left;">
 2021-11-03 00:46:00
 </td>
@@ -1630,6 +2049,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:right;">
+49
+</td>
 <td style="text-align:left;">
 2021-11-03 09:14:16
 </td>
@@ -1656,6 +2084,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+50
+</td>
 <td style="text-align:left;">
 2021-11-03 07:33:53
 </td>
@@ -1682,6 +2119,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:right;">
+51
+</td>
 <td style="text-align:left;">
 2021-11-03 00:01:05
 </td>
@@ -1708,6 +2154,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+52
+</td>
 <td style="text-align:left;">
 2021-11-03 08:21:38
 </td>
@@ -1734,6 +2189,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+53
+</td>
+<td style="text-align:right;">
+53
+</td>
+<td style="text-align:right;">
+53
+</td>
 <td style="text-align:left;">
 2021-11-03 07:55:52
 </td>
@@ -1760,6 +2224,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+54
+</td>
 <td style="text-align:left;">
 2021-11-03 09:13:09
 </td>
@@ -1786,6 +2259,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+55
+</td>
+<td style="text-align:right;">
+55
+</td>
+<td style="text-align:right;">
+55
+</td>
 <td style="text-align:left;">
 2021-11-03 00:28:18
 </td>
@@ -1812,6 +2294,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+56
+</td>
 <td style="text-align:left;">
 2021-11-03 08:45:37
 </td>
@@ -1838,6 +2329,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+57
+</td>
+<td style="text-align:right;">
+57
+</td>
+<td style="text-align:right;">
+57
+</td>
 <td style="text-align:left;">
 2021-11-03 08:12:18
 </td>
@@ -1864,6 +2364,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+58
+</td>
 <td style="text-align:left;">
 2021-11-03 08:03:59
 </td>
@@ -1890,6 +2399,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+59
+</td>
 <td style="text-align:left;">
 2021-11-03 08:34:18
 </td>
@@ -1916,6 +2434,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+60
+</td>
 <td style="text-align:left;">
 2021-11-03 07:55:19
 </td>
@@ -1942,6 +2469,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+61
+</td>
+<td style="text-align:right;">
+61
+</td>
+<td style="text-align:right;">
+61
+</td>
 <td style="text-align:left;">
 2021-11-03 07:39:52
 </td>
@@ -1968,6 +2504,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+62
+</td>
+<td style="text-align:right;">
+62
+</td>
+<td style="text-align:right;">
+62
+</td>
 <td style="text-align:left;">
 2021-11-03 07:50:15
 </td>
@@ -1994,6 +2539,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+63
+</td>
 <td style="text-align:left;">
 2021-11-03 07:38:33
 </td>
@@ -2020,6 +2574,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+64
+</td>
 <td style="text-align:left;">
 2021-11-03 07:37:40
 </td>
@@ -2046,6 +2609,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+65
+</td>
+<td style="text-align:right;">
+65
+</td>
+<td style="text-align:right;">
+65
+</td>
 <td style="text-align:left;">
 2021-11-03 08:02:16
 </td>
@@ -2072,6 +2644,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+66
+</td>
 <td style="text-align:left;">
 2021-11-03 00:28:10
 </td>
@@ -2098,6 +2679,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+67
+</td>
+<td style="text-align:right;">
+67
+</td>
+<td style="text-align:right;">
+67
+</td>
 <td style="text-align:left;">
 2021-11-03 08:33:19
 </td>
@@ -2124,6 +2714,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+68
+</td>
 <td style="text-align:left;">
 2021-11-03 08:21:56
 </td>
@@ -2150,6 +2749,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+69
+</td>
 <td style="text-align:left;">
 2021-11-03 08:46:24
 </td>
@@ -2176,6 +2784,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+70
+</td>
 <td style="text-align:left;">
 2021-11-03 07:55:40
 </td>
@@ -2202,6 +2819,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+71
+</td>
 <td style="text-align:left;">
 2021-11-03 07:56:08
 </td>
@@ -2228,6 +2854,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+72
+</td>
+<td style="text-align:right;">
+72
+</td>
+<td style="text-align:right;">
+72
+</td>
 <td style="text-align:left;">
 2021-11-03 07:38:41
 </td>
@@ -2254,6 +2889,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;">
+73
+</td>
 <td style="text-align:left;">
 2021-11-03 07:40:14
 </td>
@@ -2280,6 +2924,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+74
+</td>
 <td style="text-align:left;">
 2021-11-03 00:27:26
 </td>
@@ -2306,6 +2959,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+75
+</td>
 <td style="text-align:left;">
 2021-11-03 09:21:06
 </td>
@@ -2332,6 +2994,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+76
+</td>
+<td style="text-align:right;">
+76
+</td>
+<td style="text-align:right;">
+76
+</td>
 <td style="text-align:left;">
 2021-11-03 07:40:52
 </td>
@@ -2358,6 +3029,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+77
+</td>
+<td style="text-align:right;">
+77
+</td>
+<td style="text-align:right;">
+77
+</td>
 <td style="text-align:left;">
 2021-11-03 00:19:25
 </td>
@@ -2384,6 +3064,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+78
+</td>
 <td style="text-align:left;">
 2021-11-03 08:06:25
 </td>
@@ -2410,6 +3099,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+79
+</td>
+<td style="text-align:right;">
+79
+</td>
+<td style="text-align:right;">
+79
+</td>
 <td style="text-align:left;">
 2021-11-03 07:51:57
 </td>
@@ -2436,6 +3134,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+80
+</td>
 <td style="text-align:left;">
 2021-11-03 08:12:09
 </td>
@@ -2462,6 +3169,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+81
+</td>
+<td style="text-align:right;">
+81
+</td>
+<td style="text-align:right;">
+81
+</td>
 <td style="text-align:left;">
 2021-11-03 08:06:24
 </td>
@@ -2488,6 +3204,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+82
+</td>
 <td style="text-align:left;">
 2021-11-03 08:46:53
 </td>
@@ -2514,6 +3239,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+83
+</td>
+<td style="text-align:right;">
+83
+</td>
+<td style="text-align:right;">
+83
+</td>
 <td style="text-align:left;">
 2021-11-03 07:44:14
 </td>
@@ -2540,6 +3274,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:right;">
+84
+</td>
 <td style="text-align:left;">
 2021-11-03 00:25:46
 </td>
@@ -2566,6 +3309,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+85
+</td>
+<td style="text-align:right;">
+85
+</td>
+<td style="text-align:right;">
+85
+</td>
 <td style="text-align:left;">
 2021-11-03 08:30:37
 </td>
@@ -2592,6 +3344,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+86
+</td>
+<td style="text-align:right;">
+86
+</td>
+<td style="text-align:right;">
+86
+</td>
 <td style="text-align:left;">
 2021-11-03 08:40:13
 </td>
@@ -2618,6 +3379,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+87
+</td>
+<td style="text-align:right;">
+87
+</td>
+<td style="text-align:right;">
+87
+</td>
 <td style="text-align:left;">
 2021-11-03 07:50:12
 </td>
@@ -2644,6 +3414,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+88
+</td>
+<td style="text-align:right;">
+88
+</td>
+<td style="text-align:right;">
+88
+</td>
 <td style="text-align:left;">
 2021-11-03 07:46:05
 </td>
@@ -2670,6 +3449,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+89
+</td>
+<td style="text-align:right;">
+89
+</td>
+<td style="text-align:right;">
+89
+</td>
 <td style="text-align:left;">
 2021-11-03 07:40:04
 </td>
@@ -2696,6 +3484,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+90
+</td>
+<td style="text-align:right;">
+90
+</td>
+<td style="text-align:right;">
+90
+</td>
 <td style="text-align:left;">
 2021-11-03 09:13:36
 </td>
@@ -2722,6 +3519,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+91
+</td>
+<td style="text-align:right;">
+91
+</td>
+<td style="text-align:right;">
+91
+</td>
 <td style="text-align:left;">
 2021-11-03 07:52:13
 </td>
@@ -2748,6 +3554,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+92
+</td>
+<td style="text-align:right;">
+92
+</td>
+<td style="text-align:right;">
+92
+</td>
 <td style="text-align:left;">
 2021-11-03 07:40:00
 </td>
@@ -2774,6 +3589,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:right;">
+93
+</td>
 <td style="text-align:left;">
 2021-11-03 07:39:27
 </td>
@@ -2800,6 +3624,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+94
+</td>
+<td style="text-align:right;">
+94
+</td>
+<td style="text-align:right;">
+94
+</td>
 <td style="text-align:left;">
 2021-11-03 07:40:11
 </td>
@@ -2826,6 +3659,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+95
+</td>
+<td style="text-align:right;">
+95
+</td>
+<td style="text-align:right;">
+95
+</td>
 <td style="text-align:left;">
 2021-11-03 00:17:42
 </td>
@@ -2852,6 +3694,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+96
+</td>
+<td style="text-align:right;">
+96
+</td>
+<td style="text-align:right;">
+96
+</td>
 <td style="text-align:left;">
 2021-11-03 07:40:21
 </td>
@@ -2878,6 +3729,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+97
+</td>
+<td style="text-align:right;">
+97
+</td>
+<td style="text-align:right;">
+97
+</td>
 <td style="text-align:left;">
 2021-11-03 08:44:11
 </td>
@@ -2904,6 +3764,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+98
+</td>
+<td style="text-align:right;">
+98
+</td>
+<td style="text-align:right;">
+98
+</td>
 <td style="text-align:left;">
 2021-11-03 07:49:58
 </td>
@@ -2930,6 +3799,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+99
+</td>
+<td style="text-align:right;">
+99
+</td>
+<td style="text-align:right;">
+99
+</td>
 <td style="text-align:left;">
 2021-11-03 08:27:19
 </td>
@@ -2956,6 +3834,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+100
+</td>
 <td style="text-align:left;">
 2021-11-03 00:26:19
 </td>
@@ -2982,6 +3869,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+101
+</td>
+<td style="text-align:right;">
+101
+</td>
+<td style="text-align:right;">
+101
+</td>
 <td style="text-align:left;">
 2021-11-03 09:14:01
 </td>
@@ -3008,6 +3904,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+102
+</td>
+<td style="text-align:right;">
+102
+</td>
+<td style="text-align:right;">
+102
+</td>
 <td style="text-align:left;">
 2021-11-03 07:40:25
 </td>
@@ -3034,6 +3939,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+103
+</td>
+<td style="text-align:right;">
+103
+</td>
+<td style="text-align:right;">
+103
+</td>
 <td style="text-align:left;">
 2021-11-03 09:06:44
 </td>
@@ -3060,6 +3974,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+104
+</td>
+<td style="text-align:right;">
+104
+</td>
+<td style="text-align:right;">
+104
+</td>
 <td style="text-align:left;">
 2021-11-03 09:24:18
 </td>
@@ -3086,6 +4009,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+105
+</td>
+<td style="text-align:right;">
+105
+</td>
+<td style="text-align:right;">
+105
+</td>
 <td style="text-align:left;">
 2021-11-03 08:17:09
 </td>
@@ -3112,6 +4044,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+106
+</td>
+<td style="text-align:right;">
+106
+</td>
+<td style="text-align:right;">
+106
+</td>
 <td style="text-align:left;">
 2021-11-03 00:28:16
 </td>
@@ -3138,6 +4079,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+107
+</td>
+<td style="text-align:right;">
+107
+</td>
+<td style="text-align:right;">
+107
+</td>
 <td style="text-align:left;">
 2021-11-03 00:26:07
 </td>
@@ -3164,6 +4114,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+108
+</td>
+<td style="text-align:right;">
+108
+</td>
+<td style="text-align:right;">
+108
+</td>
 <td style="text-align:left;">
 2021-11-03 09:25:14
 </td>
@@ -3190,6 +4149,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+109
+</td>
+<td style="text-align:right;">
+109
+</td>
+<td style="text-align:right;">
+109
+</td>
 <td style="text-align:left;">
 2021-11-03 08:00:04
 </td>
@@ -3216,6 +4184,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+110
+</td>
+<td style="text-align:right;">
+110
+</td>
+<td style="text-align:right;">
+110
+</td>
 <td style="text-align:left;">
 2021-11-03 07:52:59
 </td>
@@ -3242,6 +4219,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+111
+</td>
+<td style="text-align:right;">
+111
+</td>
+<td style="text-align:right;">
+111
+</td>
 <td style="text-align:left;">
 2021-11-03 08:58:14
 </td>
@@ -3268,6 +4254,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+112
+</td>
+<td style="text-align:right;">
+112
+</td>
+<td style="text-align:right;">
+112
+</td>
 <td style="text-align:left;">
 2021-11-03 08:22:22
 </td>
@@ -3294,6 +4289,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+113
+</td>
+<td style="text-align:right;">
+113
+</td>
+<td style="text-align:right;">
+113
+</td>
 <td style="text-align:left;">
 2021-11-03 00:37:49
 </td>
@@ -3320,6 +4324,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+114
+</td>
+<td style="text-align:right;">
+114
+</td>
+<td style="text-align:right;">
+114
+</td>
 <td style="text-align:left;">
 2021-11-03 08:38:43
 </td>
@@ -3346,6 +4359,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+115
+</td>
+<td style="text-align:right;">
+115
+</td>
+<td style="text-align:right;">
+115
+</td>
 <td style="text-align:left;">
 2021-11-03 08:31:47
 </td>
@@ -3372,6 +4394,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+116
+</td>
+<td style="text-align:right;">
+116
+</td>
+<td style="text-align:right;">
+116
+</td>
 <td style="text-align:left;">
 2021-11-03 08:06:13
 </td>
@@ -3398,6 +4429,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+117
+</td>
+<td style="text-align:right;">
+117
+</td>
+<td style="text-align:right;">
+117
+</td>
 <td style="text-align:left;">
 2021-11-03 08:28:35
 </td>
@@ -3424,6 +4464,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+118
+</td>
+<td style="text-align:right;">
+118
+</td>
+<td style="text-align:right;">
+118
+</td>
 <td style="text-align:left;">
 2021-11-03 08:06:25
 </td>
@@ -3450,6 +4499,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+119
+</td>
+<td style="text-align:right;">
+119
+</td>
+<td style="text-align:right;">
+119
+</td>
 <td style="text-align:left;">
 2021-11-03 08:04:19
 </td>
@@ -3476,6 +4534,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+120
+</td>
+<td style="text-align:right;">
+120
+</td>
+<td style="text-align:right;">
+120
+</td>
 <td style="text-align:left;">
 2021-11-03 09:00:13
 </td>
@@ -3502,6 +4569,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+121
+</td>
+<td style="text-align:right;">
+121
+</td>
+<td style="text-align:right;">
+121
+</td>
 <td style="text-align:left;">
 2021-11-03 00:27:16
 </td>
@@ -3528,6 +4604,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+122
+</td>
+<td style="text-align:right;">
+122
+</td>
+<td style="text-align:right;">
+122
+</td>
 <td style="text-align:left;">
 2021-11-03 08:06:09
 </td>
@@ -3554,6 +4639,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+123
+</td>
+<td style="text-align:right;">
+123
+</td>
+<td style="text-align:right;">
+123
+</td>
 <td style="text-align:left;">
 2021-11-03 07:56:14
 </td>
@@ -3580,6 +4674,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+124
+</td>
+<td style="text-align:right;">
+124
+</td>
+<td style="text-align:right;">
+124
+</td>
 <td style="text-align:left;">
 2021-11-03 08:28:15
 </td>
@@ -3606,6 +4709,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+125
+</td>
+<td style="text-align:right;">
+125
+</td>
+<td style="text-align:right;">
+125
+</td>
 <td style="text-align:left;">
 2021-11-03 07:53:30
 </td>
@@ -3632,6 +4744,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+126
+</td>
+<td style="text-align:right;">
+126
+</td>
+<td style="text-align:right;">
+126
+</td>
 <td style="text-align:left;">
 2021-11-03 00:19:33
 </td>
@@ -3658,6 +4779,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+127
+</td>
+<td style="text-align:right;">
+127
+</td>
+<td style="text-align:right;">
+127
+</td>
 <td style="text-align:left;">
 2021-11-03 08:27:16
 </td>
@@ -3684,6 +4814,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+128
+</td>
+<td style="text-align:right;">
+128
+</td>
+<td style="text-align:right;">
+128
+</td>
 <td style="text-align:left;">
 2021-11-03 00:27:35
 </td>
@@ -3710,6 +4849,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+129
+</td>
+<td style="text-align:right;">
+129
+</td>
+<td style="text-align:right;">
+129
+</td>
 <td style="text-align:left;">
 2021-11-03 08:20:52
 </td>
@@ -3736,6 +4884,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+130
+</td>
+<td style="text-align:right;">
+130
+</td>
+<td style="text-align:right;">
+130
+</td>
 <td style="text-align:left;">
 2021-11-03 00:35:56
 </td>
@@ -3762,6 +4919,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+131
+</td>
+<td style="text-align:right;">
+131
+</td>
+<td style="text-align:right;">
+131
+</td>
 <td style="text-align:left;">
 2021-11-03 07:53:47
 </td>
@@ -3788,6 +4954,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+132
+</td>
+<td style="text-align:right;">
+132
+</td>
+<td style="text-align:right;">
+132
+</td>
 <td style="text-align:left;">
 2021-11-03 08:06:27
 </td>
@@ -3814,6 +4989,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+133
+</td>
+<td style="text-align:right;">
+133
+</td>
+<td style="text-align:right;">
+133
+</td>
 <td style="text-align:left;">
 2021-11-03 08:53:57
 </td>
@@ -3840,6 +5024,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+134
+</td>
+<td style="text-align:right;">
+134
+</td>
+<td style="text-align:right;">
+134
+</td>
 <td style="text-align:left;">
 2021-11-03 00:31:34
 </td>
@@ -3866,6 +5059,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+135
+</td>
+<td style="text-align:right;">
+135
+</td>
+<td style="text-align:right;">
+135
+</td>
 <td style="text-align:left;">
 2021-11-03 07:53:50
 </td>
@@ -3892,6 +5094,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+136
+</td>
+<td style="text-align:right;">
+136
+</td>
+<td style="text-align:right;">
+136
+</td>
 <td style="text-align:left;">
 2021-11-03 08:39:03
 </td>
@@ -3918,6 +5129,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+137
+</td>
+<td style="text-align:right;">
+137
+</td>
+<td style="text-align:right;">
+137
+</td>
 <td style="text-align:left;">
 2021-11-03 07:52:22
 </td>
@@ -3944,6 +5164,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+138
+</td>
 <td style="text-align:left;">
 2021-11-03 07:52:39
 </td>
@@ -3970,6 +5199,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+139
+</td>
+<td style="text-align:right;">
+139
+</td>
+<td style="text-align:right;">
+139
+</td>
 <td style="text-align:left;">
 2021-11-03 00:31:03
 </td>
@@ -3996,6 +5234,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+140
+</td>
+<td style="text-align:right;">
+140
+</td>
+<td style="text-align:right;">
+140
+</td>
 <td style="text-align:left;">
 2021-11-03 07:40:18
 </td>
@@ -4022,6 +5269,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+141
+</td>
+<td style="text-align:right;">
+141
+</td>
+<td style="text-align:right;">
+141
+</td>
 <td style="text-align:left;">
 2021-11-03 08:37:57
 </td>
@@ -4048,6 +5304,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+142
+</td>
+<td style="text-align:right;">
+142
+</td>
+<td style="text-align:right;">
+142
+</td>
 <td style="text-align:left;">
 2021-11-03 08:12:27
 </td>
@@ -4074,6 +5339,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+143
+</td>
 <td style="text-align:left;">
 2021-11-03 08:00:37
 </td>
@@ -4100,6 +5374,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+144
+</td>
+<td style="text-align:right;">
+144
+</td>
+<td style="text-align:right;">
+144
+</td>
 <td style="text-align:left;">
 2021-11-03 09:01:19
 </td>
@@ -4126,6 +5409,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+145
+</td>
+<td style="text-align:right;">
+145
+</td>
+<td style="text-align:right;">
+145
+</td>
 <td style="text-align:left;">
 2021-11-03 08:43:29
 </td>
@@ -4152,6 +5444,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+146
+</td>
+<td style="text-align:right;">
+146
+</td>
+<td style="text-align:right;">
+146
+</td>
 <td style="text-align:left;">
 2021-11-03 08:34:35
 </td>
@@ -4178,6 +5479,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+147
+</td>
+<td style="text-align:right;">
+147
+</td>
+<td style="text-align:right;">
+147
+</td>
 <td style="text-align:left;">
 2021-11-03 00:25:15
 </td>
@@ -4204,6 +5514,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+148
+</td>
+<td style="text-align:right;">
+148
+</td>
+<td style="text-align:right;">
+148
+</td>
 <td style="text-align:left;">
 2021-11-03 00:19:41
 </td>
@@ -4230,6 +5549,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+149
+</td>
+<td style="text-align:right;">
+149
+</td>
+<td style="text-align:right;">
+149
+</td>
 <td style="text-align:left;">
 2021-11-03 07:40:07
 </td>
@@ -4256,6 +5584,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+150
+</td>
+<td style="text-align:right;">
+150
+</td>
+<td style="text-align:right;">
+150
+</td>
 <td style="text-align:left;">
 2021-11-03 09:00:52
 </td>
@@ -4282,6 +5619,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+151
+</td>
+<td style="text-align:right;">
+151
+</td>
+<td style="text-align:right;">
+151
+</td>
 <td style="text-align:left;">
 2021-11-03 08:22:25
 </td>
@@ -4308,6 +5654,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+152
+</td>
+<td style="text-align:right;">
+152
+</td>
+<td style="text-align:right;">
+152
+</td>
 <td style="text-align:left;">
 2021-11-03 09:12:48
 </td>
@@ -4334,6 +5689,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+153
+</td>
+<td style="text-align:right;">
+153
+</td>
+<td style="text-align:right;">
+153
+</td>
 <td style="text-align:left;">
 2021-11-03 00:21:08
 </td>
@@ -4360,6 +5724,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+154
+</td>
+<td style="text-align:right;">
+154
+</td>
+<td style="text-align:right;">
+154
+</td>
 <td style="text-align:left;">
 2021-11-03 08:23:29
 </td>
@@ -4386,6 +5759,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+155
+</td>
+<td style="text-align:right;">
+155
+</td>
+<td style="text-align:right;">
+155
+</td>
 <td style="text-align:left;">
 2021-11-03 00:04:45
 </td>
@@ -4412,6 +5794,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+156
+</td>
+<td style="text-align:right;">
+156
+</td>
+<td style="text-align:right;">
+156
+</td>
 <td style="text-align:left;">
 2021-11-03 07:56:23
 </td>
@@ -4438,6 +5829,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+157
+</td>
+<td style="text-align:right;">
+157
+</td>
+<td style="text-align:right;">
+157
+</td>
 <td style="text-align:left;">
 2021-11-03 00:25:14
 </td>
@@ -4464,6 +5864,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+158
+</td>
+<td style="text-align:right;">
+158
+</td>
+<td style="text-align:right;">
+158
+</td>
 <td style="text-align:left;">
 2021-11-03 07:56:18
 </td>
@@ -4490,6 +5899,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+159
+</td>
+<td style="text-align:right;">
+159
+</td>
+<td style="text-align:right;">
+159
+</td>
 <td style="text-align:left;">
 2021-11-03 00:26:11
 </td>
@@ -4516,6 +5934,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+160
+</td>
+<td style="text-align:right;">
+160
+</td>
+<td style="text-align:right;">
+160
+</td>
 <td style="text-align:left;">
 2021-11-03 08:41:30
 </td>
@@ -4542,6 +5969,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+161
+</td>
+<td style="text-align:right;">
+161
+</td>
+<td style="text-align:right;">
+161
+</td>
 <td style="text-align:left;">
 2021-11-03 07:52:28
 </td>
@@ -4568,6 +6004,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+162
+</td>
+<td style="text-align:right;">
+162
+</td>
+<td style="text-align:right;">
+162
+</td>
 <td style="text-align:left;">
 2021-11-03 08:21:46
 </td>
@@ -4594,6 +6039,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+163
+</td>
+<td style="text-align:right;">
+163
+</td>
+<td style="text-align:right;">
+163
+</td>
 <td style="text-align:left;">
 2021-11-03 09:01:28
 </td>
@@ -4620,6 +6074,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+164
+</td>
+<td style="text-align:right;">
+164
+</td>
+<td style="text-align:right;">
+164
+</td>
 <td style="text-align:left;">
 2021-11-03 07:56:03
 </td>
@@ -4646,6 +6109,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+165
+</td>
+<td style="text-align:right;">
+165
+</td>
+<td style="text-align:right;">
+165
+</td>
 <td style="text-align:left;">
 2021-11-03 08:00:54
 </td>
@@ -4672,6 +6144,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+166
+</td>
+<td style="text-align:right;">
+166
+</td>
+<td style="text-align:right;">
+166
+</td>
 <td style="text-align:left;">
 2021-11-03 09:20:31
 </td>
@@ -4698,6 +6179,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+167
+</td>
+<td style="text-align:right;">
+167
+</td>
+<td style="text-align:right;">
+167
+</td>
 <td style="text-align:left;">
 2021-11-03 09:18:46
 </td>
@@ -4724,6 +6214,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+168
+</td>
+<td style="text-align:right;">
+168
+</td>
+<td style="text-align:right;">
+168
+</td>
 <td style="text-align:left;">
 2021-11-03 08:17:00
 </td>
@@ -4750,6 +6249,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+169
+</td>
+<td style="text-align:right;">
+169
+</td>
+<td style="text-align:right;">
+169
+</td>
 <td style="text-align:left;">
 2021-11-03 00:20:03
 </td>
@@ -4776,6 +6284,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+170
+</td>
 <td style="text-align:left;">
 2021-11-03 07:56:11
 </td>
@@ -4802,6 +6319,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+171
+</td>
+<td style="text-align:right;">
+171
+</td>
+<td style="text-align:right;">
+171
+</td>
 <td style="text-align:left;">
 2021-11-03 08:58:50
 </td>
@@ -4828,6 +6354,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+172
+</td>
+<td style="text-align:right;">
+172
+</td>
+<td style="text-align:right;">
+172
+</td>
 <td style="text-align:left;">
 2021-11-03 08:30:36
 </td>
@@ -4854,6 +6389,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+173
+</td>
+<td style="text-align:right;">
+173
+</td>
+<td style="text-align:right;">
+173
+</td>
 <td style="text-align:left;">
 2021-11-03 00:36:04
 </td>
@@ -4880,6 +6424,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+174
+</td>
+<td style="text-align:right;">
+174
+</td>
+<td style="text-align:right;">
+174
+</td>
 <td style="text-align:left;">
 2021-11-03 07:39:56
 </td>
@@ -4906,6 +6459,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+175
+</td>
+<td style="text-align:right;">
+175
+</td>
 <td style="text-align:left;">
 2021-11-03 08:23:25
 </td>
@@ -4932,6 +6494,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+176
+</td>
+<td style="text-align:right;">
+176
+</td>
+<td style="text-align:right;">
+176
+</td>
 <td style="text-align:left;">
 2021-11-03 09:00:45
 </td>
@@ -4958,6 +6529,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+177
+</td>
+<td style="text-align:right;">
+177
+</td>
+<td style="text-align:right;">
+177
+</td>
 <td style="text-align:left;">
 2021-11-03 07:50:05
 </td>
@@ -4984,6 +6564,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+178
+</td>
+<td style="text-align:right;">
+178
+</td>
+<td style="text-align:right;">
+178
+</td>
 <td style="text-align:left;">
 2021-11-03 07:46:12
 </td>
@@ -5010,6 +6599,15 @@ DEX
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+179
+</td>
+<td style="text-align:right;">
+179
+</td>
+<td style="text-align:right;">
+179
+</td>
 <td style="text-align:left;">
 2021-11-03 09:20:54
 </td>
@@ -5036,6 +6634,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+180
+</td>
+<td style="text-align:right;">
+180
+</td>
 <td style="text-align:left;">
 2021-11-01 15:38:30
 </td>
@@ -5062,6 +6669,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+181
+</td>
+<td style="text-align:right;">
+181
+</td>
+<td style="text-align:right;">
+181
+</td>
 <td style="text-align:left;">
 2021-11-03 08:30:58
 </td>
@@ -5088,6 +6704,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+182
+</td>
+<td style="text-align:right;">
+182
+</td>
+<td style="text-align:right;">
+182
+</td>
 <td style="text-align:left;">
 2021-11-03 09:20:46
 </td>
@@ -5114,6 +6739,15 @@ ZIP
 </td>
 </tr>
 <tr>
+<td style="text-align:right;">
+183
+</td>
+<td style="text-align:right;">
+183
+</td>
+<td style="text-align:right;">
+183
+</td>
 <td style="text-align:left;">
 2021-11-03 08:46:17
 </td>
@@ -5141,8 +6775,9 @@ ZIP
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="index.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(df,&quot;~/GitHub/VirusTotal/ProyectoVT/Proyecto/virusTotal.csv&quot;, row.names = FALSE)## Importar dataset</span></span>
-<span id="cb24-2"><a href="index.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df, <span class="st">&quot;~/LCC/ProyectoVT/Proyecto/virusTotal.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="index.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(df,&quot;~/GitHub/VirusTotal/ProyectoVT/Proyecto/virusTotal.csv&quot;, row.names = FALSE)## Importar dataset</span></span>
+<span id="cb8-2"><a href="index.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df, <span class="st">&quot;~/Documentos/LCC/ProyectoVT/Proyecto/virusTotal.csv&quot;</span>)</span>
+<span id="cb8-3"><a href="index.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df, <span class="st">&quot;~/Documentos/LCC/ProyectoVT/Proyecto/virusTotalCap2.csv&quot;</span>)</span></code></pre></div>
 
 </div>
 </div>
@@ -5152,7 +6787,7 @@ ZIP
         </div>
       </div>
 
-<a href="url-your-book-url-like-httpsbookdown.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="analisis-exploratorio.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -5206,6 +6841,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

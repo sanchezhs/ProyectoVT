@@ -19,9 +19,9 @@ Este es el proyecto realizado por Samuel Sánchez Toca y Alejandro Medina Astorg
 
 ## Inicio 
 
-Primero tuvimos que analizar los datos que recibimos los cuales venian en archivos .json por lo que teniamos que extraerlos de estos archivos y al tener tantas columnas decidir cuales de estas eran mas útiles para su posterior analisis.
+Primero tuvimos que preprocesar los datos que venían en formato *json*, por lo que tuvimos que extraerlos y decidir qué información iba a resultar más útil para su analisis.
 
-Para el preprocesado, hemos usado las librerías *jsonlite, tidyjson, jsonlite* y *tidyverse* para manejar los archivos. El dataset consta de casi doscientos ficheros *json* con la información obtenida al analizarlos con distintos antivirus, el primer paso es, por tanto, ver cómo están estructurados los datos para decidir con qué información nos vamos a quedar.
+Para el preprocesado, hemos usado las librerías *jsonlite, tidyjson, jsonlite* y *tidyverse* para manejar los archivos. El dataset consta de casi doscientos ficheros con la información obtenida al analizarlos con distintos antivirus, el primer paso es, por tanto, ver cómo están estructurados los datos para decidir con qué información nos vamos a quedar.
 
 ## Renombrando los archivos
 
@@ -39,7 +39,7 @@ done
 
 ## Datos iniciales
 
-Primero, obtenemos los nombres de todos los archivos y los guardamos en la variable *nombres_ficheros*:
+Primero, listamos los nombres de todos los archivos y los guardamos en la variable *nombres_ficheros*:
 
 ```{r eval=FALSE}
 path <- "~/Documentos/LCC/ProyectoVT/Proyecto/Android2"
@@ -47,12 +47,12 @@ nombres_ficheros <- list.files(path)
 ```
 
 
-Empezamos importando el primer fichero, usando la función *read_json* de la librería *tidyjson* obtenemos:
+Luego empezamos importando el primer fichero para ver su estructura y explorarlo para tener una idea de cómo comenzar el preprocesado y el análisis. Usando la función *read_json* de la librería *tidyjson* leemos el fichero y lo guardamos en una variable:
+
 ```{r eval=FALSE}
-
 json_0001 <- tidyjson::read_json(paste0(path, "/0001.json"))
-
 ```
+
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
@@ -63,8 +63,7 @@ knitr::write_bib(c(
 
 ## Preprocesado
 
-Como indicamos antes, lo primero que hicimos fue leer el primer json para tener una idea de que es lo que tenemos
-que hacer.
+La función que hemos usado para construir un dataframe es *spread_all*, que de forma recursiva convierte todos los clave valor del json en columnas.
 ```{r}
 library(curl)
 library(tidyjson)
@@ -72,20 +71,21 @@ library(dplyr)
 library(purrr)
 library(tidyverse)
 library(kableExtra)
+library(bookdown)
 
-json_data <- tidyjson::read_json("~/LCC/ProyectoVT/Proyecto/Android2/0001.json")
+json_data <- tidyjson::read_json("~/Documentos/LCC/ProyectoVT/Proyecto/Android2/0001.json")
 
 tbl <- json_data %>%
   spread_all()
 tbl
 ```
-como vemos, usamos el spread_all para obtener todas las variables.
 
-Ahora vamos a hacer lo mismo pero con todos los ficheros json a la vez:
 
-```{r}
+Ahora vamos a hacer lo mismo pero con todos los ficheros de la carpeta:
+
+```{r, eval=FALSE}
 #path <- "~/GitHub/VirusTotal/ProyectoVT/Proyecto/Android2"
-path <- "~/LCC/ProyectoVT/Proyecto/Android2"
+path <- "~/Documentos/LCC/ProyectoVT/Proyecto/Android2"
 nombres_ficheros <- list.files(path)
 
 j <- 0
@@ -93,17 +93,12 @@ df <- data.frame()
 for (i in nombres_ficheros) {
   filepath <- file.path(path, paste0(i))
   i <- tidyjson::read_json(filepath)
-  nombre <- paste0('f_', j)
-#  assign(nombre, i)
   tbl <- i %>% spread_all(recursive = TRUE)
   nombre_l <- tbl %>%
     select(scan_date,first_seen,total,size,times_submitted,positives,
            submission.submitter_country,additional_info.exiftool.FileType)
-  #name <- paste0('l_',j) 
   name <- as.data.frame(nombre_l)
   name <- name[-length(name)]
-#  assign(paste0('l_',j) , nombre_l)
-  
   df <- rbind(df, name)
   
   
@@ -111,15 +106,20 @@ for (i in nombres_ficheros) {
 }
 
 ```
-Con esto hemos preprocesado todos los archivos json y los metemos en un data frame. Hemos seleccionado
-las variables que creemos mas relevantes.
 
-Finalmente, mostramos el dataset resultante y lo guardamos como un .csv para tenerlo a mano.
+
+Con esto hemos preprocesado todos los archivos json y los metemos en un data frame. Hemos seleccionado
+las columnas *scan_date*, *first_seen*, *total*, *size*, *times_submitted*, *country*, *fileType*.
+
+
+Finalmente, mostramos el dataset resultante y lo guardamos como un .csv para tenerlo a mano. 
+
 ```{r}
 
 kable(df, booktabs = TRUE) %>%
   kable_styling(font_size = 10)
 #write.csv(df,"~/GitHub/VirusTotal/ProyectoVT/Proyecto/virusTotal.csv", row.names = FALSE)## Importar dataset
-write.csv(df, "~/LCC/ProyectoVT/Proyecto/virusTotal.csv")
+write.csv(df, "~/Documentos/LCC/ProyectoVT/Proyecto/virusTotal.csv")
+write.csv(df, "~/Documentos/LCC/ProyectoVT/Proyecto/virusTotalCap2.csv")
 ```
 

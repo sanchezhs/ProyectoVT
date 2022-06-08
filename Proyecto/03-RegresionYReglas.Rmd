@@ -11,16 +11,19 @@ description: |
   Este libro de bookdown contiene el proyecto LCC sobre analizar el dataset de VirusTotal.
 link-citations: yes
 github-repo: https://github.com/samuel-uma/ProyectoVT
+---
 
 # Regresion, reglas de asociación y Clustering
+
+
 ## Regresion
-```{r warning=FALSE,message=FALSE}
+```{r, warning=FALSE,message=FALSE}
 library(dplyr)
 library(tidyverse)
 library(ggplot2)
 library(readr)
 
-virusTotal <- read.csv('~/LCC/ProyectoVT/Proyecto/virusTotal.csv')
+virusTotal <- read.csv('~/Documentos/LCC/ProyectoVT/Proyecto/virusTotal.csv')
 
 virusTotal <- virusTotal %>% 
   mutate(Year = substr(virusTotal$first_seen, 0, 4))
@@ -33,7 +36,7 @@ virusTotal <- virusTotal %>%
 
 ```
 
-Ahora el tamaño de los archivos lo pasamos a gb para un manejo mas fácil
+Pasamos el tamaño de los archivos a MB
 
 ```{r}
 
@@ -42,18 +45,17 @@ virusTotal <- virusTotal %>%
   
 ```
 
-Vamos a ver todas las graficas de nuestro dataset:
+Vamos a ver todas las gráficas de nuestro dataset:
   
 ```{r}
 plot(virusTotal)
 ```
   
 Como vemos no parece que tengamos una relación directa por parte de dos variables, hemos pensado que estaría
-bien analizar o ver si hay una relacion entre el tamaño que tiene un archivo y si es positivo o no ya que
-podriamos pensar de que al pesar mas un archivo es mas propenso a traer algun tipo de software malicioso.
+bien analizar o ver si hay una relacion entre el tamaño que tiene un archivo y si es positivo o no, ya que
+podriamos pensar de que al pesar más un archivo es más propenso a traer algun tipo de software malicioso.
 
-
-Vamos a analizar el tamaño frente al numero de positivos para ver si existe algun tipo de correlacion
+Vamos a analizar el tamaño frente al numero de positivos para ver si existe algun tipo de correlación
 
 ```{r}
 ggplot2::ggplot(virusTotal,aes(x=size, y=positives))+geom_point()+geom_line()
@@ -63,16 +65,17 @@ f1 <- lm(positives~size, data = virusTotal)
 plot(f1)
 ```
 
-Y aqui vemos todas las graficas disponibles
+Vemos un resumen del modelo
 
 ```{r}
 summary(f1)
 ```
 
 
-De aqui podemos sacar que la correlacion es practicamente nula, solo el 5,54% de la 
-variabilidad de los positivos tiene que ver con el tamaño, por lo tanto nuestro primer acercamiento
-es erroneo.
+De aquí podemos sacar que la correlacion es prácticamente nula, solo el 5,54% de la variabilidad de los positivos tiene que ver con el tamaño, por lo tanto nuestro primer acercamiento es erróneo.
+
+No obstante, hemos dibujado la gráfica y observamos que la tendencia es que a menor número de positivos tanto mayor es tamaño del archivo analizado.
+Pero teniendo el cuenta los valores de R^2 ajustado y el p valor, este modelo no sirve para predecir y no podemos aceptar la hipótesis alternativa.
 
 ```{r}
 ggplot(virusTotal, aes(x = size, y = positives)) +
@@ -80,35 +83,36 @@ ggplot(virusTotal, aes(x = size, y = positives)) +
   geom_line(aes(x = size, y = predict(f1,virusTotal)),col="blue") + geom_line()
 ```
 
-Sin embargo con la grafica en el que vemos la prediccion, observamos que la tendencia es a tener menor numero de positivos cuanto mayor sea el tamaño del archivo analizado
+
 
 
 ## Reglas de asociación
 
-```{r warning=FALSE,message=FALSE}
+```{r, warning=FALSE,message=FALSE}
 library(arules)
 ```
 
 
-Utilizando apriori vamos a ver las reglas de nuestro dataset
-```{r warning=FALSE}
-mis_reglas <- apriori(virusTotal,  parameter = list(supp = 0.28818, conf = 0.27634,minlen=2))
+Utilizamos apriori para buscar todas las reglas posibles con suporte > 0.28 y confianza > 0.27. Hemos impuesto una longitud mínima de dos para filtrar las reglas con antecedente vacío.
+
+
+```{r, warning=FALSE}
+mis_reglas <- apriori(virusTotal,  parameter = list(supp = 0.28818, conf = 0.27634, minlen=2))
 
 length(mis_reglas)
 
 ```
 
-Este es el numero de reglas que podemos encontrar en nuestro dataset
-El resumen de las reglas obtenidas seria el siguiente:
+Este es el número de reglas que podemos encontrar en nuestro dataset.
+El resumen de las reglas obtenidas sería el siguiente:
   
 ```{r}
 summary(mis_reglas)
 ```
 
-Como podemos ver en el resumen, nos muestran datos de las reglas generadas, podemos ver por ejemplo que la media
-obtenida en el soporte es de 0.28818 lo cual no es muy alto e indica que la media de las reglas obtenidas no son muy frecuentes.
-La confianza tenemos una media de 0.27634 lo cual nos dice que la media en el dataset indica que el 27,63%
-de las X tambien contienen a Y.
+Como podemos ver en el resumen, nos muestran datos de las reglas generadas, podemos ver que la media
+obtenida en el soporte es de 0.28818, lo cual no es muy alto e indica que la media de las reglas obtenidas no son muy frecuentes.
+La confianza tiene una media de 0.27634, es decir, 27.63% de las X también contienen a Y.
 
 Estas son todas las reglas calculadas
 
@@ -118,35 +122,36 @@ inspect(mis_reglas)
 ```
 
 
-Vamos a ordenar las reglas por lift y mostramos las 10 reglas con mas lift
+Vamos a ordenar las reglas por lift y mostramos las diez reglas con más *lift*
 ```{r}
 mis_reglas_lift <- sort(mis_reglas, by = "lift")
 inspect(mis_reglas_lift[1:10])
 ```
 
 
-Vamos a ordenar las reglas por support y mostramos las 10 reglas con mas support
+Vamos a ordenar las reglas por support y mostramos las diez reglas con más soporte
 ```{r}
 mis_reglas_support <- sort(mis_reglas, by = "support")
 inspect(mis_reglas_support[1:10])
 ```
 
-Como sabemos, el soporte nos indica el porcentaje de frecuencia con el que pasa esa regla
-vemos como cuando el año es 2021 en el 63,3% de la veces el tipo de archivo es ZIP
+Como sabemos, el soporte nos indica en qué porcentaje el patrón encontrado aparece en el dataset, y
+vemos que cuando el año es 2021 en el 63,3% de la veces el tipo de archivo es ZIP.
 
-Vamos a ordenar las reglas por confianza y mostramos las 10 reglas con mas confianza
+Vamos a ordenar las reglas por confianza y mostramos las diez reglas con más confianza
+
 ```{r}
 mis_reglas_confidence <- sort(mis_reglas, by = "confidence")
 inspect(mis_reglas_confidence[1:10])
 ```
 
-De aqui podemos sacar por ejemplo que el pais CA solo ha enviado archivos de tipo ZIP y en 2021 o tambien por ejemplo como vimos anteriormente en los graficos que el pais CZ siempre envia DEX de tipo de archivo.
+De aquí podemos sacar que el pais CA solo ha enviado archivos de tipo ZIP en 2021, o también como mostramos en la parte de visualización que República Checa siempre envia DEX como tipo de archivo.
 
 ## Clustering
-```{r warning=FALSE,message=FALSE}
+```{r, warning=FALSE,message=FALSE}
 library(magrittr)
 ```
-Preparamos el kmeans con 4 centros y usaremos el tamaño frente al numero de positivos
+Preparamos el kmeans con 4 centros y usaremos el tamaño frente al número de positivos
 ```{r}
 set.seed(1)
 
@@ -164,10 +169,10 @@ virus$size
 virus$centers
 ```
 
-Ahora vamos a visualizar un grafico del tamaño(eje X) frente al numero de positivos(eje Y), lo dibujaremos con colores
-segun el cluster al que pertenezcay la etiqueta sera el tipo de archivo analizado.
+Ahora vamos a visualizar un gráfico del tamaño (eje X) frente al número de positivos (eje Y), lo dibujaremos con colores
+según el cluster al que pertenezca y la etiqueta será el tipo de archivo analizado.
 
-Como la grafica quedaba muy comprimida la vamos a mostrar por partes para un mejor entendimiento
+Como la gráfica quedaba muy comprimida la vamos a mostrar por partes para un mejor entendimiento
 
 ```{r}
 plot(virusTotal$size,virusTotal$positives, type="n",xlim = c(0,10), xlab = "size",ylab = "positives")
@@ -176,7 +181,7 @@ text(x=virusTotal$size, y=virusTotal$positives, labels=virusTotal$file_type,
 ```
 
 
-Aqui vemos los archivos de entre 0 y 10 gb que es donde se concentran la mayoria
+Aqui vemos los archivos de entre 0 y 10 MB que es donde se concentran la mayoría
 
 ```{r}
 plot(virusTotal$size,virusTotal$positives, type="n",xlim = c(11,100), xlab = "size",ylab = "positives")
@@ -184,7 +189,7 @@ text(x=virusTotal$size, y=virusTotal$positives, labels=virusTotal$file_type,
      col=virus$cluster+1)
 ```
 
-Aqui los archivos entre 11 y 100 gb que aunque haya menos tambien podemos ver los clusters en los que se agrupan
+Aqui los archivos entre 11 y 100 MB que aunque haya menos también podemos ver los clusters en los que se agrupan
 
 ```{r}
 plot(virusTotal$size,virusTotal$positives, type="n", xlab = "size",ylab = "positives")
