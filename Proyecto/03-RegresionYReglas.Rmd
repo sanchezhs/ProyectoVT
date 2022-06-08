@@ -12,7 +12,7 @@ description: |
 link-citations: yes
 github-repo: https://github.com/samuel-uma/ProyectoVT
 
-# Regresion y reglas de asociación
+# Regresion, reglas de asociación y Clustering
 ## Regresion
 ```{r warning=FALSE,message=FALSE}
 library(dplyr)
@@ -21,6 +21,7 @@ library(ggplot2)
 library(readr)
 
 virusTotal <- read.csv('~/LCC/ProyectoVT/Proyecto/virusTotal.csv')
+
 virusTotal <- virusTotal %>% 
   mutate(Year = substr(virusTotal$first_seen, 0, 4))
 
@@ -35,8 +36,10 @@ virusTotal <- virusTotal %>%
 Ahora el tamaño de los archivos lo pasamos a gb para un manejo mas fácil
 
 ```{r}
+
 virusTotal <- virusTotal %>% 
   mutate(size = virusTotal$size/1000000)
+  
 ```
 
 Vamos a ver todas las graficas de nuestro dataset:
@@ -90,12 +93,12 @@ library(arules)
 Utilizando apriori vamos a ver las reglas de nuestro dataset
 ```{r warning=FALSE}
 mis_reglas <- apriori(virusTotal,  parameter = list(supp = 0.28818, conf = 0.27634,minlen=2))
-```
-```{r}
-length(mis_reglas)
-```
-Este es el numero de reglas que podemos encontrar en nuestro dataset
 
+length(mis_reglas)
+
+```
+
+Este es el numero de reglas que podemos encontrar en nuestro dataset
 El resumen de las reglas obtenidas seria el siguiente:
   
 ```{r}
@@ -139,3 +142,54 @@ inspect(mis_reglas_confidence[1:10])
 
 De aqui podemos sacar por ejemplo que el pais CA solo ha enviado archivos de tipo ZIP y en 2021 o tambien por ejemplo como vimos anteriormente en los graficos que el pais CZ siempre envia DEX de tipo de archivo.
 
+## Clustering
+```{r warning=FALSE,message=FALSE}
+library(magrittr)
+```
+Preparamos el kmeans con 4 centros y usaremos el tamaño frente al numero de positivos
+```{r}
+set.seed(1)
+
+virus <- virusTotal %>%   
+  select(c("size","positives"))%>%   
+  kmeans(centers=4, nstart=10)
+
+str(virus)
+
+
+```
+Vemos el tamaño de los clusters y de los centroides
+```{r}
+virus$size
+virus$centers
+```
+
+Ahora vamos a visualizar un grafico del tamaño(eje X) frente al numero de positivos(eje Y), lo dibujaremos con colores
+segun el cluster al que pertenezcay la etiqueta sera el tipo de archivo analizado.
+
+Como la grafica quedaba muy comprimida la vamos a mostrar por partes para un mejor entendimiento
+
+```{r}
+plot(virusTotal$size,virusTotal$positives, type="n",xlim = c(0,10), xlab = "size",ylab = "positives")
+text(x=virusTotal$size, y=virusTotal$positives, labels=virusTotal$file_type,
+     col=virus$cluster+1)
+```
+
+
+Aqui vemos los archivos de entre 0 y 10 gb que es donde se concentran la mayoria
+
+```{r}
+plot(virusTotal$size,virusTotal$positives, type="n",xlim = c(11,100), xlab = "size",ylab = "positives")
+text(x=virusTotal$size, y=virusTotal$positives, labels=virusTotal$file_type,
+     col=virus$cluster+1)
+```
+
+Aqui los archivos entre 11 y 100 gb que aunque haya menos tambien podemos ver los clusters en los que se agrupan
+
+```{r}
+plot(virusTotal$size,virusTotal$positives, type="n", xlab = "size",ylab = "positives")
+text(x=virusTotal$size, y=virusTotal$positives, labels=virusTotal$file_type,
+     col=virus$cluster+1)
+```
+
+Y por ultimo aqui ya vemos la gráfica al completo

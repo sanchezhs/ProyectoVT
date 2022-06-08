@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Regresion y reglas de asociación | Virus Total</title>
+  <title>Chapter 4 Regresion, reglas de asociación y Clustering | Virus Total</title>
   <meta name="description" content="Este libro de bookdown contiene el proyecto LCC sobre analizar el dataset de VirusTotal." />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Regresion y reglas de asociación | Virus Total" />
+  <meta property="og:title" content="Chapter 4 Regresion, reglas de asociación y Clustering | Virus Total" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Este libro de bookdown contiene el proyecto LCC sobre analizar el dataset de VirusTotal." />
   <meta name="github-repo" content="https://github.com/samuel-uma/ProyectoVT" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Regresion y reglas de asociación | Virus Total" />
+  <meta name="twitter:title" content="Chapter 4 Regresion, reglas de asociación y Clustering | Virus Total" />
   
   <meta name="twitter:description" content="Este libro de bookdown contiene el proyecto LCC sobre analizar el dataset de VirusTotal." />
   
@@ -189,10 +189,11 @@ div.csl-indent {
 <li class="chapter" data-level="3.8" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#análisis-del-mayor-componente-de-g"><i class="fa fa-check"></i><b>3.8</b> Análisis del mayor componente de G</a></li>
 <li class="chapter" data-level="3.9" data-path="analizando-el-ssdeep.html"><a href="analizando-el-ssdeep.html#analizando-los-resultados-de-los-antivirus-de-g"><i class="fa fa-check"></i><b>3.9</b> Analizando los resultados de los antivirus de G</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="regresion-y-reglas-de-asociación.html"><a href="regresion-y-reglas-de-asociación.html"><i class="fa fa-check"></i><b>4</b> Regresion y reglas de asociación</a>
+<li class="chapter" data-level="4" data-path="regresion-reglas-de-asociación-y-clustering.html"><a href="regresion-reglas-de-asociación-y-clustering.html"><i class="fa fa-check"></i><b>4</b> Regresion, reglas de asociación y Clustering</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="regresion-y-reglas-de-asociación.html"><a href="regresion-y-reglas-de-asociación.html#regresion"><i class="fa fa-check"></i><b>4.1</b> Regresion</a></li>
-<li class="chapter" data-level="4.2" data-path="regresion-y-reglas-de-asociación.html"><a href="regresion-y-reglas-de-asociación.html#reglas-de-asociación"><i class="fa fa-check"></i><b>4.2</b> Reglas de asociación</a></li>
+<li class="chapter" data-level="4.1" data-path="regresion-reglas-de-asociación-y-clustering.html"><a href="regresion-reglas-de-asociación-y-clustering.html#regresion"><i class="fa fa-check"></i><b>4.1</b> Regresion</a></li>
+<li class="chapter" data-level="4.2" data-path="regresion-reglas-de-asociación-y-clustering.html"><a href="regresion-reglas-de-asociación-y-clustering.html#reglas-de-asociación"><i class="fa fa-check"></i><b>4.2</b> Reglas de asociación</a></li>
+<li class="chapter" data-level="4.3" data-path="regresion-reglas-de-asociación-y-clustering.html"><a href="regresion-reglas-de-asociación-y-clustering.html#clustering"><i class="fa fa-check"></i><b>4.3</b> Clustering</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>5</b> Footnotes and citations</a>
 <ul>
@@ -232,43 +233,43 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="regresion-y-reglas-de-asociación" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Regresion y reglas de asociación<a href="regresion-y-reglas-de-asociación.html#regresion-y-reglas-de-asociación" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="regresion-reglas-de-asociación-y-clustering" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Regresion, reglas de asociación y Clustering<a href="regresion-reglas-de-asociación-y-clustering.html#regresion-reglas-de-asociación-y-clustering" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="regresion" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Regresion<a href="regresion-y-reglas-de-asociación.html#regresion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="regresion-y-reglas-de-asociación.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-2"><a href="regresion-y-reglas-de-asociación.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="regresion-y-reglas-de-asociación.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-4"><a href="regresion-y-reglas-de-asociación.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-5"><a href="regresion-y-reglas-de-asociación.html#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="regresion-y-reglas-de-asociación.html#cb1-6" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;~/LCC/ProyectoVT/Proyecto/virusTotal.csv&#39;</span>)</span>
-<span id="cb1-7"><a href="regresion-y-reglas-de-asociación.html#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="regresion-y-reglas-de-asociación.html#cb1-8" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span> </span>
-<span id="cb1-9"><a href="regresion-y-reglas-de-asociación.html#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">substr</span>(virusTotal<span class="sc">$</span>first_seen, <span class="dv">0</span>, <span class="dv">4</span>))</span>
-<span id="cb1-10"><a href="regresion-y-reglas-de-asociación.html#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="regresion-y-reglas-de-asociación.html#cb1-11" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
-<span id="cb1-12"><a href="regresion-y-reglas-de-asociación.html#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">country =</span> submission.submitter_country)</span>
-<span id="cb1-13"><a href="regresion-y-reglas-de-asociación.html#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="regresion-y-reglas-de-asociación.html#cb1-14" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
-<span id="cb1-15"><a href="regresion-y-reglas-de-asociación.html#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">file_type =</span> additional_info.exiftool.FileType)</span></code></pre></div>
+<h2><span class="header-section-number">4.1</span> Regresion<a href="regresion-reglas-de-asociación-y-clustering.html#regresion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-5"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-6" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;~/LCC/ProyectoVT/Proyecto/virusTotal.csv&#39;</span>)</span>
+<span id="cb1-7"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-8" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span> </span>
+<span id="cb1-9"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">substr</span>(virusTotal<span class="sc">$</span>first_seen, <span class="dv">0</span>, <span class="dv">4</span>))</span>
+<span id="cb1-10"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-11" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
+<span id="cb1-12"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">country =</span> submission.submitter_country)</span>
+<span id="cb1-13"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-14" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span></span>
+<span id="cb1-15"><a href="regresion-reglas-de-asociación-y-clustering.html#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">file_type =</span> additional_info.exiftool.FileType)</span></code></pre></div>
 <p>Ahora el tamaño de los archivos lo pasamos a gb para un manejo mas fácil</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="regresion-y-reglas-de-asociación.html#cb2-1" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span> </span>
-<span id="cb2-2"><a href="regresion-y-reglas-de-asociación.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">size =</span> virusTotal<span class="sc">$</span>size<span class="sc">/</span><span class="dv">1000000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb2-1" aria-hidden="true" tabindex="-1"></a>virusTotal <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">size =</span> virusTotal<span class="sc">$</span>size<span class="sc">/</span><span class="dv">1000000</span>)</span></code></pre></div>
 <p>Vamos a ver todas las graficas de nuestro dataset:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="regresion-y-reglas-de-asociación.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(virusTotal)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(virusTotal)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>Como vemos no parece que tengamos una relación directa por parte de dos variables, hemos pensado que estaría
 bien analizar o ver si hay una relacion entre el tamaño que tiene un archivo y si es positivo o no ya que
 podriamos pensar de que al pesar mas un archivo es mas propenso a traer algun tipo de software malicioso.</p>
 <p>Vamos a analizar el tamaño frente al numero de positivos para ver si existe algun tipo de correlacion</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="regresion-y-reglas-de-asociación.html#cb4-1" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(virusTotal,<span class="fu">aes</span>(<span class="at">x=</span>size, <span class="at">y=</span>positives))<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb4-1" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(virusTotal,<span class="fu">aes</span>(<span class="at">x=</span>size, <span class="at">y=</span>positives))<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_line</span>()</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="regresion-y-reglas-de-asociación.html#cb5-1" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(positives<span class="sc">~</span>size, <span class="at">data =</span> virusTotal)</span>
-<span id="cb5-2"><a href="regresion-y-reglas-de-asociación.html#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="regresion-y-reglas-de-asociación.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f1)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb5-1" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(positives<span class="sc">~</span>size, <span class="at">data =</span> virusTotal)</span>
+<span id="cb5-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f1)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-4-2.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-4-3.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-4-4.png" width="672" /><img src="_main_files/figure-html/unnamed-chunk-4-5.png" width="672" /></p>
 <p>Y aqui vemos todas las graficas disponibles</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="regresion-y-reglas-de-asociación.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(f1)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(f1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = positives ~ size, data = virusTotal)
@@ -290,17 +291,17 @@ podriamos pensar de que al pesar mas un archivo es mas propenso a traer algun ti
 <p>De aqui podemos sacar que la correlacion es practicamente nula, solo el 5,54% de la
 variabilidad de los positivos tiene que ver con el tamaño, por lo tanto nuestro primer acercamiento
 es erroneo.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="regresion-y-reglas-de-asociación.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x =</span> size, <span class="at">y =</span> positives)) <span class="sc">+</span></span>
-<span id="cb8-2"><a href="regresion-y-reglas-de-asociación.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb8-3"><a href="regresion-y-reglas-de-asociación.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> size, <span class="at">y =</span> <span class="fu">predict</span>(f1,virusTotal)),<span class="at">col=</span><span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(virusTotal, <span class="fu">aes</span>(<span class="at">x =</span> size, <span class="at">y =</span> positives)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb8-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> size, <span class="at">y =</span> <span class="fu">predict</span>(f1,virusTotal)),<span class="at">col=</span><span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>()</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>Sin embargo con la grafica en el que vemos la prediccion, observamos que la tendencia es a tener menor numero de positivos cuanto mayor sea el tamaño del archivo analizado</p>
 </div>
 <div id="reglas-de-asociación" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> Reglas de asociación<a href="regresion-y-reglas-de-asociación.html#reglas-de-asociación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="regresion-y-reglas-de-asociación.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arules)</span></code></pre></div>
+<h2><span class="header-section-number">4.2</span> Reglas de asociación<a href="regresion-reglas-de-asociación-y-clustering.html#reglas-de-asociación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arules)</span></code></pre></div>
 <p>Utilizando apriori vamos a ver las reglas de nuestro dataset</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="regresion-y-reglas-de-asociación.html#cb10-1" aria-hidden="true" tabindex="-1"></a>mis_reglas <span class="ot">&lt;-</span> <span class="fu">apriori</span>(virusTotal,  <span class="at">parameter =</span> <span class="fu">list</span>(<span class="at">supp =</span> <span class="fl">0.28818</span>, <span class="at">conf =</span> <span class="fl">0.27634</span>,<span class="at">minlen=</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb10-1" aria-hidden="true" tabindex="-1"></a>mis_reglas <span class="ot">&lt;-</span> <span class="fu">apriori</span>(virusTotal,  <span class="at">parameter =</span> <span class="fu">list</span>(<span class="at">supp =</span> <span class="fl">0.28818</span>, <span class="at">conf =</span> <span class="fl">0.27634</span>,<span class="at">minlen=</span><span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## Apriori
 ## 
 ## Parameter specification:
@@ -322,11 +323,11 @@ es erroneo.</p>
 ## checking subsets of size 1 2 3 4 done [0.00s].
 ## writing ... [69 rule(s)] done [0.00s].
 ## creating S4 object  ... done [0.00s].</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="regresion-y-reglas-de-asociación.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(mis_reglas)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(mis_reglas)</span></code></pre></div>
 <pre><code>## [1] 69</code></pre>
 <p>Este es el numero de reglas que podemos encontrar en nuestro dataset
 El resumen de las reglas obtenidas seria el siguiente:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="regresion-y-reglas-de-asociación.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mis_reglas)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mis_reglas)</span></code></pre></div>
 <pre><code>## set of 69 rules
 ## 
 ## rule length distribution (lhs + rhs):sizes
@@ -362,7 +363,7 @@ obtenida en el soporte es de 0.28818 lo cual no es muy alto e indica que la medi
 La confianza tenemos una media de 0.27634 lo cual nos dice que la media en el dataset indica que el 27,63%
 de las X tambien contienen a Y.</p>
 <p>Estas son todas las reglas calculadas</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="regresion-y-reglas-de-asociación.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(mis_reglas)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(mis_reglas)</span></code></pre></div>
 <pre><code>##      lhs                                rhs                              support confidence  coverage     lift count
 ## [1]  {country=CA}                    =&gt; {times_submitted=[1,2)}        0.3060109  1.0000000 0.3060109 1.811881    56
 ## [2]  {times_submitted=[1,2)}         =&gt; {country=CA}                   0.3060109  0.5544554 0.5519126 1.811881    56
@@ -477,8 +478,8 @@ de las X tambien contienen a Y.</p>
 ##       file_type=ZIP,                                                                                                
 ##       Year=2021}                     =&gt; {size=[1.85,3.03)}             0.2896175  0.5463918 0.5300546 1.639175    53</code></pre>
 <p>Vamos a ordenar las reglas por lift y mostramos las 10 reglas con mas lift</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="regresion-y-reglas-de-asociación.html#cb18-1" aria-hidden="true" tabindex="-1"></a>mis_reglas_lift <span class="ot">&lt;-</span> <span class="fu">sort</span>(mis_reglas, <span class="at">by =</span> <span class="st">&quot;lift&quot;</span>)</span>
-<span id="cb18-2"><a href="regresion-y-reglas-de-asociación.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(mis_reglas_lift[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb18-1" aria-hidden="true" tabindex="-1"></a>mis_reglas_lift <span class="ot">&lt;-</span> <span class="fu">sort</span>(mis_reglas, <span class="at">by =</span> <span class="st">&quot;lift&quot;</span>)</span>
+<span id="cb18-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(mis_reglas_lift[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div>
 <pre><code>##      lhs                                rhs                              support confidence  coverage     lift count
 ## [1]  {file_type=DEX}                 =&gt; {country=CZ}                   0.3169399  1.0000000 0.3169399 3.155172    58
 ## [2]  {country=CZ}                    =&gt; {file_type=DEX}                0.3169399  1.0000000 0.3169399 3.155172    58
@@ -495,8 +496,8 @@ de las X tambien contienen a Y.</p>
 ## [10] {times_submitted=[1,2),                                                                                        
 ##       file_type=ZIP}                 =&gt; {country=CA}                   0.3060109  0.5773196 0.5300546 1.886598    56</code></pre>
 <p>Vamos a ordenar las reglas por support y mostramos las 10 reglas con mas support</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="regresion-y-reglas-de-asociación.html#cb20-1" aria-hidden="true" tabindex="-1"></a>mis_reglas_support <span class="ot">&lt;-</span> <span class="fu">sort</span>(mis_reglas, <span class="at">by =</span> <span class="st">&quot;support&quot;</span>)</span>
-<span id="cb20-2"><a href="regresion-y-reglas-de-asociación.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(mis_reglas_support[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb20-1" aria-hidden="true" tabindex="-1"></a>mis_reglas_support <span class="ot">&lt;-</span> <span class="fu">sort</span>(mis_reglas, <span class="at">by =</span> <span class="st">&quot;support&quot;</span>)</span>
+<span id="cb20-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(mis_reglas_support[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div>
 <pre><code>##      lhs                                       rhs                    
 ## [1]  {Year=2021}                            =&gt; {file_type=ZIP}        
 ## [2]  {file_type=ZIP}                        =&gt; {Year=2021}            
@@ -522,8 +523,8 @@ de las X tambien contienen a Y.</p>
 <p>Como sabemos, el soporte nos indica el porcentaje de frecuencia con el que pasa esa regla
 vemos como cuando el año es 2021 en el 63,3% de la veces el tipo de archivo es ZIP</p>
 <p>Vamos a ordenar las reglas por confianza y mostramos las 10 reglas con mas confianza</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="regresion-y-reglas-de-asociación.html#cb22-1" aria-hidden="true" tabindex="-1"></a>mis_reglas_confidence <span class="ot">&lt;-</span> <span class="fu">sort</span>(mis_reglas, <span class="at">by =</span> <span class="st">&quot;confidence&quot;</span>)</span>
-<span id="cb22-2"><a href="regresion-y-reglas-de-asociación.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(mis_reglas_confidence[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb22-1" aria-hidden="true" tabindex="-1"></a>mis_reglas_confidence <span class="ot">&lt;-</span> <span class="fu">sort</span>(mis_reglas, <span class="at">by =</span> <span class="st">&quot;confidence&quot;</span>)</span>
+<span id="cb22-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">inspect</span>(mis_reglas_confidence[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div>
 <pre><code>##      lhs                                    rhs                     support  
 ## [1]  {country=CA}                        =&gt; {times_submitted=[1,2)} 0.3060109
 ## [2]  {country=CA}                        =&gt; {Year=2021}             0.3060109
@@ -547,6 +548,59 @@ vemos como cuando el año es 2021 en el 63,3% de la veces el tipo de archivo es 
 ## [9]  1          0.3060109 1.811881  56  
 ## [10] 1          0.3060109 1.464000  56</code></pre>
 <p>De aqui podemos sacar por ejemplo que el pais CA solo ha enviado archivos de tipo ZIP y en 2021 o tambien por ejemplo como vimos anteriormente en los graficos que el pais CZ siempre envia DEX de tipo de archivo.</p>
+</div>
+<div id="clustering" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Clustering<a href="regresion-reglas-de-asociación-y-clustering.html#clustering" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span></code></pre></div>
+<p>Preparamos el kmeans con 4 centros y usaremos el tamaño frente al numero de positivos</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb25-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb25-3" aria-hidden="true" tabindex="-1"></a>virus <span class="ot">&lt;-</span> virusTotal <span class="sc">%&gt;%</span>   </span>
+<span id="cb25-4"><a href="regresion-reglas-de-asociación-y-clustering.html#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">&quot;size&quot;</span>,<span class="st">&quot;positives&quot;</span>))<span class="sc">%&gt;%</span>   </span>
+<span id="cb25-5"><a href="regresion-reglas-de-asociación-y-clustering.html#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kmeans</span>(<span class="at">centers=</span><span class="dv">4</span>, <span class="at">nstart=</span><span class="dv">10</span>)</span>
+<span id="cb25-6"><a href="regresion-reglas-de-asociación-y-clustering.html#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="regresion-reglas-de-asociación-y-clustering.html#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(virus)</span></code></pre></div>
+<pre><code>## List of 9
+##  $ cluster     : int [1:183] 4 4 4 2 4 4 4 4 4 2 ...
+##  $ centers     : num [1:4, 1:2] 178.36 1.76 74.81 4.49 15 ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : chr [1:4] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot;
+##   .. ..$ : chr [1:2] &quot;size&quot; &quot;positives&quot;
+##  $ totss       : num 54130
+##  $ withinss    : num [1:4] 0 912 1675 3606
+##  $ tot.withinss: num 6193
+##  $ betweenss   : num 47937
+##  $ size        : int [1:4] 1 65 3 114
+##  $ iter        : int 2
+##  $ ifault      : int 0
+##  - attr(*, &quot;class&quot;)= chr &quot;kmeans&quot;</code></pre>
+<p>Vemos el tamaño de los clusters y de los centroides</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb27-1" aria-hidden="true" tabindex="-1"></a>virus<span class="sc">$</span>size</span></code></pre></div>
+<pre><code>## [1]   1  65   3 114</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb29-1" aria-hidden="true" tabindex="-1"></a>virus<span class="sc">$</span>centers</span></code></pre></div>
+<pre><code>##         size positives
+## 1 178.355426  15.00000
+## 2   1.761319  26.61538
+## 3  74.811670  16.00000
+## 4   4.487114  18.86842</code></pre>
+<p>Ahora vamos a visualizar un grafico del tamaño(eje X) frente al numero de positivos(eje Y), lo dibujaremos con colores
+segun el cluster al que pertenezcay la etiqueta sera el tipo de archivo analizado.</p>
+<p>Como la grafica quedaba muy comprimida la vamos a mostrar por partes para un mejor entendimiento</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(virusTotal<span class="sc">$</span>size,virusTotal<span class="sc">$</span>positives, <span class="at">type=</span><span class="st">&quot;n&quot;</span>,<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>), <span class="at">xlab =</span> <span class="st">&quot;size&quot;</span>,<span class="at">ylab =</span> <span class="st">&quot;positives&quot;</span>)</span>
+<span id="cb31-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span>virusTotal<span class="sc">$</span>size, <span class="at">y=</span>virusTotal<span class="sc">$</span>positives, <span class="at">labels=</span>virusTotal<span class="sc">$</span>file_type,</span>
+<span id="cb31-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb31-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span>virus<span class="sc">$</span>cluster<span class="sc">+</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>Aqui vemos los archivos de entre 0 y 10 gb que es donde se concentran la mayoria</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(virusTotal<span class="sc">$</span>size,virusTotal<span class="sc">$</span>positives, <span class="at">type=</span><span class="st">&quot;n&quot;</span>,<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">11</span>,<span class="dv">100</span>), <span class="at">xlab =</span> <span class="st">&quot;size&quot;</span>,<span class="at">ylab =</span> <span class="st">&quot;positives&quot;</span>)</span>
+<span id="cb32-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span>virusTotal<span class="sc">$</span>size, <span class="at">y=</span>virusTotal<span class="sc">$</span>positives, <span class="at">labels=</span>virusTotal<span class="sc">$</span>file_type,</span>
+<span id="cb32-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb32-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span>virus<span class="sc">$</span>cluster<span class="sc">+</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>Aqui los archivos entre 11 y 100 gb que aunque haya menos tambien podemos ver los clusters en los que se agrupan</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="regresion-reglas-de-asociación-y-clustering.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(virusTotal<span class="sc">$</span>size,virusTotal<span class="sc">$</span>positives, <span class="at">type=</span><span class="st">&quot;n&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;size&quot;</span>,<span class="at">ylab =</span> <span class="st">&quot;positives&quot;</span>)</span>
+<span id="cb33-2"><a href="regresion-reglas-de-asociación-y-clustering.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x=</span>virusTotal<span class="sc">$</span>size, <span class="at">y=</span>virusTotal<span class="sc">$</span>positives, <span class="at">labels=</span>virusTotal<span class="sc">$</span>file_type,</span>
+<span id="cb33-3"><a href="regresion-reglas-de-asociación-y-clustering.html#cb33-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span>virus<span class="sc">$</span>cluster<span class="sc">+</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>Y por ultimo aqui ya vemos la gráfica al completo</p>
 
 </div>
 </div>
