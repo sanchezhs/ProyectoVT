@@ -116,8 +116,7 @@ Finalmente, mostramos el dataset resultante y lo guardamos como un .csv para ten
 
 ```{r}
 
-kable(df, booktabs = TRUE) %>%
-  kable_styling(font_size = 10)
+df %>% head(10) %>% kable(., booktabs = TRUE) #%>% kable_styling(font_size = 10)
 #write.csv(df,"~/GitHub/VirusTotal/ProyectoVT/Proyecto/virusTotal.csv", row.names = FALSE)## Importar dataset
 write.csv(df, "~/Documentos/LCC/ProyectoVT/Proyecto/virusTotal.csv")
 write.csv(df, "~/Documentos/LCC/ProyectoVT/Proyecto/virusTotalCap2.csv")

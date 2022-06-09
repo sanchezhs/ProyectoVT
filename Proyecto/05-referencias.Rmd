@@ -1,0 +1,15 @@
+# Referencias
+
+
+https://cran.microsoft.com/snapshot/2017-08-01/web/packages/tidyjson/vignettes/introduction-to-tidyjson.html
+
+https://bookdown.org/
+
+https://igraph.org/r/html/latest/
+
+https://ssdeep-project.github.io/ssdeep/index.html
+
+https://nikhilh20.medium.com/fuzzy-hashing-ssdeep-3cade6931b72
+
+
+

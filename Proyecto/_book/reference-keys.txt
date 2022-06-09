@@ -1,5 +1,3 @@
-eq:binom
-thm:tri
 preprocesado-de-datos
 inicio
 renombrando-los-archivos
@@ -25,14 +23,5 @@ regresion-reglas-de-asociación-y-clustering
 regresion
 reglas-de-asociación
 clustering
-footnotes-and-citations
-footnotes
-citations
-blocks
-equations
-theorems-and-proofs
-callout-blocks
-sharing-your-book
-publishing
-pages
-metadata-for-sharing
+conclusiones
+referencias
