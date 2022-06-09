@@ -18,4 +18,8 @@ Para finalizar este capítulo se aprovechan los grafos para ver cómo han clasif
 
 No obstante, no parece que los antivirus sigan algún patrón para clasificar, de hecho en algunos parecen cadenas de caracteres aleatorias. De ahí que analizar estos resultados es bastante complicado. La mayoría de los AV parace estar de acuerdo en que los archivos del grafo G son *Adware*, otros dicen que son troyanos. Lo interesante es que se ha podido ver con claridad que tanto *Kaspersky* como *ZoneAlarm* lo clasifican casi igual, lo mismo pasa con *McAfee* y *McAfee-GW-Edition*. Por tanto es muy probable que los dos primeros compartan motor, y es seguro que los dos últimos lo hagan (son de la misma empresa).
 
+En la parte de regresion y clustering hemos tratado de indentificar si el numero de positivos registrado por un archivo de los analizados tenia algo que ver con el tamaño de este. Tras los analisis realizados hemos llegado a la conclusión de que no existe una relacion clara. Es cierto que muestra que cuanto mayor peso tiene el archivo menos positivos obtenemos pero esto viene dado por que hay menos archivos analizados con un peso mayor.
 
+De la parte de reglas, al calcular las reglas hemos obtenido que tienen un soporte y una confianza por debajo del 30% de media.
+Hemos analizado tambien y como vimos en el analisis exploratorio, la mayoria de archivos subidos se han subido en 2021, pues de aquí hemos extraido que en el 63,3% de las veces que el año es 2021 el archivo es ZIP.También hemos podido confirmar que República Checa siempre envia DEX como tipo de archivo.
+ 
